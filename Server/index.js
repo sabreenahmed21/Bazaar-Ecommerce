@@ -23,7 +23,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://bazaar-main.onrender.com",
-      "https://admin-site-bazaar.onrender.com",
+      "https://adminbazaar-main.onrender.com",
     ],
     credentials: true,
   })

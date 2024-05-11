@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Luckiest+Guy&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f3f3f3;
+  height: 100%;
+  margin: 0;
+}
+
+.toggleButton {
+  border: 1px solid #777 !important;
+  border-radius: 10px !important;
+}
+
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: #f3f3f3;
+}
+
+.skeleton::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(
+    to right,
+    #f3f3f3 0%,
+    #e0e0e0 50%,
+    #f3f3f3 100%
+  );
+  content: "";
+  animation: loading 1s infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.MuiButtonBase-root {
+  text-transform: capitalize !important;
+}
+
+.logo {
+  margin-bottom: 10px;
+  width: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+:lang(ar) {
+  direction: rtl;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #000;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 

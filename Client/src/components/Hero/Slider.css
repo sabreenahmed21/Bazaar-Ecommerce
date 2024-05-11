@@ -1,0 +1,62 @@
+/*slider.css*/
+.general-slider.swiper {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+.general-slider .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 495px;
+  border-radius: 15px;
+}
+
+.general-slider .swiper-slide:hover {
+  cursor: grab;
+}
+
+.general-slider .swiper-slide:active {
+  cursor: grabbing;
+}
+
+.general-slider .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(1px);
+  transition: 0.5s;
+  border-radius: 15px;
+}
+
+.objectFit {
+  width: 100%;
+  object-fit: cover;
+}
+
+.general-slider.swiper .swiper-pagination-bullet {
+  width: 15px;
+  height: 15px;
+  background-color: #000;
+  border: 2px solid #fff;
+  outline: 2px solid #000;
+}
+.general-slider.swiper .swiper-pagination-bullets-dynamic {
+  font-size: 30px;
+}
+
+.overlay::before{
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+}

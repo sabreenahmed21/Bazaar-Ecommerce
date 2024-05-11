@@ -1,0 +1,186 @@
+{
+  "header": {
+    "title": "Free Express Shippping",
+    "languages": {
+      "english": "English",
+      "arabic": "Arabic"
+    },
+    "person": {
+      "welcome": "Welcome ",
+      "profile": "Your profile",
+      "logout": "Log out",
+      "login": "Log in"
+    }
+  },
+  "header2": {
+    "search": "Search"
+  },
+  "header3": {
+    "categories": "Categories",
+    "menuItemsCategories": {
+      "menFashion":"men fashion",
+      "womenFashion":"women fashion",
+      "more":"more",
+      "pants":"Jeans & Pants",
+      "suits":"Suits",
+      "jackets&coats":"Jackets & Coats",
+      "sports":"Sportswear",
+      "pullover":"Pullover",
+      "hoodies":"Hoodies ",
+      "homewear":"Homewear",
+      
+      "shirts":"Shirts",
+      "tshirts&polos":"Tshirts & polos",
+
+      "top&blouses":"Tops & Blouses",
+      "dressess": "Dresses",
+      "skirts":"Skirts",
+      "Scarves":"Scarves",
+      "Cardigans":"Cardigans"
+    },
+    "dataLinks": {
+      "title1": "Home",
+      "title2": "pages",
+      "title3": "products",
+      "title4": "About us",
+      "link": "Link",
+      "subLink": "SubLink"
+    }
+  },
+  "hero": {
+    "parag": "top brands",
+    "text": {
+      "men": "new collection",
+      "women": "new collection"
+    },
+    "parag2": "get free shipping on orders over $99.00",
+    "shopnow": "shop now"
+  },
+  "features": {
+    "FastDelivery": "Fast Delivery",
+    "Payment": "Payment",
+    "MoneyGuarantee": "Money Guarantee",
+    "365days": "365 Days",
+    "7days": "7 Days Back",
+    "ForFreeReturn": "For free return",
+    "SecureSystem": "Secure system",
+    "startfrom10": "Start from $10"
+  },
+  "home": {
+    "ViewAllProducts": "View All Products"
+  },
+  "deleteaccount": {
+    "DeleteYourAccount": "Delete Your Account",
+    "msgToDeteteAccount": "Please enter your current password associated with your account, to delete your account"
+  },
+  "backToHome": "Back To Home",
+  "updateyouraccount": "update your account",
+  "updateyourpassword": "update your password",
+  "pageNotFound": {
+    "titlenotfound": "Sorry, page not found!",
+    "msgnotfound": "Sorry, we couldn't find the page you're looking for. Perhaps you've mistyped the URL? Be sure to check your spelling and try again."
+  },
+  "login&signup": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "joinTheBazaarMarket": "Join The Bazaar Market",
+    "createBazaarAccount": "Create A Bazaar Account",
+    "email": "Email",
+    "password": "Password",
+    "currentPassword": "Current Password",
+    "confirmPassword": "Confirm Password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "username": "User Name",
+    "forgottenPassword": "Forgotten Password",
+    "showPassword": "Show Password",
+    "NEWTOBAZAAR": "NEW TO BAZAAR?",
+    "Don'thaveanaccount": "Don't have an account?",
+    "haveAccount": "Have an account?",
+    "reset": "Reset",
+    "forgetyourpassword": "Forget your password?",
+    "msgForgetPassword": "Please enter your email address associated with your account, and we'll send you code to reset your password",
+    "Sendresetcode": "Send reset code",
+    "goBack": "Go back",
+    "tokenhasexpired": "Token has expired. Please request a new reset code.",
+    "createnewPassword": "Create a new password",
+    "choosenewPassword": "Choose a new Password",
+    "savepPassword": "Save password",
+    "continue": "Continue",
+    "enterSecurityCode": "Enter Security Code",
+    "msgVerifyPassword": "Please check your email for a message with your code. Your code is 8 digits along.",
+    "msgVerifyEmail": "Enter the verification code sent to your email.",
+    "verifye-mailaddress": "Verify e-mail address",
+    "verifyEmail": "Verify Email",
+    "enterVerificationCode": "Enter verification code",
+    "enterCode": "Enter code"
+  },
+  "productsFilter": {
+    "brandFilter":"brand",
+    "sizeFilter":"size",
+    "priceFilter": "Price",
+    "discount":"discount",
+    "rateFilter":"rate",
+    "resetFilters": "Reset Filters",
+    "topRatedProducts": "Top Rated Products",
+    "Allproducts": "All Products",
+    "defaultSorting": "Default Sorting",
+    "dateOldest": "Date, old to new",
+    "dateNewest": "Date, new to old",
+    "titleA-Z": "Alphabetically, A-Z",
+    "priceHTL": "Price, high to low",
+    "priceLTH": "Price, low to high",
+    "topRating":"Rate: high to low",
+    "men": "men",
+    "women": "women",
+    "50":"50% or more",
+    "40":"40% or more",
+    "30":"30% or more",
+    "20":"20% or more",
+    "10":"10% or more",
+    "L10":"Less than 10%",
+    "3.5":"3.5 & up",
+    "4":"4.0 & up",
+    "4.5":"4.5 & up"
+  },
+  "products": {
+    "featuredProducts":"featured Products",
+    "newProducts":"new Products",
+    "selectedProducts": "selected products",
+    "discountedProducts":"discounted Products",
+    "brandSelection": "all our new barrivals in a exclusive brand selection",
+    "womenCategory": "women category",
+    "menCategory":"men category",
+    "allProducts":"all products",
+    "OutOfStock":"OutOfStock",
+    "InStock":"InStock",
+    "addCart":"add to cart",
+    "addFav":"add to Favorite",
+    "EGP":"EGP",
+    "size": "size",
+    "quantity":"quantity",
+    "brand":"brand",
+    "reviews":"reviews",
+    "status":"status",
+    "aboutThisProduct":"about this product"
+  },
+  "shopping":{
+    "parag":"Enjoy an easy and fast shopping experience through our website ❤️"
+  },
+  "search":{
+    "search":"search",
+    "result":"result",
+    "results":"results",
+    "of":"of"
+  },
+  "reviews":{
+    "writeReview":"To write a review, please log in",
+    "error":"No reviews found for this product",
+    "writeAReview":"Write a review",
+    "submitNewReview":"Submit New Review",
+    "pleaseSelectYourRating":"Please select your rating",
+    "saveChanges":"Save Changes",
+    "deleteReview":"Delete Review",
+    "editReview":"Edit Review"
+  }
+}

@@ -1,0 +1,185 @@
+{
+  "header": {
+    "title": "شحن سريع مجاني",
+    "languages": {
+      "english": "الإنجليزية",
+      "arabic": "العربية"
+    },
+    "person": {
+      "welcome": "مرحبـا",
+      "profile": "حسابك",
+      "logout": "تسجيل الخروج",
+      "login": "تسجيل الدخول"
+    }
+  },
+  "header2": {
+    "search": "ابحث"
+  },
+  "header3": {
+    "categories": "تصـنيفات",
+    "menuItemsCategories": {
+      "menFashion":"أزياء رجالى",
+      "womenFashion":"أزياء حريمي",
+      "more":"عرض اكثر",
+      "pants":"جينز و بنطلونات",
+      "suits":"البدلات",
+      "jackets&coats":"السترات و المعاطف",
+      "sports":"ملابس رياضيه",
+      "pullover":"بلوفرات",
+      "hoodies":"هوديز ",
+      "homewear":"ملابس البيت",
+      
+      "shirts":"القمصان",
+      "tshirts&polos":"تي شيرتات و بولو",
+
+      "top&blouses":"توب و تيشرت",
+      "dressess": "الفساتين",
+      "skirts":"التنانير",
+      "Scarves":"حجاب",
+      "Cardigans":"كارديجان"
+    },
+    "dataLinks":{
+      "title1":"الرئيسيـه",
+      "title2":"الصفحـات",
+      "title3":"المنتجات",
+      "title4":"معلومات عنا",
+      "link":"لينك",
+      "subLink":"لينك فرعى"
+    }
+  },
+  "hero":{
+    "parag":"أرقى الماركات",
+    "text": {
+      "men": "مجموعه جديده",
+      "women": "مجموعه جديده"
+    },
+    "parag2": "احصل على شحن مجاني للطلبات التي تزيد قيمتها عن 99.00 دولارًا",
+    "shopnow": "تسوق الان"
+  },
+  "features": {
+    "FastDelivery":"التوصيل السريع",
+    "Payment":"الدفع",
+    "MoneyGuarantee":"استعاده المال",
+    "365days":"365 يوما",
+    "7days":"الإرجاع لمده 7 ايام",
+    "ForFreeReturn":"للعوده المجانيه",
+    "SecureSystem":"نظام اَ من",
+    "startfrom10":"يبدء من 10 دولارًا"
+  },
+  "home":{
+    "ViewAllProducts":"اعرض كل المنتجات"
+  },
+  "deleteaccount":{
+    "DeleteYourAccount":"حذف الاكونت الخاص بك",
+    "msgToDeteteAccount":"يرجى إدخال كلمة المرور الحالية المرتبطه بالاكونت الخاص بك , لحذف الاكونت"
+  },
+  "currentPassword":"كلمه المرور الحاليه",
+  "backToHome":"العوده للصفحه الرئيسيه",
+  "updateyouraccount":"حدث الاكونت الخاص بك",
+  "updateyourpassword":"حدث كلمه المرور",
+  "pageNotFound":{
+    "titlenotfound":"!عذرا, هذه الصفحه ليست موجوده",
+    "msgnotfound":"عذرًا، لم نتمكن من العثور على الصفحة التي تبحث عنها. هل أخطأت في كتابة العنوان , ناكد من التدقيق الاملائي وحاول مره اخري"
+  },
+  "login&signup": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء اكونت",
+    "joinTheBazaarMarket": "انضم إلى سوق البازار",
+    "createBazaarAccount": "إنشاء اكونت بازار",
+    "email": "الايميل",
+    "password": "كلمه المرور",
+    "currentPassword": "كلمه المرور الحاليه",
+    "confirmPassword": "تاكيد كلمه المرور",
+    "username": "اسم المستخدم",
+    "forgottenPassword": "كلمه المرور المنسيه",
+    "showPassword": "اعرض كلمه المرور",
+    "NEWTOBAZAAR": "جديد في بازار؟",
+    "Don'thaveanaccount": "ليس لديك اكونت؟",
+    "haveAccount": " لديك اكونت؟",
+    "reset": "اعاده الوضع السابق",
+    "forgetyourpassword": "هل نسيت كلمه المرور؟",
+    "msgForgetPassword": "الرجاء إدخال عنوان بريدك الإلكتروني المرتبط بحسابك، وسنرسل لك رمزًا لإعادة تعيين كلمة المرور الخاصة بك",
+    "Sendresetcode":"أرسل الرمز",
+    "goBack":"العوده للصفحه السابقه",
+    "tokenhasexpired":"انتهت صلاحية الرمز . يرجى طلب الرمز من جديد.",
+    "createnewPassword":"انشئ كلمة مرور جديدة",
+    "choosenewPassword":"اختر كلمة مرور جديدة",
+    "savepPassword":"احفظ كلمه المرور",
+    "continue":"استمر",
+    "enterSecurityCode":"أدخل رمز الأمان",
+    "msgVerifyPassword":"يرجى التحقق من بريدك الإلكتروني للحصول على رسالة تحتوي على الرمز الخاص بك. يتكون الرمز الخاص بك من 8 أرقام.",
+    "msgVerifyEmail":"أدخل رمز التحقق المرسل إلى بريدك الإلكتروني.",
+    "verifye-mailaddress":"التحقق من عنوان البريد الإلكتروني",
+    "verifyEmail":"التحقق من البريد الإلكتروني",
+    "enterVerificationCode":"أدخل رمز التحقق",
+    "enterCode":"ادخل الرمز"
+  },
+  "productsFilter":{
+    "Allproducts":"جميع المنتجات",
+    "brandFilter":"الماركة",
+    "sizeFilter":"المقاس",
+    "priceFilter": "السعر",
+    "discount":"الخصم",
+    "rateFilter":"التقييم",
+    "resetFilters":"مسح الفلتره",
+    "topRatedProducts":"المنتجات الأعلى تقييمًا",
+    "defaultSorting":"الفرز الافتراضى",
+    "dateOldest":"التاريخ، القديم إلى الجديد",
+    "dateNewest": "التاريخ، الجديد الي القديم",    
+    "titleA-Z":"أبجديًا، من الألف إلى الياء",
+    "priceHTL":"السعر من الاعلى للادنى",
+    "priceLTH":"السعر من الادني للاعلى",
+    "topRating":"التقييم من الاعلي للادني",
+    "men": "رجـالي",
+    "women": "حريمـي",
+    "50":"50% او اكثر",
+    "40":"40% او اكثر",
+    "30":"30% او اكثر",
+    "20":"20% او اكثر",
+    "10":"10% او اكثر",
+    "L10":"اقل من 10%",
+    "3.5":"3.5 و اكثر",
+    "4":"4.0 و اكثر",
+    "4.5":"4.5 و اكثر"
+  },
+  "products": {
+    "featuredProducts":"المنتجات المميزه",
+    "newProducts":"المنتجات الجديدة",
+    "selectedProducts": "منتجات مختاره",
+    "discountedProducts":"منتجات الخصم",
+    "brandSelection": " كل ما لدينا من منافسات جديدة في مجموعة حصرية من العلامات التجارية",
+    "womenCategory": "فئات حريمي",
+    "menCategory":"فئات رجالي",
+    "allProducts":"كل المنتجات",
+    "OutOfStock":"غير متوفر في المخزن",
+    "InStock":"متوفر في المخزن",
+    "addCart":"أضف الي السله",
+    "addFav":"أضف الي المفضلة",
+    "EGP":"جنية",
+    "size": " المقاس المتوفر",
+    "quantity":"الكميه المطلوبه",
+    "brand":"الماركه",
+    "reviews":"التعليقات",
+    "status":"الحاله",
+    "aboutThisProduct":"نبذه عن المنتج"
+  },
+  "shopping":{
+    "parag":" ❤️ استمتع بتجربة تسوق سهلة وسريعة من خلال موقعنا الإلكتروني"
+  },
+  "search":{
+    "search":"البحث",
+    "result":"نتيجه",
+    "results":"نتائج",
+    "of":"عن"
+  },
+  "reviews":{
+    "writeReview":"لكتابه تعليق , من فضلك سجل دخول",
+    "error":"لم يوجد تعليقات لهذا المنتج",
+    "writeAReview":"اكتب تعليقك",
+    "submitNewReview":"أضف تعليقك",
+    "pleaseSelectYourRating":"من فضلك اختار تقييمك للمنتج",
+    "saveChanges":"حفظ التغييرات",
+    "deleteReview":"حذف التعليق",
+    "editReview":"تعديل التعليق"
+  }
+}

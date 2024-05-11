@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://bazaar-2tyg.onrender.com",
+      "https://bazaar-main.onrender.com",
       "https://admin-site-bazaar.onrender.com",
     ],
     credentials: true,

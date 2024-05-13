@@ -146,6 +146,7 @@
   "products": {
     "featuredProducts":"featured Products",
     "newProducts":"new Products",
+    "similarProducts":"similar Products",
     "selectedProducts": "selected products",
     "discountedProducts":"discounted Products",
     "brandSelection": "all our new barrivals in a exclusive brand selection",

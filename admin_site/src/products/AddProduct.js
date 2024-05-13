@@ -16,6 +16,7 @@ import {
   Checkbox,
   Box,
 } from "@mui/material";
+import { useAddProductByAdminMutation } from "../services/Jsonserverapi";
 //import { useAddProductByAdminMutation } from "../services/Jsonserverapi";
 
 const useInput = (
@@ -53,7 +54,7 @@ const AddProductForm = () => {
   const [originalPrice, handlePriceChange] = useInput("");
   const [discountPercentage, handlediscountPercentageChange] = useInput("");
   const [featured, setFeatured] = useState(false);
-  const [rating, handleRatingChange] = useInput(4.5);
+  const [rating, handleRatingChange] = useInput(0);
   const [brand, setBrand] = useState("");
   const [sizes, handleSizeChange] = useInput([], false, true);
   const [images, setImages] = useState([]);
@@ -99,7 +100,8 @@ const AddProductForm = () => {
     }
   }, [category]);
 
-  //const [addProductByAdmin, { isLoading }] = useAddProductByAdminMutation();
+  const [addProductByAdmin, { isLoading, data, error }] = useAddProductByAdminMutation();
+  console.log(data, error);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -120,16 +122,7 @@ const AddProductForm = () => {
     images.forEach((image) => formData.append("images", image));
 
     try {
-      //const res = await addProductByAdmin(formData).unwrap();
-      const res = await axios.post(
-        `${process.env.REACT_APP_URL}/api/admin/create_product`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const res = await addProductByAdmin(formData).unwrap();
       console.log(res);
       setSnackbar({ open: true, message: "Product added successfully!" });
     } catch (error) {
@@ -316,11 +309,10 @@ const AddProductForm = () => {
               variant="contained"
               color="primary"
               fullWidth
-              //disabled={isLoading ? "disabled" : ""}
+              disabled={isLoading ? "disabled" : ""}
               style={{ marginTop: "1rem" }}
             >
-              {/* {isLoading ? <CircularProgress size={24} /> : "Add Product"} */}
-              Add Product
+              {isLoading ? <CircularProgress size={24} /> : "Add Product"}
             </Button>
           </form>
         </Paper>

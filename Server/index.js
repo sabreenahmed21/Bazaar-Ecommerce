@@ -10,6 +10,8 @@ import productRout from "./routs/productRout.js";
 import { handleNotFound, errorHandler } from "./controllers/errorControll.js";
 import userRout from "./routs/userRout.js";
 import orderRout from "./routs/orderRout.js";
+import cookieParser from "cookie-parser";
+
 //* CONFIG
 dotenv.config();
 
@@ -28,6 +30,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(ExpressMongoSanitize());

@@ -23,7 +23,7 @@ const ProductSchema = new Schema({
   },
   rating: {
     type: Number,
-    min: [1, "A product must have a rating value greater than or equal to 1"],
+    min: [0, "A product must have a rating value greater than or equal to 0"],
     max: [5, "A product must have a rating value less than or equal to 5"],
   },
   images: [
@@ -70,12 +70,7 @@ const ProductSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  },
-  slug: {
-    type: String,
-    required: true,
-    unique: true,
-  },
+  }
 }, {
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
@@ -84,9 +79,6 @@ const ProductSchema = new Schema({
 ProductSchema.pre('save', function(next) {
   if (this.isModified('originalPrice') || this.isModified('discountPercentage')) {
     this.priceAfterDiscount = (this.originalPrice * (100 - this.discountPercentage)) / 100;
-  }
-  if (this.isModified('title')) {
-    this.slug = this.title.en.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
   }
   next();
 });

@@ -20,6 +20,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { addItemToCart } from "../../Redux/CartSlice";
 import { addItemToFav } from "../../Redux/FavoriteSlice";
 import "./Product.css";
+import SimilarProducts from "./SimilarProducts";
 
 export default function ProductDetails() {
   const { productId } = useParams();
@@ -368,6 +369,11 @@ export default function ProductDetails() {
               </Grid>
             </Grid>
             <Review productId={data.product._id} />
+            <SimilarProducts
+              productId={productId}
+              category={data?.product.category}
+              subcategory={data?.product.subcategory}
+            />
           </>
         )}
       </Container>

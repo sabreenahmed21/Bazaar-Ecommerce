@@ -6,6 +6,7 @@ import {
   deleteProduct,
   getProductDetails,
   discountedProducts,
+  getSimilarProductsBySubcategory,
 } from "../controllers/productControll.js";
 import { authorizeRoles, protect } from "../controllers/authController.js";
 import { upload } from "../middlewares/photoUpload.js";
@@ -20,8 +21,9 @@ import {
 const router = express.Router();
 
 router.get("/products", getAllProducts);
-router.get("/products/discounted", discountedProducts);
 //router.post("/admin/create_product",upload.array('images', 6), protect, authorizeRoles("admin"),createProduct);
+router.get("/products/discounted", discountedProducts);
+router.get('/products/similar/:productId/:category/:subcategory', getSimilarProductsBySubcategory);
 router.post("/admin/create_product", upload.array("images", 6), createProduct);
 
 router

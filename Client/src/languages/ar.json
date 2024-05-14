@@ -185,5 +185,34 @@
     "saveChanges":"حفظ التغييرات",
     "deleteReview":"حذف التعليق",
     "editReview":"تعديل التعليق"
-  }
+  },
+  "footer": {
+    "helpCenter":"مركز المساعده",
+    "contactUs": "تواصل معنا",
+    "returnsandRefunds":"الاستبدال و الترجيع",
+    "FAQ":"التعليمات",
+    "shippingandDelivery":"الشحن و التسليم",
+    "trackYourOrder":"أتبع طلبك",
+    "legal":"قانوني",
+    "termsandConditions":"الأحكام و الشروط",
+    "privacyPolicy":"سياسية الخصوصيه",
+    "aboutUs":"معلومات عنا",
+    "learnmoreaboutourcompany":"اعرف اكثر بخصوص شركتنا",
+    "paymentMethods":"طرق الدفع",
+    "securePaymentProcessing":"عمليات الدفع اَمنه"
+  },
+  "cart":{
+    "yourShoppingCart":"سلة المشتريات الخاصة بك",
+    "yourShoppingCartIsEmpty":"سلة المشتريات فارغة",
+    "checkout":"الدفع",
+    "totalPrice":"السعر الكلى",
+    "action":"الأداء",
+    "quantity":"الكميه",
+    "price":"السعر",
+    "size":"المقاس",
+    "title":"العنوان",
+    "image":"الصورة"
+  },
+  "errorLoadingProducts":"خطا فى تحميل المنتجات",
+  "noProductsFound":"لم يوجد منتجات "
 }

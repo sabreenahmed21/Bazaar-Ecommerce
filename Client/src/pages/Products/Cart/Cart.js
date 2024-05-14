@@ -16,8 +16,10 @@ import {
   useTheme,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Cart() {
+  const { t } = useTranslation();
   const items = useSelector((state) => state.cart.items);
   const totalPrice = items.reduce((total, item) => {
     return total + item.priceAfterDiscount * item.quantity;
@@ -36,7 +38,7 @@ function Cart() {
             mb: "inherit",
           }}
         >
-          Your Shopping Cart
+          {t("cart.yourShoppingCart")}
         </Typography>
         {items.length > 0 ? (
           <>
@@ -45,22 +47,22 @@ function Cart() {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{ fontSize: "1rem", fontWeight: 600 }}>
-                      Image
+                    {t("cart.image")}
                     </TableCell>
                     <TableCell sx={{ fontSize: "1rem", fontWeight: 600 }}>
-                      Title
+                    {t("cart.title")}
                     </TableCell>
                     <TableCell sx={{ fontSize: "1rem", fontWeight: 600 }}>
-                      Size
+                    {t("cart.size")}
                     </TableCell>
                     <TableCell sx={{ fontSize: "1rem", fontWeight: 600 }}>
-                      Price
+                    {t("cart.price")}
                     </TableCell>
                     <TableCell sx={{ fontSize: "1rem", fontWeight: 600 }}>
-                      Quantity
+                    {t("cart.quantity")}
                     </TableCell>
                     <TableCell sx={{ fontSize: "1rem", fontWeight: 600 }}>
-                      Action
+                    {t("cart.action")}
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -75,7 +77,7 @@ function Cart() {
                         component="div"
                         fontWeight={"bold"}
                       >
-                        Total Price:
+                        {t("cart.totalPrice")}
                       </Typography>
                     </TableCell>
                     <TableCell colSpan={2} align="left">
@@ -116,7 +118,7 @@ function Cart() {
                     },
                   }}
                 >
-                  checkout
+                  {t("cart.checkout")}
                 </Button>
               </Link>
             </Box>
@@ -135,7 +137,7 @@ function Cart() {
               fontWeight: 500,
             }}
           >
-            Your Shopping Cart is empty.
+            {t("cart.yourShoppingCartIsEmpty")}
           </Typography>
         )}
       </Box>

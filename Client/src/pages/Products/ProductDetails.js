@@ -10,7 +10,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useGetproductByNameQuery } from "../../services/Jsonserverapi";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Review from "./Review";
 import { useTranslation } from "react-i18next";
 import Footer from "../Footer/Footer";
@@ -21,6 +21,12 @@ import { addItemToCart } from "../../Redux/CartSlice";
 import { addItemToFav } from "../../Redux/FavoriteSlice";
 import "./Product.css";
 import SimilarProducts from "./SimilarProducts";
+import LightGallery from "lightgallery/react";
+import "lightgallery/css/lightgallery.css";
+import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lg-thumbnail.css";
+import lgThumbnail from "lightgallery/plugins/thumbnail";
+import lgZoom from "lightgallery/plugins/zoom";
 
 export default function ProductDetails() {
   const { productId } = useParams();
@@ -91,6 +97,7 @@ export default function ProductDetails() {
             display={"flex"}
             alignItems={"center"}
             justifyContent={"center"}
+            height={'50vh'}
           >
             <span className="loader"></span>
           </Box>
@@ -100,7 +107,7 @@ export default function ProductDetails() {
           <>
             <Grid container justifyContent={"space-between"}>
               <Grid item xs={12} md={4} my={3}>
-                <Box
+                {/* <Box
                   display={"flex"}
                   flexDirection={"column"}
                   gap={3}
@@ -131,6 +138,38 @@ export default function ProductDetails() {
                     height={"40px"}
                   >
                     {data.product.images.map((image, idx) => (
+                      <Link to={image.url}>
+                        <img
+                          src={image.url}
+                          alt={image.url}
+                          onClick={() => setActiveImg(image.url)}
+                          onMouseEnter={() => handleImageHover(image.url)}
+                          key={idx}
+                          className="subImage"
+                          style={{
+                            border:
+                              activeImg === image.url
+                                ? "1px solid black"
+                                : "none",
+                          }}
+                        />
+                      </Link>
+                    ))}
+                  </Box>
+                </Box> */}
+
+                <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
+                  {activeImg && (
+                    <Link to={activeImg}>
+                      <img
+                        src={activeImg}
+                        alt="productImgDetails"
+                        className="mainImage"
+                      />
+                    </Link>
+                  )}
+                  {data.product.images.map((image, idx) => (
+                    <Link to={image.url}>
                       <img
                         src={image.url}
                         alt={image.url}
@@ -145,16 +184,16 @@ export default function ProductDetails() {
                               : "none",
                         }}
                       />
-                    ))}
-                  </Box>
-                </Box>
+                    </Link>
+                  ))}
+                </LightGallery>
+
               </Grid>
 
               <Grid item xs={12} md={7.5} my={3}>
                 <Box
                   sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}
                 >
-
                   <Typography variant="h5" color="initial" fontWeight={600}>
                     {data.product.title}
                   </Typography>
@@ -299,13 +338,15 @@ export default function ProductDetails() {
                     </Typography>
                   </Box>
 
-                  <Box sx={{ display: "flex", alignItems: "center", columnGap:1 }}>
+                  <Box
+                    sx={{ display: "flex", alignItems: "center", columnGap: 1 }}
+                  >
                     <Typography
                       variant="body1"
                       fontWeight={600}
                       sx={{ textTransform: "capitalize" }}
                     >
-                      {t("products.status")}: 
+                      {t("products.status")}:
                     </Typography>
                     <Typography
                       className={data.product.stock < 1 ? "red" : "green"}

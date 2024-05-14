@@ -110,14 +110,14 @@ export default function DiscountProducts() {
             my: 2,
           }}
         >
-          {error?.data?.message || "Error Loading Products"}
+          {error?.data?.message || t("errorLoadingProducts")}
         </Typography>
       ) : !data || data.products.length === 0 ? (
         <Typography
           variant="body1"
           sx={{ mt: 2, textAlign: "center", fontWeight: 400 }}
         >
-          No Products Found
+          {t("noProductsFound")}
         </Typography>
       ) : (
         <Swiper

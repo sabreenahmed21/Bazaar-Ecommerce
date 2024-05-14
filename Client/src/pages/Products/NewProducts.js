@@ -45,14 +45,14 @@ export default function NewProducts() {
   const nextEl = useRef(null);
 
   return (
-    <Paper sx={{ overflow: "hidden" , pb:2}}>
+    <Paper sx={{ overflow: "hidden", pb: 2 }}>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           p: 2,
-          
+
           mb: 1,
           borderBottom: "1px solid #80808052",
         }}
@@ -81,7 +81,7 @@ export default function NewProducts() {
           </ArrowButton>
         </Box>
       </Box>
-      { isLoading ? (
+      {isLoading ? (
         isLargeScreen ? (
           <LoadingProductCard count={2} />
         ) : isMediumScreen ? (
@@ -89,7 +89,7 @@ export default function NewProducts() {
         ) : (
           <LoadingProductCard count={1} />
         )
-      ): isError ? (
+      ) : isError ? (
         <Typography
           variant="body1"
           color="error"
@@ -101,14 +101,14 @@ export default function NewProducts() {
             my: 2,
           }}
         >
-          {error?.data?.message || "Error Loading Products"}
+          {error?.data?.message || t("errorLoadingProducts")}
         </Typography>
       ) : !data || data.products.length === 0 ? (
         <Typography
           variant="body1"
           sx={{ mt: 2, textAlign: "center", fontWeight: 400 }}
         >
-          No Products Found
+          {t("noProductsFound")}
         </Typography>
       ) : (
         <Swiper
@@ -125,7 +125,9 @@ export default function NewProducts() {
             540: { slidesPerView: 2 },
             1200: { slidesPerView: 3 },
           }}
-        > { data.products.map((item) => (
+        >
+          {" "}
+          {data.products.map((item) => (
             <SwiperSlide key={item._id}>
               <Link
                 to={`/product/${item._id}`}

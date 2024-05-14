@@ -81,7 +81,7 @@ export default function Products() {
           ))}
         </ToggleButtonGroup>
       </Stack>
-      { isLoading ? (
+      {isLoading ? (
         <LoadingProductCard count={8} />
       ) : isError ? (
         <Typography
@@ -95,14 +95,14 @@ export default function Products() {
             my: 2,
           }}
         >
-          {error?.data?.message || "Error Loading Products"}
+          {error?.data?.message || t("errorLoadingProducts")}
         </Typography>
       ) : !data || data.products.length === 0 ? (
         <Typography
           variant="body1"
           sx={{ mt: 2, textAlign: "center", fontWeight: 400 }}
         >
-          No Products Found
+          {t("noProductsFound")}
         </Typography>
       ) : (
         <ProductList data={data} />

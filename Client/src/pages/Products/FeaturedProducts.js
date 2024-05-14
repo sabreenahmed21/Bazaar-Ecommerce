@@ -24,7 +24,6 @@ export default function FeaturedProducts() {
     "(min-width:600px) and (max-width:899px)"
   );
 
-
   const prevEl = useRef(null);
   const nextEl = useRef(null);
 
@@ -97,14 +96,14 @@ export default function FeaturedProducts() {
             my: 2,
           }}
         >
-          {error?.data?.message || "Error Loading Products"}
+          {error?.data?.message || t("errorLoadingProducts")}
         </Typography>
       ) : !data || data.products.length === 0 ? (
         <Typography
           variant="body1"
           sx={{ mt: 2, textAlign: "center", fontWeight: 400 }}
         >
-          No Products Found
+          {t("noProductsFound")}
         </Typography>
       ) : (
         <Swiper

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography, useMediaQuery } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useGetproductByNameQuery } from "../../services/Jsonserverapi";
 import { Link } from "react-router-dom";
@@ -37,7 +37,10 @@ export default function NewProducts() {
   const storedLanguage = i18n.language;
   const link = `products?lang=${storedLanguage}&sort=-createdAt`;
   const { data, isLoading, isError, error } = useGetproductByNameQuery(link);
-
+  const isLargeScreen = useMediaQuery("(min-width:900px)");
+  const isMediumScreen = useMediaQuery(
+    "(min-width:600px) and (max-width:899px)"
+  );
   const prevEl = useRef(null);
   const nextEl = useRef(null);
 
@@ -78,9 +81,15 @@ export default function NewProducts() {
           </ArrowButton>
         </Box>
       </Box>
-      {isLoading ? (
-        <LoadingProductCard count={1} />
-      ) : isError ? (
+      { isLoading ? (
+        isLargeScreen ? (
+          <LoadingProductCard count={2} />
+        ) : isMediumScreen ? (
+          <LoadingProductCard count={2} />
+        ) : (
+          <LoadingProductCard count={1} />
+        )
+      ): isError ? (
         <Typography
           variant="body1"
           color="error"
@@ -116,8 +125,7 @@ export default function NewProducts() {
             540: { slidesPerView: 2 },
             1200: { slidesPerView: 3 },
           }}
-        >
-          {data.products.map((item) => (
+        > { data.products.map((item) => (
             <SwiperSlide key={item._id}>
               <Link
                 to={`/product/${item._id}`}

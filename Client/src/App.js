@@ -23,10 +23,10 @@ import DeleteAccount from "./pages/Profile/DeleteAccount.js";
 import UpdateAccount from "./pages/Profile/UpdateAccount.js";
 import UpdatePassword from "./pages/Profile/UpdatePassword.js";
 import CategoryProducts from "./pages/Products/CategoryProducts.js";
-import AllProducts from "./pages/Products/Allproducts/AllProducts.js";
-import FavProducts from "./pages/Favorite/FavProducts.js";
-import Cart from "./pages/Cart/Cart.js";
 import Checkout from "./pages/Checkout.js";
+import FavProducts from "./pages/Products/Favorite/FavProducts.js";
+import Cart from "./pages/Products/Cart/Cart.js";
+import AllProducts from "./pages/Products/AllProducts.js";
 
 export default function App() {
   const [shouldShowHeader, setShouldShowHeader] = useState(true);

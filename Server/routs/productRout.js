@@ -7,6 +7,7 @@ import {
   getProductDetails,
   discountedProducts,
   getSimilarProductsBySubcategory,
+  getProducts,
 } from "../controllers/productControll.js";
 import { authorizeRoles, protect } from "../controllers/authController.js";
 import { upload } from "../middlewares/photoUpload.js";
@@ -15,7 +16,7 @@ import {
   deleteReview,
   getAllReviewsForProduct,
   getReview,
-  updateReview
+  updateReview,
 } from "../controllers/reviewsController.js";
 
 const router = express.Router();
@@ -23,7 +24,10 @@ const router = express.Router();
 router.get("/products", getAllProducts);
 //router.post("/admin/create_product",upload.array('images', 6), protect, authorizeRoles("admin"),createProduct);
 router.get("/products/discounted", discountedProducts);
-router.get('/products/similar/:productId/:category/:subcategory', getSimilarProductsBySubcategory);
+router.get(
+  "/products/similar/:productId/:category/:subcategory",
+  getSimilarProductsBySubcategory
+);
 router.post("/admin/create_product", upload.array("images", 6), createProduct);
 
 router
@@ -32,16 +36,17 @@ router
   //.put(protect, authorizeRoles("admin"), updateProduct)
   .put(updateProduct)
   .get(getProductDetails);
+router.route("/product/:productId").get(getProducts);
 
-
-
-  router.route('/product/:productId/reviews')
-  .post(protect, authorizeRoles('user'), createReview)
+router
+  .route("/product/:productId/reviews")
+  .post(protect, authorizeRoles("user"), createReview)
   .get(getAllReviewsForProduct);
 
-router.route('/reviews/:reviewId')
+router
+  .route("/reviews/:reviewId")
   .get(getReview)
-  .patch(protect, authorizeRoles('user'), updateReview)
-  .delete(protect, authorizeRoles('user'), deleteReview)
+  .patch(protect, authorizeRoles("user"), updateReview)
+  .delete(protect, authorizeRoles("user"), deleteReview);
 
 export default router;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useRef } from "react";
 import { Box, Paper, Typography, useMediaQuery } from "@mui/material";
 import { useTranslation } from "react-i18next";
@@ -19,6 +20,10 @@ export default function FeaturedProducts() {
   const link = `products?lang=${i18n.language}&featured=true`;
   const { data, isLoading, isError, error } = useGetproductByNameQuery(link);
   const isLargeScreen = useMediaQuery("(min-width:900px)");
+  const isMediumScreen = useMediaQuery(
+    "(min-width:600px) and (max-width:899px)"
+  );
+
 
   const prevEl = useRef(null);
   const nextEl = useRef(null);
@@ -31,7 +36,12 @@ export default function FeaturedProducts() {
 
   return (
     <Paper
-      sx={{ overflow: "hidden", textShadow: "none", my: isLargeScreen ? 0 : 3, pb:2 }}
+      sx={{
+        overflow: "hidden",
+        textShadow: "none",
+        my: isLargeScreen ? 0 : 3,
+        pb: 2,
+      }}
     >
       <Box
         sx={{
@@ -68,7 +78,13 @@ export default function FeaturedProducts() {
         </Box>
       </Box>
       {isLoading ? (
-        <LoadingProductCard count={1} />
+        isLargeScreen ? (
+          <LoadingProductCard count={1} />
+        ) : isMediumScreen ? (
+          <LoadingProductCard count={2} />
+        ) : (
+          <LoadingProductCard count={1} />
+        )
       ) : isError ? (
         <Typography
           variant="body1"
@@ -81,7 +97,7 @@ export default function FeaturedProducts() {
             my: 2,
           }}
         >
-          {error?.data?.message || "Error LoadingProducts"}
+          {error?.data?.message || "Error Loading Products"}
         </Typography>
       ) : !data || data.products.length === 0 ? (
         <Typography

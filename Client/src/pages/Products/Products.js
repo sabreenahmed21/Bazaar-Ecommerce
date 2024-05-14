@@ -23,13 +23,17 @@ export default function Products() {
     setCurrentQuery(`products?lang=${i18n.language}`);
   }, [i18n.language]);
 
-  const handleValueChange = useCallback((event, newValue) => {
-    if (newValue) {
-      setCurrentQuery(newValue);
-    }
-  }, [setCurrentQuery]);
+  const handleValueChange = useCallback(
+    (event, newValue) => {
+      if (newValue) {
+        setCurrentQuery(newValue);
+      }
+    },
+    [setCurrentQuery]
+  );
 
-  const { data, isLoading, isError } = useGetproductByNameQuery(currentQuery);
+  const { data, isLoading, isError, error } =
+    useGetproductByNameQuery(currentQuery);
 
   const categories = [
     { title: "allProducts", queryParam: "" },
@@ -77,10 +81,31 @@ export default function Products() {
           ))}
         </ToggleButtonGroup>
       </Stack>
-      {isLoading ? (
+      { isLoading ? (
         <LoadingProductCard count={8} />
+      ) : isError ? (
+        <Typography
+          variant="body1"
+          color="error"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: 600,
+            my: 2,
+          }}
+        >
+          {error?.data?.message || "Error Loading Products"}
+        </Typography>
+      ) : !data || data.products.length === 0 ? (
+        <Typography
+          variant="body1"
+          sx={{ mt: 2, textAlign: "center", fontWeight: 400 }}
+        >
+          No Products Found
+        </Typography>
       ) : (
-        <ProductList data={data} isError={isError} />
+        <ProductList data={data} />
       )}
     </Box>
   );
@@ -123,17 +148,7 @@ function HeaderComponent({ theme, t }) {
   );
 }
 
-function ProductList({ data, isError }) {
-  if (isError || !data || data.products.length === 0) {
-    return (
-      <Typography
-        variant="body1"
-        sx={{ mt: 5, textAlign: "center", fontWeight: 400 }}
-      >
-        No products found.
-      </Typography>
-    );
-  }
+function ProductList({ data }) {
   return (
     <Stack
       mt={4}

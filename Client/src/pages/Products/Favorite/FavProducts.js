@@ -11,25 +11,30 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { removeItemFromFav } from "../../Redux/FavoriteSlice";
-import ProductList from "../Products/ProductList";
+import { removeItemFromFav } from "../../../Redux/FavoriteSlice";
+import ProductList from "../ProductList";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 export default function FavProducts() {
   const dispatch = useDispatch();
   const theme = useTheme();
   const items = useSelector((state) => state.favorite.items);
   console.log(items);
+  const { t, i18n } = useTranslation();
 
-  const handleRemoveFromFav = (item) => {
+  const handleRemoveFromFav = (event, item) => {
+    event.stopPropagation();
+    event.preventDefault();
     dispatch(removeItemFromFav(item));
     toast.success("Removed from favorites", {
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
 
   return (
     <Container>
-      <Box sx={{my:5}}>
+      <Box sx={{ my: 5, direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
         <Typography
           variant="h3"
           sx={{
@@ -37,15 +42,16 @@ export default function FavProducts() {
             fontSize: "3rem",
             fontWeight: 600,
             letterSpacing: "0.02rem",
+            mb: 3,
           }}
         >
-          your Favorites products
+          {t("products.favProducts")}
         </Typography>
         {items.length > 0 ? (
           <Stack
             justifyContent={{ xs: "center", md: "left" }}
-            alignItems={"center"}
-            flexWrap={"wrap"}
+            alignItems="center"
+            flexWrap="wrap"
             gap={3}
             sx={{
               [theme.breakpoints.up("xs")]: {
@@ -59,29 +65,35 @@ export default function FavProducts() {
             }}
           >
             {items?.map((item, index) => (
-              <Paper>
-                <ProductList item={item} key={item.id || index} />
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "start",
-                    width: "100%",
-                    mb: 1,
-                    ml: 1,
-                  }}
-                >
-                  <Button
-                    onClick={() => handleRemoveFromFav(item)}
+              <Link
+                key={item._id}
+                to={`/product/${item._id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Paper>
+                  <ProductList item={item} key={item.id || index} />
+                  <Box
                     sx={{
-                      color: theme.palette.text.red,
-                      backgroundColor: theme.palette.text.Lightred,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "end",
+                      width: "100%",
+                      px:1,
+                      pb:1
                     }}
                   >
-                    Remove From Favorite
-                  </Button>
-                </Box>
-              </Paper>
+                    <Button
+                      onClick={(event) => handleRemoveFromFav(event, item)}
+                      sx={{
+                        color: theme.palette.text.red,
+                        backgroundColor: theme.palette.text.Lightred,
+                      }}
+                    >
+                      {t("products.removefromfav")}
+                    </Button>
+                  </Box>
+                </Paper>
+              </Link>
             ))}
           </Stack>
         ) : (

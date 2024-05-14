@@ -1,15 +1,26 @@
-import { Container, Grid, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Drawer,
+  Grid,
+  IconButton,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import FilteredProducts from "./FilteredProducts.js";
-import ProductsView from "./ProductsView.js";
-import { useGetproductByNameQuery } from "../../../services/Jsonserverapi.js";
+import FilteredProducts from "./Allproducts/FilteredProducts.js";
+import ProductsView from "./Allproducts/ProductsView.js";
+import { useGetproductByNameQuery } from "../../services/Jsonserverapi.js";
 import { useTranslation } from "react-i18next";
-import { discountOptions, ratingOptions } from "./Available.js";
+import { discountOptions, ratingOptions } from "./Allproducts/Available.js";
 import { t } from "i18next";
-import Footer from "../../Footer/Footer.js";
+import Footer from "../Footer/Footer.js";
+import { MdClose } from "react-icons/md";
+import { CiFilter } from "react-icons/ci";
 
 export default function AllProducts() {
   const { i18n } = useTranslation();
+  const isLargeScreen = useMediaQuery("(min-width:900px)");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedSizes, setSelectedSizes] = useState([]);
   const [selectedBrands, setSelectedBrands] = useState([]);
@@ -104,9 +115,14 @@ export default function AllProducts() {
       setTotalPages(Math.ceil(data.totalProductsCount / data.resultPerPage));
     }
   }, [data]);
+
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
     <>
-      <Container sx={{ my: 5 , direction: i18n.language === 'ar'? 'rtl':'ltr'}}>
+      <Container
+        sx={{ my: 5, direction: i18n.language === "ar" ? "rtl" : "ltr" }}
+      >
         <Typography
           variant="h4"
           color="initial"
@@ -122,21 +138,66 @@ export default function AllProducts() {
           {t("productsFilter.Allproducts")}
         </Typography>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={3}>
-            <FilteredProducts
-              resetFilters={resetFilters}
-              handleBrandChange={handleBrandChange}
-              handleSizeChange={handleSizeChange}
-              selectedBrands={selectedBrands}
-              selectedSizes={selectedSizes}
-              price={price}
-              setPrice={setPrice}
-              selectedDiscount={selectedDiscount}
-              setSelectedDiscount={setSelectedDiscount}
-              rating={rating}
-              setRating={setRating}
-            />
-          </Grid>
+          {isLargeScreen ? (
+            <Grid item md={3}>
+              <FilteredProducts
+                resetFilters={resetFilters}
+                handleBrandChange={handleBrandChange}
+                handleSizeChange={handleSizeChange}
+                selectedBrands={selectedBrands}
+                selectedSizes={selectedSizes}
+                price={price}
+                setPrice={setPrice}
+                selectedDiscount={selectedDiscount}
+                setSelectedDiscount={setSelectedDiscount}
+                rating={rating}
+                setRating={setRating}
+              />
+            </Grid>
+          ) : (
+            <>
+              <Button
+                onClick={() => setDrawerOpen(true)}
+                sx={{
+                  px: 4,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  columnGap: 1,
+                }}
+              >
+                <Typography variant="body1" color="initial">
+                  filter
+                </Typography>
+                <CiFilter />
+              </Button>
+              <Drawer
+                anchor="left"
+                open={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
+              >
+                <div>
+                  <IconButton onClick={() => setDrawerOpen(false)}>
+                    <MdClose />
+                  </IconButton>
+                  <FilteredProducts
+                    resetFilters={resetFilters}
+                    handleBrandChange={handleBrandChange}
+                    handleSizeChange={handleSizeChange}
+                    selectedBrands={selectedBrands}
+                    selectedSizes={selectedSizes}
+                    price={price}
+                    setPrice={setPrice}
+                    selectedDiscount={selectedDiscount}
+                    setSelectedDiscount={setSelectedDiscount}
+                    rating={rating}
+                    setRating={setRating}
+                  />
+                </div>
+              </Drawer>
+            </>
+          )}
+
           <Grid item xs={12} md={9}>
             <ProductsView
               data={data}

@@ -149,13 +149,16 @@ export default function ProductDetails() {
                   </Box>
                 </Box>
               </Grid>
+
               <Grid item xs={12} md={7.5} my={3}>
                 <Box
                   sx={{ display: "flex", flexDirection: "column", rowGap: 1 }}
                 >
+
                   <Typography variant="h5" color="initial" fontWeight={600}>
                     {data.product.title}
                   </Typography>
+
                   <Box>
                     <Typography
                       variant="body1"
@@ -165,7 +168,7 @@ export default function ProductDetails() {
                         textTransform: "capitalize",
                       }}
                     >
-                      {t("products.brand")}{" "}
+                      {t("products.brand")}:{" "}
                       <Typography
                         variant="span"
                         sx={{ color: theme.palette.grey[600] }}
@@ -174,6 +177,7 @@ export default function ProductDetails() {
                       </Typography>
                     </Typography>
                   </Box>
+
                   <Box>
                     <Typography
                       variant="body1"
@@ -183,7 +187,7 @@ export default function ProductDetails() {
                         textTransform: "capitalize",
                       }}
                     >
-                      {t("products.size")}
+                      {t("products.size")}:
                     </Typography>
                     <Box sx={{ display: "flex", gap: 1 }}>
                       {data.product.sizes.map((size, index) => (
@@ -211,7 +215,7 @@ export default function ProductDetails() {
                         textTransform: "capitalize",
                       }}
                     >
-                      {t("products.quantity")}
+                      {t("products.quantity")}:
                     </Typography>
                     <input
                       type="number"
@@ -221,6 +225,7 @@ export default function ProductDetails() {
                       style={{ width: "50px" }}
                     />
                   </Box>
+
                   <Box
                     sx={{
                       display: "flex",
@@ -230,45 +235,29 @@ export default function ProductDetails() {
                       justifyContent: i18n.language === "ar" ? "end" : "",
                     }}
                   >
+                    <Typography
+                      variant="body1"
+                      fontSize={"0.95rem"}
+                      color={theme.palette.grey[800]}
+                    >
+                      {data.product.rating.toFixed(1)}
+                    </Typography>
                     <Rating
                       name="read-only"
                       value={data.product.rating}
                       precision={0.5}
                     />
-                    <Typography variant="body1">
-                      {data.product.rating.toFixed(1)}
-                    </Typography>
                     <Typography variant="body1" color="initial">
                       ({data.product.numOfReviews} {t("products.reviews")})
                     </Typography>
                   </Box>
+
                   <Box
                     sx={{
                       width: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
+                      display: "block",
                     }}
                   >
-                    <Typography
-                      variant="subtitle1"
-                      component="p"
-                      sx={{
-                        fontWeight: 500,
-                        lineHeight: 1.5,
-                        fontSize: "1.3rem",
-                        color: theme.palette.text.red,
-                        fontFamily: '"Yanone Kaffeesatz", sans-serif',
-                      }}
-                    >
-                      {i18n.language === "ar"
-                        ? `${data.product.priceAfterDiscount} ${t(
-                            "products.EGP"
-                          )}`
-                        : `${t("products.EGP")} ${
-                            data.product.priceAfterDiscount
-                          }`}
-                    </Typography>
                     {data.product.discountPercentage !== null &&
                     data.product.discountPercentage !== 0 ? (
                       <Typography
@@ -290,14 +279,33 @@ export default function ProductDetails() {
                     ) : (
                       " "
                     )}
+                    <Typography
+                      variant="subtitle1"
+                      component="p"
+                      sx={{
+                        fontWeight: 700,
+                        lineHeight: 1.5,
+                        fontSize: "1.5rem",
+                        fontFamily: '"Roboto Condensed", sans-serif',
+                      }}
+                    >
+                      {i18n.language === "ar"
+                        ? `${data.product.priceAfterDiscount} ${t(
+                            "products.EGP"
+                          )}`
+                        : `${t("products.EGP")} ${
+                            data.product.priceAfterDiscount
+                          }`}
+                    </Typography>
                   </Box>
-                  <Box sx={{ display: "flex", alignItems: "center" }}>
+
+                  <Box sx={{ display: "flex", alignItems: "center", columnGap:1 }}>
                     <Typography
                       variant="body1"
                       fontWeight={600}
                       sx={{ textTransform: "capitalize" }}
                     >
-                      {t("products.status")}
+                      {t("products.status")}: 
                     </Typography>
                     <Typography
                       className={data.product.stock < 1 ? "red" : "green"}
@@ -307,6 +315,7 @@ export default function ProductDetails() {
                         : t("products.InStock")}
                     </Typography>
                   </Box>
+
                   <Box>
                     <Typography
                       variant="body1"
@@ -325,6 +334,7 @@ export default function ProductDetails() {
                       {data.product.description}
                     </Typography>
                   </Box>
+
                   <Box sx={{ display: "flex", mt: 2 }}>
                     <Button
                       size="large"

@@ -37,7 +37,7 @@ export default function FilteredProducts({
 
   return (
     <Box sx={{ backgroundColor: "#fff", px: 1 }}>
-      <FormGroup sx={{ borderBottom: "2px solid #0000002e", pb: 3 }}>
+      <FormGroup sx={{ borderBottom: "2px solid #0000002e", pb: 3, pt:2 }}>
         <Typography
           variant="body1"
           sx={{
@@ -111,7 +111,7 @@ export default function FilteredProducts({
           max={3000}
           step={50}
           sx={{
-            ".css-aq328-MuiSlider-thumb": { borderRadius: "0", width: "5px" },
+            ".MuiSlider-thumb": { borderRadius: "0", width: "5px" },
           }}
         />
       </Box>

@@ -116,6 +116,7 @@
     "enterCode": "Enter code"
   },
   "productsFilter": {
+    "totalProductsCount":"total products count ",
     "brandFilter":"brand",
     "sizeFilter":"size",
     "priceFilter": "Price",
@@ -145,6 +146,8 @@
   },
   "products": {
     "featuredProducts":"featured Products",
+    "favProducts":"your Favorites products",
+    "removefromfav":"remove from favorite",
     "newProducts":"new Products",
     "similarProducts":"similar Products",
     "selectedProducts": "selected products",
@@ -157,12 +160,12 @@
     "InStock":"InStock",
     "addCart":"add to cart",
     "addFav":"add to Favorite",
-    "EGP":"EGP",
+    "EGP":"LE",
     "size": "size",
     "quantity":"quantity",
     "brand":"brand",
     "reviews":"reviews",
-    "status":"status",
+    "status":"availability",
     "aboutThisProduct":"about this product"
   },
   "shopping":{

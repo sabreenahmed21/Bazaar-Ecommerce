@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardMedia,
@@ -11,38 +10,27 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { MdAddShoppingCart, MdOutlineFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import { MdOutlineFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart } from "../../Redux/CartSlice";
 import { addItemToFav, removeItemFromFav } from "../../Redux/FavoriteSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductList({ item, id }) {
   const theme = useTheme();
-  const { t, i18n } = useTranslation();
-  const storedLanguage = i18n.language;
+  const { t } = useTranslation();
   const isFavorited = useSelector((state) =>
     state.favorite.items.some((favItem) => favItem._id === item._id)
   );
 
   const dispatch = useDispatch();
 
-  const handleAddToCart = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    dispatch(addItemToCart(item));
-    toast.success("Added to cart", {
-      autoClose: 3000,
-    });
-  };
-
   const handleAddToFav = (event) => {
     event.stopPropagation();
     event.preventDefault();
     dispatch(addItemToFav(item));
     toast.success("Added to favorites", {
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
 
@@ -51,9 +39,10 @@ export default function ProductList({ item, id }) {
     event.preventDefault();
     dispatch(removeItemFromFav(item));
     toast.success("Removed from favorites", {
-      autoClose: 3000,
+      autoClose: 1000,
     });
   };
+
   return (
     <>
       <Card
@@ -67,7 +56,7 @@ export default function ProductList({ item, id }) {
             display: "block",
             transition: "0.35s ease",
           },
-          boxShadow:'none'
+          boxShadow: "none",
         }}
         key={id}
       >
@@ -95,6 +84,7 @@ export default function ProductList({ item, id }) {
             <MdOutlineFavorite
               onClick={handleRemoveFromFav}
               className="favorite-icon"
+              style={{ color: "red" }}
             />
           ) : (
             <MdOutlineFavoriteBorder
@@ -183,23 +173,20 @@ export default function ProductList({ item, id }) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  mt: "15px",
+                  mt: 2,
                 }}
               >
                 <Typography
                   variant="subtitle1"
                   component="p"
                   sx={{
-                    fontWeight: 500,
+                    fontWeight: 700,
                     lineHeight: 1.5,
-                    fontSize: "1.3rem",
-                    color: theme.palette.text.red,
-                    fontFamily: '"Yanone Kaffeesatz", sans-serif',
+                    fontSize: "0.99rem",
+                    fontFamily: '"Roboto Condensed", sans-serif',
                   }}
                 >
-                  {storedLanguage === "ar"
-                    ? `${item.priceAfterDiscount} ${t("products.EGP")}`
-                    : `${t("products.EGP")} ${item.priceAfterDiscount}`}
+                  {item.priceAfterDiscount} {t("products.EGP")}
                 </Typography>
                 {item.discountPercentage !== null &&
                 item.discountPercentage !== 0 ? (
@@ -213,9 +200,7 @@ export default function ProductList({ item, id }) {
                       color: theme.palette.grey[400],
                     }}
                   >
-                    {storedLanguage === "ar"
-                      ? `${item.originalPrice} ${t("products.EGP")}`
-                      : `${t("products.EGP")} ${item.originalPrice}`}
+                    {item.originalPrice} {t("products.EGP")}
                   </Typography>
                 ) : (
                   " "
@@ -223,32 +208,6 @@ export default function ProductList({ item, id }) {
               </Box>
             </Stack>
           </CardContent>
-          <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-            <Button
-              size="large"
-              sx={{
-                textTransform: "capitalize",
-                gap: "4px",
-                fontWeight: 600,
-                padding: "7px",
-                color: theme.palette.text.main,
-                backgroundColor: "#fff",
-                borderColor: theme.palette.text.main,
-                borderStyle: "solid",
-                borderWidth: "1.5px",
-                ":hover": {
-                  backgroundColor: theme.palette.text.main,
-                  color: "#fff",
-                  transition: "all  0.5s  ease-in-out",
-                },
-                width: "-webkit-fill-available",
-              }}
-              onClick={(e) => handleAddToCart(e)}
-            >
-              <MdAddShoppingCart fontSize="small" />
-              {t("products.addCart")}
-            </Button>
-          </Box>
         </Box>
       </Card>
     </>

@@ -30,6 +30,7 @@ export default function ProductsView({
   totalPages,
 }) {
   const theme = useTheme();
+  const { t } = useTranslation();
   const [viewStyle, setViewStyle] = useState("grid");
 
   const handleViewStyleChange = (style) => {
@@ -42,49 +43,70 @@ export default function ProductsView({
         sx={{
           marginBottom: 4,
           display: "flex",
-          justifyContent: "end",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
           alignItems: "center",
-          gap: 3,
         }}
       >
-        <Box>
-          <Button
-            onClick={() => handleViewStyleChange("list")}
-            sx={{
-              height: "45px",
-              backgroundColor: theme.palette.grey[100],
-              mr: 1,
-            }}
-            style={
-              viewStyle === "list"
-                ? {
-                    border: "2px solid",
-                    borderColor: theme.palette.text.yellow,
-                  }
-                : {}
-            }
+        <Box sx={{ display: "flex", alignItems: "center", columnGap: 1 }}>
+          <Typography
+            variant="body1"
+            color="initial"
+            sx={{ textTransform: "capitalize", fontWeight: 600 }}
           >
-            <TfiViewList fontSize={"27px"} />
-          </Button>
-          <Button
-            onClick={() => handleViewStyleChange("grid")}
-            sx={{
-              height: "45px",
-              backgroundColor: theme.palette.grey[100],
-            }}
-            style={
-              viewStyle === "grid"
-                ? {
-                    border: "2px solid",
-                    borderColor: theme.palette.text.yellow,
-                  }
-                : {}
-            }
-          >
-            <CiGrid41 fontSize={"35px"} />
-          </Button>
+            {t("productsFilter.totalProductsCount")}:
+          </Typography>
+          <Typography variant="body1" color="initial">
+            {data?.totalProductsCount}
+          </Typography>
         </Box>
-        <SortDropdown sort={sort} handleSortChange={handleSortChange} />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "end",
+            alignItems: "center",
+            gap: 3,
+          }}
+        >
+          <Box>
+            <Button
+              onClick={() => handleViewStyleChange("list")}
+              sx={{
+                height: "45px",
+                backgroundColor: theme.palette.grey[100],
+                mr: 1,
+              }}
+              style={
+                viewStyle === "list"
+                  ? {
+                      border: "2px solid",
+                      borderColor: theme.palette.text.yellow,
+                    }
+                  : {}
+              }
+            >
+              <TfiViewList fontSize={"27px"} />
+            </Button>
+            <Button
+              onClick={() => handleViewStyleChange("grid")}
+              sx={{
+                height: "45px",
+                backgroundColor: theme.palette.grey[100],
+              }}
+              style={
+                viewStyle === "grid"
+                  ? {
+                      border: "2px solid",
+                      borderColor: theme.palette.text.yellow,
+                    }
+                  : {}
+              }
+            >
+              <CiGrid41 fontSize={"35px"} />
+            </Button>
+          </Box>
+          <SortDropdown sort={sort} handleSortChange={handleSortChange} />
+        </Box>
       </Box>
       {isError && (
         <Typography
@@ -107,14 +129,16 @@ export default function ProductsView({
           {viewStyle === "grid" ? (
             <ProductCardGrid data={data} theme={theme} />
           ) : (
-            
             <ProductCardList data={data} theme={theme} />
           )}
           <Box
-            py={4}
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"center"}
+            sx={{
+              py: 4,
+              direction: "ltr",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
           >
             {totalPages > 1 && (
               <Pagination

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeItemFromCart } from "../../Redux/CartSlice";
+import { removeItemFromCart } from "../../../Redux/CartSlice";
 import { TableCell, TableRow, Button } from "@mui/material";
 
 function CartItem({ item }) {

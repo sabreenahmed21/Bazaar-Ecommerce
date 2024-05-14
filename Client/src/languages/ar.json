@@ -115,6 +115,7 @@
     "enterCode":"ادخل الرمز"
   },
   "productsFilter":{
+    "totalProductsCount":"عدد المنتجات الكلي",
     "Allproducts":"جميع المنتجات",
     "brandFilter":"الماركة",
     "sizeFilter":"المقاس",
@@ -144,6 +145,8 @@
   },
   "products": {
     "featuredProducts":"المنتجات المميزه",
+    "favProducts":"المنتجات المفضله لديك",
+    "removefromfav":"حذف من المفضلة",
     "newProducts":"المنتجات الجديدة",
     "similarProducts":"المنتجات المشابهة",
     "selectedProducts": "منتجات مختاره",
@@ -156,7 +159,7 @@
     "InStock":"متوفر في المخزن",
     "addCart":"أضف الي السله",
     "addFav":"أضف الي المفضلة",
-    "EGP":"جنية",
+    "EGP":"ج.م",
     "size": " المقاس المتوفر",
     "quantity":"الكميه المطلوبه",
     "brand":"الماركه",

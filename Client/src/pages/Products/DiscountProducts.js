@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography, useMediaQuery } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useGetproductByNameQuery } from "../../services/Jsonserverapi";
 import { Link } from "react-router-dom";
@@ -37,6 +37,10 @@ export default function DiscountProducts() {
   const storedLanguage = i18n.language;
   const link = `products/discounted?lang=${storedLanguage}`;
   const { data, isLoading, isError, error } = useGetproductByNameQuery(link);
+  const isLargeScreen = useMediaQuery("(min-width:900px)");
+  const isMediumScreen = useMediaQuery(
+    "(min-width:600px) and (max-width:899px)"
+  );
 
   const prevEl = useRef(null);
   const nextEl = useRef(null);
@@ -87,8 +91,14 @@ export default function DiscountProducts() {
         </Box>
       </Box>
       {isLoading ? (
-        <LoadingProductCard count={1} />
-      ) : isError ? (
+        isLargeScreen ? (
+          <LoadingProductCard count={3} />
+        ) : isMediumScreen ? (
+          <LoadingProductCard count={2} />
+        ) : (
+          <LoadingProductCard count={1} />
+        )
+      ): isError ? (
         <Typography
           variant="body1"
           color="error"

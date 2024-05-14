@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const FavoriteSlice = createSlice({
-  name: "cart",
+  name: "favorite",
   initialState: {
     items: [],
     totalQuantity: 0,

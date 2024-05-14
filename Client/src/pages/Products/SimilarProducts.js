@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { useGetproductByNameQuery } from "../../services/Jsonserverapi";
 import { useTranslation } from "react-i18next";
 import { Box, Typography, Paper } from "@mui/material";

@@ -67,9 +67,9 @@ export default function Hero() {
               }}
             >
               <motion.div
-                 initial={{ opacity: 0, x: -100 }}
-                 animate={{ opacity: 1, x: 0 }}
-                 transition={{ duration: 0.5 }}
+                initial={{ opacity: 0, x: -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
               >
                 <MenuItem
                   sx={{
@@ -202,9 +202,10 @@ export default function Hero() {
                       }}
                     >
                       <Link
-                        href="/products"
+                        href={`/categoryPage?category=${item.text}`}
                         underline="none"
                         sx={{ color: "#fff" }}
+                        aria-label={`Shop now in ${item.text} category`}
                       >
                         {t("hero.shopnow")}
                       </Link>

@@ -114,6 +114,10 @@ export default function FilteredProducts({
             ".MuiSlider-thumb": { borderRadius: "0", width: "5px" },
           }}
         />
+        <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+          <Typography variant="body2" color="initial">0 {t("products.EGP")}</Typography>
+          <Typography variant="body2" color="initial">3000 {t("products.EGP")}</Typography>
+        </Box>
       </Box>
       <FormGroup sx={{ borderBottom: "2px solid #0000002e", py: 3 }}>
         <Typography

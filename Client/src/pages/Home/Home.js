@@ -11,6 +11,7 @@ import NewFeaturedProducts from "../Products/NewFeaturedProducts.js";
 import Shopping from "../../components/Shopping.js";
 import DiscountProducts from "../Products/DiscountProducts.js";
 import { ToastContainer } from "react-toastify";
+import AssestsCategory from "../AssestsCategory.js";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
       <Container>
         <Hero />
         <NewFeaturedProducts/>
+        <AssestsCategory/>
         <Brands />
         <Products />
         <Shopping/>

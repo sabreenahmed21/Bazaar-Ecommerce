@@ -35,6 +35,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import Thanks from "./pages/Products/Cart/Thanks.js";
 import Orders from "./pages/Products/Order/Orders.js";
+import MenWomenCategory from "./pages/Products/MenWomenCategory.js";
 
 export default function App() {
   const [shouldShowHeader, setShouldShowHeader] = useState(true);
@@ -96,6 +97,7 @@ export default function App() {
             <Route path="/search/:query" element={<SearchResults />} />
             <Route path="/products" element={<AllProducts />} />
             <Route path="/category-products" element={<CategoryProducts />} />
+            <Route path="/categoryPage" element={<MenWomenCategory />} />
             <Route path="/shoppingcart" element={<Cart />} />
             <Route path="/favoriteProducts" element={<FavProducts />} />
             <Route path="/shipping" element={<Shipping />} />

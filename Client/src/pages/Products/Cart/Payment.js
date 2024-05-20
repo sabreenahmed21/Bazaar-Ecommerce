@@ -57,8 +57,8 @@ export default function Payment() {
     payBtn.current.disabled = true;
 
     try {
-      const { data } = await processPayment(paymentData).unwrap();
-      const client_secret = data.client_secret;
+      const response = await processPayment(paymentData).unwrap();
+      const client_secret = response.data.client_secret;
 
       if (!stripe || !elements) return;
 

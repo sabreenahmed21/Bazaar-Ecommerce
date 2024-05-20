@@ -196,6 +196,10 @@ const toggleButtonStyles = {
   fontWeight: 500,
   fontSize: { xs: "11px", sm: "16px" },
   letterSpacing: { xs: "1.1px", sm: "0.2px" },
-  border: "1px solid #000 !important",
-  borderRadius: "5px !important",
+  border:0,
+  "&.Mui-selected": {
+    borderBottom: '4px solid #000',
+    backgroundColor: 'transparent',
+    fontWeight:700
+  },
 };

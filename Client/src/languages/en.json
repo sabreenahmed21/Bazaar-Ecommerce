@@ -51,8 +51,8 @@
   "hero": {
     "parag": "top brands",
     "text": {
-      "men": "new collection",
-      "women": "new collection"
+      "men": "men collection",
+      "women": "women collection"
     },
     "parag2": "get free shipping on orders over $99.00",
     "shopnow": "shop now"
@@ -154,9 +154,9 @@
     "selectedProducts": "selected products",
     "discountedProducts": "discounted Products",
     "brandSelection": "all our new barrivals in a exclusive brand selection",
-    "womenCategory": "women category",
-    "menCategory": "men category",
-    "allProducts": "all products",
+    "womenCategory": "women",
+    "menCategory": "men",
+    "allProducts": "all",
     "OutOfStock": "OutOfStock",
     "InStock": "InStock",
     "addCart": "add to cart",

@@ -124,7 +124,7 @@ export default function Nav() {
                 direction: storedLanguage === "ar" ? "rtl" : "ltr",
               }}
             >
-              <CategoryMenu/>
+              <CategoryMenu handleClose={handleClose} />
             </Menu>
           </Box>
         </Box>

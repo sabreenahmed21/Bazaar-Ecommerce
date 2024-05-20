@@ -58,19 +58,19 @@ export default function ProductDetails() {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      toast.error("Please select a size.",  {
+      toast.error("Please select a size.", {
         autoClose: 2000,
       });
       return;
     }
     if (quantity < 1) {
-      toast.error("Quantity must be at least 1.",  {
+      toast.error("Quantity must be at least 1.", {
         autoClose: 2000,
       });
       return;
     }
     if (quantity > data.product.stock) {
-      toast.error(`Only ${data.product.stock} items in stock`,  {
+      toast.error(`Only ${data.product.stock} items in stock`, {
         autoClose: 2000,
       });
       return;
@@ -114,7 +114,7 @@ export default function ProductDetails() {
           <>
             <Grid container justifyContent={"space-between"}>
               <Grid item xs={12} md={4} my={3}>
-                <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
+                <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]} options={{ allowClose: true }}>
                   {activeImg && (
                     <Link to={activeImg}>
                       <img
@@ -125,11 +125,10 @@ export default function ProductDetails() {
                     </Link>
                   )}
                   {data.product.images.map((image, idx) => (
-                    <Link to={image.url}>
+                    <Link to={image.url} key={idx}>
                       <img
                         src={image.url}
                         alt={image.url}
-                        onClick={() => setActiveImg(image.url)}
                         onMouseEnter={() => handleImageHover(image.url)}
                         key={idx}
                         className="subImage"

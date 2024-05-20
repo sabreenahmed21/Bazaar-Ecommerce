@@ -18,6 +18,7 @@ import {
   getusers,
   updateUserData,
   updateProfilePhoto,
+  getProfilePhoto,
 } from "../controllers/userControll.js";
 import { uploadImage } from "../middlewares/photoUpload.js";
 
@@ -41,5 +42,6 @@ router.post(
   uploadImage.single("image"),
   updateProfilePhoto
 );
+router.get("/getProfilePhoto/:userId", protect, getProfilePhoto)
 router.patch("/updatePassword", protect, updatePassword);
 export default router;

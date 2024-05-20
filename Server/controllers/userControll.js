@@ -137,3 +137,21 @@ export const updateProfilePhoto = asyncWrapper(async (req, res, next) => {
   //. Remove the old profile picture from server
   fs.unlinkSync(imagePath);
 });
+
+export const getProfilePhoto = async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    const user = await UserModel.findById(userId);
+    if (!user || !user.avatar || !user.avatar.url) {
+      throw new Error("Profile photo not found");
+    }
+    res.status(200).json({
+      avatar: {
+        url: user.avatar.url,
+        public_id: user.avatar.public_id,
+      },
+    });
+  } catch (error) {
+    res.status(404).send("Profile photo not found");
+  }
+};

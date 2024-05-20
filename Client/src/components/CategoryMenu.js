@@ -15,11 +15,12 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-export default function CategoryMenu() {
+export default function CategoryMenu({ handleClose }) {
   const navigate = useNavigate();
   const handleMenuItemClick = (item) => {
     const link = `/category-products?category=${item.category}&subcategory=${item.subcategory}`;
     navigate(link);
+    handleClose();
   };
   const { t, i18n } = useTranslation();
   const storedLanguage = i18n.language;
@@ -150,7 +151,7 @@ export default function CategoryMenu() {
                     position: "absolute",
                     minWidth: "140px",
                     left: storedLanguage === "ar" ? "-110px" : "405px",
-                    right: storedLanguage === "ar" ?"unset":'unset'
+                    right: storedLanguage === "ar" ? "unset" : "unset",
                   },
                   zIndex: 3,
                   display: "none",

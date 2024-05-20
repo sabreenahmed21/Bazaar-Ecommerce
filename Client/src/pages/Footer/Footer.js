@@ -8,9 +8,10 @@ import {
 } from "@mui/material";
 import logo from "../../assets/logo.png";
 import { ImFacebook2 } from "react-icons/im";
-import { FaInstagramSquare, FaPaypal } from "react-icons/fa";
+import { FaInstagramSquare } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import { FaCcMastercard } from "react-icons/fa6";
 
 export default function Footer() {
   const theme = useTheme();
@@ -113,7 +114,7 @@ export default function Footer() {
                   >
                     {t("footer.securePaymentProcessing")}
                   </Typography>
-                  <FaPaypal style={{ fontSize: "24px" }} />
+                  <FaCcMastercard style={{ fontSize: "24px" }} />
                 </Box>
               </Box>
             </Grid>

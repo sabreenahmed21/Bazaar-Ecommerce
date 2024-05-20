@@ -11,16 +11,20 @@ import {
   MenuList,
   Paper,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 export default function CategoryMenu({ handleClose }) {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery('(max-width:992px)');
   const handleMenuItemClick = (item) => {
     const link = `/category-products?category=${item.category}&subcategory=${item.subcategory}`;
     navigate(link);
-    handleClose();
+    if (isMobile) {
+      handleClose();
+    }
   };
   const { t, i18n } = useTranslation();
   const storedLanguage = i18n.language;

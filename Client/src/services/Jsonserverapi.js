@@ -45,8 +45,8 @@ export const productApi = createApi({
       query: (name) => `${name}`,
     }),
     fetchProductReviews: builder.query({
-      query: (productId) => ({
-        url: `product/${productId}/reviews`,
+      query: ({productId, currentPage}) => ({
+        url: `product/${productId}/reviews?page=${currentPage}`,
         method: "GET",
       }),
     }),

@@ -9,6 +9,7 @@ import {
   Paper,
   TextField,
   MenuItem,
+  Pagination,
 } from "@mui/material";
 import { selectCurrentUser } from "../../Redux/UserSlice";
 import { toast } from "react-toastify";
@@ -28,6 +29,10 @@ export default function Review({ productId }) {
   const [reviewText, setReviewText] = useState("");
   const [rating, setRating] = useState("");
   const [reviews, setReviews] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+  console.log(totalPages, currentPage);
+
   const { t } = useTranslation();
 
   const formatDate = (isoDate) => {
@@ -45,7 +50,8 @@ export default function Review({ productId }) {
     error,
     isLoading,
     refetch,
-  } = useFetchProductReviewsQuery(productId);
+  } = useFetchProductReviewsQuery({productId,currentPage});
+  console.log(reviewsData);
 
   const [addReview] = useAddProductReviewMutation();
   const [deleteReview] = useDeleteProductReviewMutation();
@@ -54,8 +60,9 @@ export default function Review({ productId }) {
   useEffect(() => {
     if (reviewsData) {
       setReviews(reviewsData.data);
+      setTotalPages(Math.ceil(reviewsData.totalCount / 4));
     }
-  }, [reviewsData]);
+  }, [reviewsData, currentPage]);
 
   const handleDeleteReview = async (reviewId) => {
     try {
@@ -106,6 +113,11 @@ export default function Review({ productId }) {
 
   const handleNavigateToLogin = () => {
     window.location.pathname = "/login";
+  };
+
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
+    refetch(productId, page);
   };
 
   const renderReviewForm = () => (
@@ -220,11 +232,7 @@ export default function Review({ productId }) {
               readOnly
               sx={{ mt: 1, fontSize: "1.2rem" }}
             />
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ mt: 1 }}
-            >
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
               Reviewed on {formatDate(review.createdAt)}
             </Typography>
           </>
@@ -281,7 +289,29 @@ export default function Review({ productId }) {
           {t("reviews.error")}
         </Typography>
       ) : (
-        reviews.map(renderReview)
+        <>
+          <Typography variant="body1" sx={{ my: 2, color: "#000" }}>
+            show {reviewsData.results} of {reviewsData.totalCount}
+          </Typography>
+          {reviews.map(renderReview)}
+          <Box
+            sx={{
+              py: 4,
+              direction: "ltr",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {totalPages > 1 && (
+              <Pagination
+                page={currentPage}
+                count={totalPages}
+                onChange={handlePageChange}
+              />
+            )}
+          </Box>
+        </>
       )}
     </>
   );

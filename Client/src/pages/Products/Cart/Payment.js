@@ -58,7 +58,8 @@ export default function Payment() {
 
     try {
       const response = await processPayment(paymentData).unwrap();
-      const client_secret = response.data.client_secret;
+      console.log(response);
+      const client_secret = response.client_secret;
 
       if (!stripe || !elements) return;
 
@@ -101,6 +102,7 @@ export default function Payment() {
         }
       }
     } catch (error) {
+      console.log(error);
       toast.error(
         "Payment processing error. Please try again.",
         error.response ? error.response.data.message : error.message

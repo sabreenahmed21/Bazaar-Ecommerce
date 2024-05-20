@@ -52,7 +52,11 @@ export default function Checkout({ activeStep }) {
               <Typography
                 variant="body1"
                 color="initial"
-                sx={{ fontSize: "1.3rem", fontWeight: 600, lineHeight:0 }}
+                sx={{
+                  fontSize: { xs: "0.7rem", sm: "1rem", lg: "1.3rem" },
+                  fontWeight: 600,
+                  lineHeight: 0,
+                }}
               >
                 {t(`payment.${item.label}`)}
               </Typography>

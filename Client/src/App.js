@@ -32,7 +32,6 @@ import Payment from "./pages/Products/Cart/Payment.js";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import axios from "axios";
 import Thanks from "./pages/Products/Cart/Thanks.js";
 import Orders from "./pages/Products/Order/Orders.js";
 import MenWomenCategory from "./pages/Products/MenWomenCategory.js";
@@ -58,15 +57,6 @@ export default function App() {
     return () => {
       window.removeEventListener("popstate", handleRouteChange);
     };
-  }, []);
-
-  const [stripeApiKey, setStripeApiKey] = useState("");
-  async function getStripeKey() {
-    const { data } = await axios.get(`${process.env.REACT_APP_URL}/api/stripeapikey`);
-    setStripeApiKey(data.stripeapikey);
-  }
-  useEffect(() => {
-    getStripeKey();
   }, []);
 
   return (
@@ -102,16 +92,16 @@ export default function App() {
             <Route path="/favoriteProducts" element={<FavProducts />} />
             <Route path="/shipping" element={<Shipping />} />
             <Route path="/confirm-order" element={<ConfirmOrder />} />
-            <Route 
-              path="/payment" 
-              element={stripeApiKey && (
-                <Elements stripe={loadStripe(stripeApiKey)}>
+            <Route
+              path="/payment"
+              element={
+                <Elements stripe={loadStripe(process.env.REACT_APP_API_STRIPE)}>
                   <Payment />
                 </Elements>
-              )}
+              }
             />
-            <Route element={<Thanks/>} path="thank-you"/>
-            <Route element={<Orders/>} path="order"/>
+            <Route element={<Thanks />} path="thank-you" />
+            <Route element={<Orders />} path="order" />
           </Routes>
         </BrowserRouter>
       </ThemeProvider>

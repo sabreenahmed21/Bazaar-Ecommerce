@@ -12,6 +12,7 @@ import "swiper/css/autoplay";
 import "./Product.css";
 import { Autoplay, Navigation } from "swiper/modules";
 import ProductGrid from "./ProductGrid";
+import { motion } from "framer-motion";
 
 const ArrowButton = ({ children, setRef }) => (
   <Box
@@ -46,106 +47,112 @@ export default function DiscountProducts() {
   const nextEl = useRef(null);
 
   return (
-    <Paper
-      sx={{
-        overflow: "hidden",
-        my: 5,
-        pb:5,
-        direction: storedLanguage === "ar" ? "rtl" : "ltr",
-        backgroundColor: "#FFA741",
-        boxShadow:'none'
-      }}
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, delay: 0.5 }}
     >
-      <Box
+      <Paper
         sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          p: 2,
-          mb: 1
+          overflow: "hidden",
+          my: 5,
+          pb: 5,
+          direction: storedLanguage === "ar" ? "rtl" : "ltr",
+          backgroundColor: "#FFA741",
+          boxShadow: "none",
         }}
       >
-        <Typography
-          variant="h3"
-          sx={{
-            textTransform: "uppercase",
-            fontSize: "2rem",
-            fontWeight: 500,
-            letterSpacing: "0.02rem",
-            fontFamily: "Luckiest Guy",
-          }}
-        >
-          {t("products.discountedProducts")}
-        </Typography>
         <Box
-          display="flex"
-          gap={1}
-          flexDirection={storedLanguage === "ar" ? "row-reverse" : "row"}
-        >
-          <ArrowButton setRef={(node) => (prevEl.current = node)}>
-            <IoIosArrowBack />
-          </ArrowButton>
-          <ArrowButton setRef={(node) => (nextEl.current = node)}>
-            <IoIosArrowForward />
-          </ArrowButton>
-        </Box>
-      </Box>
-      {isLoading ? (
-        isLargeScreen ? (
-          <LoadingProductCard count={3} />
-        ) : isMediumScreen ? (
-          <LoadingProductCard count={2} />
-        ) : (
-          <LoadingProductCard count={1} />
-        )
-      ): isError ? (
-        <Typography
-          variant="body1"
-          color="error"
           sx={{
             display: "flex",
+            justifyContent: "space-between",
             alignItems: "center",
-            justifyContent: "center",
-            fontWeight: 600,
-            my: 2,
+            p: 2,
+            mb: 1,
           }}
         >
-          {error?.data?.message || t("errorLoadingProducts")}
-        </Typography>
-      ) : !data || data.products.length === 0 ? (
-        <Typography
-          variant="body1"
-          sx={{ mt: 2, textAlign: "center", fontWeight: 400 }}
-        >
-          {t("noProductsFound")}
-        </Typography>
-      ) : (
-        <Swiper
-          key={storedLanguage}
-          loop={true}
-          modules={[Navigation, Autoplay]}
-          className="mySwiper"
-          autoplay={{ delay: 6000 }}
-          navigation={{ prevEl: prevEl.current, nextEl: nextEl.current }}
-          slidesPerView={1}
-          breakpoints={{
-            0: { slidesPerView: 1 },
-            600: { slidesPerView: 2 },
-            900: { slidesPerView: 3 }
-          }}
-        >
-          {data.products.map((item) => (
-            <SwiperSlide key={item._id}>
-              <Link
-                to={`/product/${item._id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <ProductGrid item={item} />
-              </Link>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
-    </Paper>
+          <Typography
+            variant="h3"
+            sx={{
+              textTransform: "uppercase",
+              fontSize: "2rem",
+              fontWeight: 500,
+              letterSpacing: "0.02rem",
+              fontFamily: "Luckiest Guy",
+            }}
+          >
+            {t("products.discountedProducts")}
+          </Typography>
+          <Box
+            display="flex"
+            gap={1}
+            flexDirection={storedLanguage === "ar" ? "row-reverse" : "row"}
+          >
+            <ArrowButton setRef={(node) => (prevEl.current = node)}>
+              <IoIosArrowBack />
+            </ArrowButton>
+            <ArrowButton setRef={(node) => (nextEl.current = node)}>
+              <IoIosArrowForward />
+            </ArrowButton>
+          </Box>
+        </Box>
+        {isLoading ? (
+          isLargeScreen ? (
+            <LoadingProductCard count={3} />
+          ) : isMediumScreen ? (
+            <LoadingProductCard count={2} />
+          ) : (
+            <LoadingProductCard count={1} />
+          )
+        ) : isError ? (
+          <Typography
+            variant="body1"
+            color="error"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontWeight: 600,
+              my: 2,
+            }}
+          >
+            {error?.message || t("errorLoadingProducts")}
+          </Typography>
+        ) : !data || data.products.length === 0 ? (
+          <Typography
+            variant="body1"
+            sx={{ mt: 2, textAlign: "center", fontWeight: 400 }}
+          >
+            {t("noProductsFound")}
+          </Typography>
+        ) : (
+          <Swiper
+            key={storedLanguage}
+            loop={true}
+            modules={[Navigation, Autoplay]}
+            className="mySwiper"
+            autoplay={{ delay: 6000 }}
+            navigation={{ prevEl: prevEl.current, nextEl: nextEl.current }}
+            slidesPerView={1}
+            breakpoints={{
+              0: { slidesPerView: 1 },
+              600: { slidesPerView: 2 },
+              900: { slidesPerView: 3 },
+            }}
+          >
+            {data.products.map((item) => (
+              <SwiperSlide key={item._id}>
+                <Link
+                  to={`/product/${item._id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <ProductGrid item={item} />
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+      </Paper>
+    </motion.div>
   );
 }

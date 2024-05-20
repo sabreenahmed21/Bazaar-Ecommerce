@@ -6,10 +6,16 @@ import Active from "../../assets/Active.png";
 import Puma from "../../assets/Puma.png";
 import Ricci from "../../assets/Ricci.png";
 import Nike from "../../assets/Nike.png";
+import { motion } from "framer-motion";
 
 export default function Brands() {
   return (
-    <Box
+    <motion.div
+    initial={{ opacity: 0, y: 100 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay:0.2 }}
+  >
+  <Box
       sx={{
         backgroundColor: "#fff",
         my: 3,
@@ -30,5 +36,7 @@ export default function Brands() {
       <img src={Active} alt="Active" className="brand"/>
       <img src={Ricci} alt="Ricci" className="brand"/>
     </Box>
+  </motion.div>
+  
   );
 }

@@ -10,6 +10,7 @@ import productRout from "./routs/productRout.js";
 import { handleNotFound, errorHandler } from "./controllers/errorControll.js";
 import userRout from "./routs/userRout.js";
 import orderRout from "./routs/orderRout.js";
+import paymentRout from "./routs/paymentRout.js";
 import cookieParser from "cookie-parser";
 
 //* CONFIG
@@ -58,12 +59,13 @@ connectToDatabase();
 app.use("/api", productRout);
 app.use("/api", userRout);
 app.use("/api", orderRout);
+app.use("/api", paymentRout);
 
 //* ERROR
 app.all("*", handleNotFound);
 app.use(errorHandler);
 
-const port = process.env.PORT || 4000;
+const port = process.env.PORT ||  4000;
 app.listen(port, () => {
   console.log("listening on port " + port);
 });

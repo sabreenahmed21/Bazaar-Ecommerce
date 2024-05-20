@@ -1,12 +1,14 @@
 //import { v2 as cloudinary } from "cloudinary";
+import dotenv from 'dotenv';
+dotenv.config();
 
 import pkg from 'cloudinary';
 const { v2: cloudinary } = pkg;
 
 cloudinary.config({
-  cloud_name: 'dmp2cujg0',
-  api_key: '151971593317875',
-  api_secret: 'SOvDvYK9pgwru2TPcSSij4YEaU8',
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 //Cloudinary upload image 

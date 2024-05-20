@@ -70,7 +70,7 @@ export default function Header2() {
           borderBottom: "0.8px solid rgba(255,255,255,0.3)",
         }}
       >
-        <img src={logo} alt="logo" sx={{ width: "auto" }} />
+        <Link to={'/'}><img src={logo} alt="logo" sx={{ width: "auto" }} /></Link>
         {isLargeScreen ? (
           <SearchComponent toggleDrawer={toggleDrawer} />
         ) : (

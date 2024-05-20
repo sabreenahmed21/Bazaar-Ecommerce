@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { logout, selectCurrentUser } from "../../Redux/UserSlice";
 import {
   Box,
@@ -12,32 +12,23 @@ import {
 import { useState } from "react";
 import { FaUser, FaUserCheck } from "react-icons/fa6";
 import { MdArrowDropDown, MdOutlineArrowDropUp } from "react-icons/md";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
+import { useLogoutMutation } from "../../services/Jsonserverapi";
+
 
 function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
-  const accessToken = currentUser?.token;
   const { t } = useTranslation();
-
+  const [logoutMutation] = useLogoutMutation();
   const handlelogout = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_URL}/api/logout`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log(response);
-      if (response.status === 200) {
-        console.log("success");
-        dispatch(logout());
-        navigate("/");
-      }
+      await logoutMutation().unwrap();
+      dispatch(logout());
+      navigate("/");
     } catch (error) {
-      console.log(error);
+      console.error("Logout failed:", error);
     }
   };
 
@@ -74,7 +65,7 @@ function Profile() {
                   <FaUserCheck fontSize={"small"} />
                 </IconButton>
                 <Typography sx={{ lineHeight: 0, fontSize: "0.9rem" }}>
-                  {t("header.person.welcome")},  {currentUser?.data?.user?.name}
+                  {t("header.person.welcome")}, {currentUser?.data?.user?.name}
                 </Typography>
                 {open ? (
                   <MdOutlineArrowDropUp />
@@ -106,6 +97,12 @@ function Profile() {
                 sx={{ width: "100px", margin: " 0 20px", display: "block" }}
               >
                 {t("header.person.profile")}
+              </Button>
+              <Button
+                onClick={() => navigate("/order")}
+                sx={{ width: "100px", margin: " 0 20px", display: "block" }}
+              >
+                {t("header.person.orders")}
               </Button>
               <Button
                 onClick={handlelogout}

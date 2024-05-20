@@ -12,6 +12,7 @@ import "swiper/css/autoplay";
 import "./Product.css";
 import { Autoplay, Navigation } from "swiper/modules";
 import ProductGrid from "./ProductGrid";
+import { motion } from "framer-motion";
 
 const ArrowButton = ({ children, setRef }) => (
   <Box
@@ -52,7 +53,6 @@ export default function NewProducts() {
           justifyContent: "space-between",
           alignItems: "center",
           p: 2,
-
           mb: 1,
           borderBottom: "1px solid #80808052",
         }}
@@ -101,7 +101,7 @@ export default function NewProducts() {
             my: 2,
           }}
         >
-          {error?.data?.message || t("errorLoadingProducts")}
+          {error?.message || t("errorLoadingProducts")}
         </Typography>
       ) : !data || data.products.length === 0 ? (
         <Typography
@@ -126,15 +126,20 @@ export default function NewProducts() {
             1200: { slidesPerView: 3 },
           }}
         >
-          {" "}
           {data.products.map((item) => (
             <SwiperSlide key={item._id}>
-              <Link
-                to={`/product/${item._id}`}
-                style={{ textDecoration: "none" }}
+              <motion.div
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
               >
-                <ProductGrid item={item} />
-              </Link>
+                <Link
+                  to={`/product/${item._id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <ProductGrid item={item} />
+                </Link>
+              </motion.div>
             </SwiperSlide>
           ))}
         </Swiper>

@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { selectCurrentUser, updatePassword } from "../../Redux/UserSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,10 +14,10 @@ import {
 import { red } from "@mui/material/colors";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useUpdatePasswordMutation } from "../../services/Jsonserverapi";
 
 export default function UpdatePassword() {
   const currentUser = useSelector(selectCurrentUser);
-  const accessToken = currentUser?.token;
   const dispatch = useDispatch();
   const theme = useTheme();
   const navigate = useNavigate();
@@ -31,57 +30,49 @@ export default function UpdatePassword() {
     handleSubmit,
   } = useForm({ mode: "onBlur" });
 
-  const handleSubmitPassword = async (data) => {
+  const [updatePasswordMutation] = useUpdatePasswordMutation();
+
+  const onSubmit = async (data) => {
     try {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_URL}/api/updatePassword`,
-        {
-          passwordCurrent: data.passwordCurrent,
-          password: data.password,
-          passwordConfirm: data.passwordConfirm,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      dispatch(updatePassword(response.data.data.user.password));
+      const response = await updatePasswordMutation({
+        ...data,
+        accessToken: currentUser?.token,
+      }).unwrap();
+      dispatch(updatePassword(response?.data?.user?.password));
       Swal.fire({
         icon: "success",
         title: "Your password has been updated successfully",
         timer: 3000,
         showConfirmButton: false,
       });
-      navigate('/')
+      navigate("/");
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: error.response.data.message || "Something went wrong!",
+        text: error.data?.message || "Something went wrong!",
       });
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{bgcolor:'#fff', mt:4}}>
+    <Container maxWidth="sm" sx={{ bgcolor: "#fff", mt: 4 }}>
       <Box pt="50px" pb="50px">
-      <Box textAlign={"center"} mb={3}>
-            <Typography
-              variant="h2"
-              sx={{
-                fontWeight: "700",
-                fontSize: "1.75rem",
-                lineHeight: "1",
-                letterSpacing: "0.006em",
-                textTransform: "capitalize",
-              }}
-            >
-              {t("updateyourpassword")}
-            </Typography>
-          </Box>
-        <form onSubmit={handleSubmit(handleSubmitPassword)}>
+        <Box textAlign={"center"} mb={3}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontWeight: "700",
+              fontSize: "1.75rem",
+              lineHeight: "1",
+              letterSpacing: "0.006em",
+              textTransform: "capitalize",
+            }}
+          >
+            {t("updateyourpassword")}
+          </Typography>
+        </Box>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Box>
             <TextField
               label="Current Password"
@@ -148,10 +139,10 @@ export default function UpdatePassword() {
               letterSpacing: "0.06em",
               bgcolor: theme.palette.secondary.main,
               fontSize: "large",
-              mt: 3
+              mt: 3,
             }}
           >
-            {isSubmitting ? "Loading..." : t("updateyourpassword") } 
+            {isSubmitting ? "Loading..." : t("updateyourpassword")}
           </Button>
         </form>
       </Box>

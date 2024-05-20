@@ -15,6 +15,7 @@ import {
 import banner3 from "../../assets/menhero.jpg";
 import banner4 from "../../assets/banner-25.jpg";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -65,29 +66,35 @@ export default function Hero() {
                 p: 0,
               }}
             >
-              <MenuItem
-                sx={{
-                  backgroundColor: theme.palette.text.orange,
-                  ":hover": { backgroundColor: theme.palette.text.orange },
-                  borderRadius: "10px 10px 0 0",
-                  py: "10px",
-                  mb: "6px",
-                }}
+              <motion.div
+                 initial={{ opacity: 0, x: -100 }}
+                 animate={{ opacity: 1, x: 0 }}
+                 transition={{ duration: 0.5 }}
               >
-                <ListItemIcon>
-                  <BiCategory fontSize={"x-large"} />
-                </ListItemIcon>
-                <Typography
+                <MenuItem
                   sx={{
-                    fontWeight: "600",
-                    textTransform: "capitalize",
-                    mx: "1px",
+                    backgroundColor: theme.palette.text.orange,
+                    ":hover": { backgroundColor: theme.palette.text.orange },
+                    borderRadius: "10px 10px 0 0",
+                    py: "10px",
+                    mb: "6px",
                   }}
                 >
-                  {t("header3.categories")}
-                </Typography>
-              </MenuItem>
-              <CategoryMenu />
+                  <ListItemIcon>
+                    <BiCategory fontSize={"x-large"} />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{
+                      fontWeight: "600",
+                      textTransform: "capitalize",
+                      mx: "1px",
+                    }}
+                  >
+                    {t("header3.categories")}
+                  </Typography>
+                </MenuItem>
+                <CategoryMenu />
+              </motion.div>
             </MenuList>
           </Paper>
         </Box>

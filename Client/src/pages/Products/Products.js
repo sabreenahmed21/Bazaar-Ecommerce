@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import LoadingProductCard from "./LoadingProductCard.js";
 import { useTranslation } from "react-i18next";
 import ProductGrid from "./ProductGrid.js";
+import { motion } from "framer-motion";
 
 export default function Products() {
   const { t, i18n } = useTranslation();
@@ -62,24 +63,30 @@ export default function Products() {
         gap={2}
       >
         <HeaderComponent theme={theme} t={t} />
-        <ToggleButtonGroup
-          value={currentQuery}
-          exclusive
-          onChange={handleValueChange}
-          aria-label="Product Category"
-          sx={{ gap: 1 }}
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {categories.map((item) => (
-            <ToggleButton
-              key={item.title}
-              value={item.value}
-              aria-label={item.aria}
-              sx={toggleButtonStyles}
-            >
-              {t(`products.${item.title}`)}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
+          <ToggleButtonGroup
+            value={currentQuery}
+            exclusive
+            onChange={handleValueChange}
+            aria-label="Product Category"
+            sx={{ gap: 1 }}
+          >
+            {categories.map((item) => (
+              <ToggleButton
+                key={item.title}
+                value={item.value}
+                aria-label={item.aria}
+                sx={toggleButtonStyles}
+              >
+                {t(`products.${item.title}`)}
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        </motion.div>
       </Stack>
       {isLoading ? (
         <LoadingProductCard count={8} />
@@ -95,7 +102,7 @@ export default function Products() {
             my: 2,
           }}
         >
-          {error?.data?.message || t("errorLoadingProducts")}
+          {error?.message || t("errorLoadingProducts")}
         </Typography>
       ) : !data || data.products.length === 0 ? (
         <Typography
@@ -113,7 +120,11 @@ export default function Products() {
 
 function HeaderComponent({ theme, t }) {
   return (
-    <Box>
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+    >
       <Box display={"flex"} alignItems={"center"} gap={2}>
         <Typography
           variant="h3"
@@ -144,7 +155,7 @@ function HeaderComponent({ theme, t }) {
       >
         {t("products.brandSelection")}
       </Typography>
-    </Box>
+    </motion.div>
   );
 }
 

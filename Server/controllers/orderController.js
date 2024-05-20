@@ -14,8 +14,18 @@ export const createOrder = asyncWrapper(async (req, res, next) => {
     taxPrice,
     shippingPrice,
     totalPrice,
-    orderStatus,
   } = req.body;
+  if (
+    !shippingInfo ||
+    !orderItems ||
+    !paymentInfo ||
+    !itemsPrice ||
+    !taxPrice ||
+    !shippingPrice ||
+    !totalPrice
+  ) {
+    return next(new appError("All fields are required", 400));
+  }
   const order = await Order.create({
     shippingInfo,
     orderItems,
@@ -24,7 +34,6 @@ export const createOrder = asyncWrapper(async (req, res, next) => {
     taxPrice,
     shippingPrice,
     totalPrice,
-    orderStatus,
     paidAt: Date.now(),
     user: req.user._id,
   });
@@ -76,7 +85,7 @@ export const getAllOrders = asyncWrapper(async (req, res, next) => {
 //update orders --Admin
 export const updateOrders = asyncWrapper(async (req, res, next) => {
   const order = await Order.find(req.params.id);
-  if(!order){
+  if (!order) {
     return next(new appError("Order not found with this id", 404));
   }
   if (order.orderStatus === "Delivered") {
@@ -104,12 +113,11 @@ async function updateStock(id, quantity) {
 //delete order --Admin
 export const deleteOrder = asyncWrapper(async (req, res, next) => {
   const deletedOrder = await Order.find(req.params.id);
-  if(!deletedOrder){
+  if (!deletedOrder) {
     return next(new appError("Order not found with this id", 404));
   }
   await deleteOrder.remove();
   res.status(204).json({
-    status: httpStatusText.SUCCESS
-})
+    status: httpStatusText.SUCCESS,
+  });
 });
-

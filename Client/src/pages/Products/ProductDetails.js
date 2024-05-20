@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from "react";
 import "./Product.css";
 import {
@@ -57,15 +58,21 @@ export default function ProductDetails() {
 
   const handleAddToCart = () => {
     if (!selectedSize) {
-      toast.error("Please select a size.");
+      toast.error("Please select a size.",  {
+        autoClose: 2000,
+      });
       return;
     }
     if (quantity < 1) {
-      toast.error("Quantity must be at least 1.");
+      toast.error("Quantity must be at least 1.",  {
+        autoClose: 2000,
+      });
       return;
     }
     if (quantity > data.product.stock) {
-      toast.error(`Only ${data.product.stock} items in stock`);
+      toast.error(`Only ${data.product.stock} items in stock`,  {
+        autoClose: 2000,
+      });
       return;
     }
     const productToAdd = {
@@ -97,7 +104,7 @@ export default function ProductDetails() {
             display={"flex"}
             alignItems={"center"}
             justifyContent={"center"}
-            height={'50vh'}
+            height={"50vh"}
           >
             <span className="loader"></span>
           </Box>
@@ -107,57 +114,6 @@ export default function ProductDetails() {
           <>
             <Grid container justifyContent={"space-between"}>
               <Grid item xs={12} md={4} my={3}>
-                {/* <Box
-                  display={"flex"}
-                  flexDirection={"column"}
-                  gap={3}
-                  flexBasis={"100%"}
-                  flexGrow={0}
-                  maxWidth={"100%"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                >
-                  <Box
-                    height={"400px"}
-                    maxWidth={"100%"}
-                    bgcolor={"#FFF"}
-                    width={"100%"}
-                  >
-                    {activeImg && (
-                      <img
-                        src={activeImg}
-                        alt="productImgDetails"
-                        className="mainImage"
-                      />
-                    )}
-                  </Box>
-                  <Box
-                    display={"flex"}
-                    flexDirection="row"
-                    gap={2}
-                    height={"40px"}
-                  >
-                    {data.product.images.map((image, idx) => (
-                      <Link to={image.url}>
-                        <img
-                          src={image.url}
-                          alt={image.url}
-                          onClick={() => setActiveImg(image.url)}
-                          onMouseEnter={() => handleImageHover(image.url)}
-                          key={idx}
-                          className="subImage"
-                          style={{
-                            border:
-                              activeImg === image.url
-                                ? "1px solid black"
-                                : "none",
-                          }}
-                        />
-                      </Link>
-                    ))}
-                  </Box>
-                </Box> */}
-
                 <LightGallery speed={500} plugins={[lgThumbnail, lgZoom]}>
                   {activeImg && (
                     <Link to={activeImg}>
@@ -187,7 +143,6 @@ export default function ProductDetails() {
                     </Link>
                   ))}
                 </LightGallery>
-
               </Grid>
 
               <Grid item xs={12} md={7.5} my={3}>
@@ -279,7 +234,7 @@ export default function ProductDetails() {
                       fontSize={"0.95rem"}
                       color={theme.palette.grey[800]}
                     >
-                      {data.product.rating.toFixed(1)}
+                      {data.product.averageRating}
                     </Typography>
                     <Rating
                       name="read-only"
@@ -419,12 +374,12 @@ export default function ProductDetails() {
                 </Box>
               </Grid>
             </Grid>
-            <Review productId={data.product._id} />
             <SimilarProducts
               productId={productId}
               category={data?.product.category}
               subcategory={data?.product.subcategory}
             />
+            <Review productId={data.product._id} />
           </>
         )}
       </Container>

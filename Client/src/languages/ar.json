@@ -9,7 +9,8 @@
       "welcome": "مرحبـا",
       "profile": "حسابك",
       "logout": "تسجيل الخروج",
-      "login": "تسجيل الدخول"
+      "login": "تسجيل الدخول",
+      "orders":"الطلبات"
     }
   },
   "header2": {
@@ -214,5 +215,31 @@
     "image":"الصورة"
   },
   "errorLoadingProducts":"خطا فى تحميل المنتجات",
-  "noProductsFound":"لم يوجد منتجات "
+  "noProductsFound":"لم يوجد منتجات ",
+  "payment":{
+    "shippingDetails":"تفاصيل الشحن",
+    "confirmOrder":"تأكيد الطلب",
+    "payment":"الدفع",
+    "shippingInfo":"معلومات الشحن",
+    "name":"الاسم",
+    "phone":"الموبيل",
+    "address":"العنوان",
+    "orderItems":"الطلب",
+    "quantity":"الكميه",
+    "size":"المقاس",
+    "pricePerUnit":"السعر لكل وحدة",
+    "totalPrice":"السعر الكلي ",
+    "orderSummary":"ملخص الطلب",
+    "Subtotal":"المجموع الفرعي",
+    "shippingCharges":"رسوم الشحن",
+    "GST":"ضريبة السلع والخدمات",
+    "proceedToPayment":"بدء الدفع",
+    "cardInformation":"معلومات البطاقة",
+    "pay":"دفع",
+    "thanks":"شكرًا لكم!",
+    "request":"لقد تم استلام طلبكم بنجاح.",
+    "charge":"سنقوم بمعالجة الطلب وشحنه في أقرب وقت ممكن.",
+    "viewOrder":"اعرض الطلب",
+    "continueShopping":"استمر بالتسوق"
+  }
 }

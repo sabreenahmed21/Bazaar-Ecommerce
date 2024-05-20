@@ -2,24 +2,26 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import userReducer from "./UserSlice.js";
+import { productApi } from "../services/Jsonserverapi";
+import userReducer from "./UserSlice";
 import cartReducer from "./CartSlice";
-import favReducer from "./FavoriteSlice.js";
-import { productApi } from "../services/Jsonserverapi.js";
+import favReducer from "./FavoriteSlice";
+import orderReducer from "./OrderSlice";
 
 // Combine reducers
 const rootReducer = combineReducers({
   user: userReducer,
   cart: cartReducer,
   favorite: favReducer,
+  orders: orderReducer,
   [productApi.reducerPath]: productApi.reducer,
 });
 
-// Redux persist configuration for both user and cart data
+// Redux persist configuration
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["user", "cart", "favorite"], // Now persisting both user and cart slices of the state
+  whitelist: ["user", "cart", "favorite", "orders"],
   version: 1,
 };
 

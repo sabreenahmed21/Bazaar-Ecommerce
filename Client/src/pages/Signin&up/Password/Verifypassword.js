@@ -13,7 +13,6 @@ import { grey, red } from "@mui/material/colors";
 import { useForm } from "react-hook-form";
 import { useVerifyCodePasswordMutation } from "../../../services/Jsonserverapi";
 import { useTranslation } from "react-i18next";
-// import axios from "axios";
 
 const Verifypassword = () => {
   const theme = useTheme();
@@ -31,21 +30,6 @@ const Verifypassword = () => {
     setTokenValid("");
   }, [register]);
 
-  // const handleVerifyCode = async (data) => {
-  //   try {
-  //     const response = await axios.post(
-  //       `${process.env.REACT_APP_URL}/api/verifycode`,
-  //       {
-  //         code: data.verificationCode,
-  //       }
-  //     );
-  //     const token = response.data.data;
-  //     navigate(`/resetpassword/${token}`);
-  //   } catch (error) {
-  //     setTokenValid(error.response.data.message);
-  //   }
-  // };
-
   const [verifyCodePassword, { isLoading }] = useVerifyCodePasswordMutation();
   const handleVerifyCode = async (data) => {
     const response = await verifyCodePassword(data.verificationCode);
@@ -60,8 +44,12 @@ const Verifypassword = () => {
   return (
     <>
       {isLoading && <LinearProgress determinate />}
-      <Container maxWidth="sm" sx={{bgcolor:'#fff', mt:4}}>
-        <Box pt="50px" pb="50px" sx={{ direction: storedLanguage === 'ar' ? "rtl":"ltr"}}>
+      <Container maxWidth="sm" sx={{ bgcolor: "#fff", mt: 4 }}>
+        <Box
+          pt="50px"
+          pb="50px"
+          sx={{ direction: storedLanguage === "ar" ? "rtl" : "ltr" }}
+        >
           <Box textAlign={"center"} mb={3}>
             <Typography
               variant="h2"
@@ -78,7 +66,7 @@ const Verifypassword = () => {
           </Box>
           <Box mt="20px" border="1px gray solid" borderRadius="10px" p="20px">
             <Typography style={{ color: grey[600], marginBottom: "15px" }}>
-            {t("login&signup.msgVerifyPassword")}
+              {t("login&signup.msgVerifyPassword")}
             </Typography>
             <form noValidate onSubmit={handleSubmit(handleVerifyCode)}>
               <TextField
@@ -107,7 +95,7 @@ const Verifypassword = () => {
                   fontWeight: "600",
                   letterSpacing: "0.06em",
                   bgcolor: theme.palette.text.yellow,
-                ':hover':{bgcolor: theme.palette.text.yellow},
+                  ":hover": { bgcolor: theme.palette.text.yellow },
                   fontSize: "large",
                   mt: 3,
                 }}

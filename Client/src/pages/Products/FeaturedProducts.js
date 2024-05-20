@@ -13,6 +13,7 @@ import "swiper/css/autoplay";
 import { Autoplay, Navigation } from "swiper/modules";
 import "./Product.css";
 import ProductGrid from "./ProductGrid";
+import { motion } from "framer-motion";
 
 export default function FeaturedProducts() {
   const { t, i18n } = useTranslation();
@@ -96,7 +97,7 @@ export default function FeaturedProducts() {
             my: 2,
           }}
         >
-          {error?.data?.message || t("errorLoadingProducts")}
+          {error?.message || t("errorLoadingProducts")}
         </Typography>
       ) : !data || data.products.length === 0 ? (
         <Typography
@@ -123,12 +124,18 @@ export default function FeaturedProducts() {
         >
           {data.products.map((item) => (
             <SwiperSlide key={item._id}>
-              <Link
-                to={`/product/${item._id}`}
-                style={{ textDecoration: "none" }}
+              <motion.div
+                initial={{ opacity: 0, x: 100 }}
+                transition={{ duration: 0.5 }}
+                whileInView={{ opacity: 1, x: 0 }}
               >
-                <ProductGrid item={item} />
-              </Link>
+                <Link
+                  to={`/product/${item._id}`}
+                  style={{ textDecoration: "none" }}
+                >
+                  <ProductGrid item={item} />
+                </Link>
+              </motion.div>
             </SwiperSlide>
           ))}
         </Swiper>

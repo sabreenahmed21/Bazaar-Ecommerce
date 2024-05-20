@@ -1,49 +1,38 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useState } from "react";
-import { selectCurrentUser, updateUserName } from "../../Redux/UserSlice";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import React, { useState } from "react";
+import { updateUserName } from "../../Redux/UserSlice";
+import { useDispatch } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import { Box, Button, TextField, useTheme } from "@mui/material";
+import { useUpdateUserDataMutation } from "../../services/Jsonserverapi";
 
 export default function UpdateUserData() {
-  const currentUser = useSelector(selectCurrentUser);
-  const accessToken = currentUser?.token;
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const theme = useTheme();
 
-  const handleSubmitForm = useCallback(async (formData) => {
-    setLoading(true);
-    try {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_URL}/api/updateUserData`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        toast.success("Your date updated successfully!");
-        dispatch(updateUserName(response.data.data.user.name));
-      }
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "An error occurred");
-    } finally {
-      setLoading(false);
-    }
-  });
+  const [updateUserData] = useUpdateUserDataMutation();
   const {
     register,
     handleSubmit,
   } = useForm({ mode: "onBlur" });
-  
+
+  const handleSubmitForm = async (formData) => {
+    setLoading(true);
+    try {
+      const response = await updateUserData(formData).unwrap();
+      if (response) {
+        toast.success("Your data updated successfully!");
+        dispatch(updateUserName(response.data.user.name));
+      }
+    } catch (error) {
+      toast.error(error?.data?.message || "An error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box width={'100%'} mt={5}>
       <ToastContainer />

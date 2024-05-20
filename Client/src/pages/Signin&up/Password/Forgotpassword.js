@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-//import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import {
   TextField,
@@ -21,18 +20,6 @@ export default function Forgotpassword() {
   const theme = useTheme();
   const { t, i18n } = useTranslation();
   const storedLanguage = i18n.language;
-
-  // const handleForgetPassword = async (email) => {
-  //   try {
-  //     await axios.post(
-  //       `${process.env.REACT_APP_URL}/api/forgetpassword`,
-  //       email
-  //     );
-  //     navigate("/verifypassword");
-  //   } catch (error) {
-  //     setEmailError(error.response.data.message);
-  //   }
-  // };
 
   const [forgetPassword, { isLoading }] = useForgetPasswordMutation();
   const handleForgetPassword = async (email) => {
@@ -59,8 +46,12 @@ export default function Forgotpassword() {
   return (
     <>
       {isLoading && <LinearProgress determinate />}
-      <Container maxWidth="sm" sx={{bgcolor:'#fff', mt:4}}>
-        <Box pt="50px" pb="50px" sx={{ direction: storedLanguage === 'ar' ? "rtl":"ltr"}}>
+      <Container maxWidth="sm" sx={{ bgcolor: "#fff", mt: 4 }}>
+        <Box
+          pt="50px"
+          pb="50px"
+          sx={{ direction: storedLanguage === "ar" ? "rtl" : "ltr" }}
+        >
           <Box textAlign={"center"} mb={3}>
             <Typography
               variant="h2"
@@ -78,11 +69,10 @@ export default function Forgotpassword() {
           </Box>
           <Box mt="20px" border="1px gray solid" borderRadius="10px" p="20px">
             <Typography style={{ color: grey[600], marginBottom: "15px" }}>
-            {t("login&signup.msgForgetPassword")}
+              {t("login&signup.msgForgetPassword")}
             </Typography>
 
             <form noValidate onSubmit={handleSubmit(handleForgetPassword)}>
-
               <Box mb="20px">
                 <label htmlFor="email">{t("login&signup.email")}</label>
                 <TextField
@@ -110,13 +100,12 @@ export default function Forgotpassword() {
                   fontWeight: "600",
                   letterSpacing: "0.06em",
                   bgcolor: theme.palette.text.yellow,
-                ':hover':{bgcolor: theme.palette.text.yellow},
+                  ":hover": { bgcolor: theme.palette.text.yellow },
                   fontSize: "large",
                 }}
               >
                 {t("login&signup.Sendresetcode")}
               </Button>
-
             </form>
             <Link
               to="/login"

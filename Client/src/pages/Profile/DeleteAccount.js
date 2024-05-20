@@ -1,16 +1,14 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import { Box, Container, Typography, Button, TextField, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectCurrentUser } from "../../Redux/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { red } from "@mui/material/colors";
 import { useTranslation } from "react-i18next";
+import { useDeleteAccountMutation } from "../../services/Jsonserverapi";
 
 const DeleteAccount = () => {
   const dispatch = useDispatch();
@@ -21,44 +19,33 @@ const DeleteAccount = () => {
   const currentUser = useSelector(selectCurrentUser);
   const accessToken = currentUser?.token;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const [errorMessage, setErrorMessage] = useState("");
   const clearErrorMessage = () => {
     setErrorMessage("");
   };
 
-  const onSubmit = async (currentPassword) => {
+  const [deleteAccount] = useDeleteAccountMutation();
+
+  const onSubmit = async ({ currentPassword }) => {
     try {
-      const res = await axios.delete(
-        `${process.env.REACT_APP_URL}/api/delete-me`,
-        {
-          data: currentPassword,
-          headers :{
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify(currentPassword),
-        }
-      );
+      const res = await deleteAccount({ currentPassword, accessToken }).unwrap();
       Swal.fire({
         icon: "success",
-        title: `${res.data.message}`,
+        title: `${res.message}`,
         timer: 3000,
         showConfirmButton: false,
       });
       dispatch(logout());
       navigate("/");
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      setErrorMessage(error.data.message);
     }
   };
 
   return (
-    <Container maxWidth="sm" sx={{bgcolor:'#fff', mt:4, py:'1px'}}>
+    <Container maxWidth="sm" sx={{ bgcolor: '#fff', mt: 4, py: '1px' }}>
       <Box my={8}>
         <Box align="center" my={5}>
           <Typography
@@ -126,7 +113,7 @@ const DeleteAccount = () => {
             </Button>
             <Link to={"/"}>
               <Button
-                type="submit"
+                type="button"
                 variant="contained"
                 size="medium"
                 fullWidth

@@ -1,13 +1,20 @@
 import path from 'path'
 import multer from 'multer'
 import { fileURLToPath } from 'url';
+import fs from 'fs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+const imageDir = path.join(__dirname, '../utils/images');
+if (!fs.existsSync(imageDir)) {
+  fs.mkdirSync(imageDir, { recursive: true });
+}
+
 
 //photo Storage (USER)
 const photoStorage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, path.join(__dirname,'../utils/images'))
+    cb(null, imageDir)
   },
   filename: function(req, file, cb){
     if(file){

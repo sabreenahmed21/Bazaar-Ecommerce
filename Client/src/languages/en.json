@@ -9,7 +9,8 @@
       "welcome": "Welcome ",
       "profile": "Your profile",
       "logout": "Log out",
-      "login": "Log in"
+      "login": "Log in",
+      "orders":"orders"
     }
   },
   "header2": {
@@ -215,5 +216,31 @@
     "image":"Image"
   },
   "errorLoadingProducts":"Error Loading Products",
-  "noProductsFound":"No Products Found"
+  "noProductsFound":"No Products Found",
+  "payment":{
+    "shippingDetails":"Shipping Details",
+    "confirmOrder":"confirm Order",
+    "payment":"payment",
+    "shippingInfo":"shipping Info",
+    "name":"name",
+    "phone":"phone",
+    "address":"address",
+    "orderItems":"order Items",
+    "quantity":"quantity",
+    "size":"size",
+    "pricePerUnit":"price Per Unit",
+    "totalPrice":"total Price",
+    "orderSummary":"order Summary",
+    "Subtotal":"Subtotal",
+    "shippingCharges":"shipping Charges",
+    "GST":"GST",
+    "proceedToPayment":"proceed To Payment",
+    "cardInformation":"card Information",
+    "pay":"Pay",
+    "thanks":"Thank you all!",
+    "request":"Your request has been received successfully.",
+    "charge":"We will process the order and ship it as soon as possible.",
+    "viewOrder":"view Order",
+    "continueShopping":"continue Shopping"
+  }
 }

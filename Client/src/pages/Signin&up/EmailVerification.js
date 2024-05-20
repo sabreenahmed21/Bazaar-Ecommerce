@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-//import axios from "axios";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   TextField,
   Button,
@@ -34,47 +33,32 @@ const Verify = () => {
 
   const [verifyCodeEmail, { isLoading }] = useVerifyCodeEmailMutation();
   const handleVerify = async (data) => {
-      await verifyCodeEmail(data)
+    await verifyCodeEmail(data)
       .unwrap()
       .then(() => {
-      Swal.fire({
-        icon: "success",
-        title: "Email Verified",
-        text: "Your email has been successfully verified. You can now log in. 💕",
-        timer: 5000,
-        showConfirmButton: false,
+        Swal.fire({
+          icon: "success",
+          title: "Email Verified",
+          text: "Your email has been successfully verified. You can now log in. 💕",
+          timer: 5000,
+          showConfirmButton: false,
+        });
+        navigate("/login");
+      })
+      .catch((error) => {
+        setTokenValid("Invalid verification code");
       });
-      navigate("/login");
-    })
-    .catch((error) =>{
-      setTokenValid("Invalid verification code");
-    })
   };
-
-  // const handleVerify = async (data) => {
-  //   try {
-  //     await axios.get(
-  //       `${process.env.REACT_APP_URL}/api/verify-email?verificationCode=${data.verificationCode}`
-  //     );
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Email Verified",
-  //       text: "Your email has been successfully verified. You can now log in. 💕",
-  //       timer: 5000,
-  //       showConfirmButton: false,
-  //     });
-  //     navigate("/login");
-  //   } catch (error) {
-  //     console.error("Verification failed:", error);
-  //     setTokenValid("Invalid verification code");
-  //   }
-  // };
 
   return (
     <>
       {isLoading && <LinearProgress determinate />}
-      <Container maxWidth="sm" sx={{bgcolor:'#fff', mt:4}}>
-        <Box pt="50px" pb="50px" sx={{ direction: storedLanguage === 'ar' ? "rtl":"ltr"}}>
+      <Container maxWidth="sm" sx={{ bgcolor: "#fff", mt: 4 }}>
+        <Box
+          pt="50px"
+          pb="50px"
+          sx={{ direction: storedLanguage === "ar" ? "rtl" : "ltr" }}
+        >
           <Box textAlign={"center"} mb={3}>
             <Typography
               variant="h2"
@@ -119,7 +103,7 @@ const Verify = () => {
                   fontWeight: "600",
                   letterSpacing: "0.06em",
                   bgcolor: theme.palette.text.yellow,
-                ':hover':{bgcolor: theme.palette.text.yellow},
+                  ":hover": { bgcolor: theme.palette.text.yellow },
                   mt: 2,
                   fontSize: "large",
                 }}

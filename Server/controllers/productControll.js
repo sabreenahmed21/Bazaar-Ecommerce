@@ -144,16 +144,3 @@ export const getSimilarProductsBySubcategory = asyncWrapper(
     });
   }
 );
-export const getProducts = asyncWrapper(async (req, res, next) => {
-  const lang = req.query.lang || "en";
-  const productIds = req.params.productIds.split(",");
-  const productsData = await Product.find({
-    _id: { $in: productIds.map((id) => mongoose.Types.ObjectId(id)) },
-  });
-  const localizedProducts = productsData.map((product) =>
-    localizeProduct(product, lang)
-  );
-  res
-    .status(200)
-    .json({ state: httpStatusText.SUCCESS, products: localizedProducts });
-});

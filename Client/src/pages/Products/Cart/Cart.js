@@ -17,9 +17,11 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { selectCurrentUser } from "../../../Redux/UserSlice";
 
 function Cart() {
   const { t } = useTranslation();
+  const currentUser = useSelector(selectCurrentUser);
   const items = useSelector((state) => state.cart.items);
   const totalPrice = items.reduce((total, item) => {
     return total + item.priceAfterDiscount * item.quantity;
@@ -94,7 +96,7 @@ function Cart() {
               </Table>
             </TableContainer>
             <Box width={"100%"}>
-              <Link to={"/checkoutProducts"}>
+              <Link to={currentUser ? "/shipping" : "/login"}>
                 <Button
                   size="large"
                   sx={{

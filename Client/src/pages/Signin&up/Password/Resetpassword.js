@@ -1,4 +1,3 @@
-//import axios from "axios";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -55,8 +54,12 @@ const ResetPassword = () => {
   return (
     <>
       {isLoading && <LinearProgress determinate />}
-      <Container maxWidth="sm" sx={{bgcolor:'#fff', mt:4}}>
-        <Box pt="50px" pb="50px" sx={{ direction: storedLanguage === 'ar' ? "rtl":"ltr"}}>
+      <Container maxWidth="sm" sx={{ bgcolor: "#fff", mt: 4 }}>
+        <Box
+          pt="50px"
+          pb="50px"
+          sx={{ direction: storedLanguage === "ar" ? "rtl" : "ltr" }}
+        >
           <Box textAlign={"center"} mb={3}>
             <Typography
               variant="h2"
@@ -73,7 +76,7 @@ const ResetPassword = () => {
           </Box>
           <Box mt="20px" border="1px gray solid" borderRadius="10px" p="20px">
             <Typography style={{ color: grey[600], marginBottom: "15px" }}>
-            {t("login&signup.choosenewPassword")}
+              {t("login&signup.choosenewPassword")}
             </Typography>
             {!tokenValid && (
               <Typography
@@ -84,7 +87,6 @@ const ResetPassword = () => {
               </Typography>
             )}
             <form onSubmit={handleSubmit(handleResetPassword)}>
-
               <Box mb="15px">
                 <TextField
                   type="password"
@@ -137,13 +139,12 @@ const ResetPassword = () => {
                   fontWeight: "600",
                   letterSpacing: "0.06em",
                   bgcolor: theme.palette.text.yellow,
-                ':hover':{bgcolor: theme.palette.text.yellow},
+                  ":hover": { bgcolor: theme.palette.text.yellow },
                   fontSize: "large",
                 }}
               >
                 {t("login&signup.savepPassword")}
               </Button>
-
             </form>
           </Box>
         </Box>

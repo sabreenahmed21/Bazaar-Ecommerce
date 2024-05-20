@@ -6,8 +6,7 @@ import {
   deleteProduct,
   getProductDetails,
   discountedProducts,
-  getSimilarProductsBySubcategory,
-  getProducts,
+  getSimilarProductsBySubcategory
 } from "../controllers/productControll.js";
 import { authorizeRoles, protect } from "../controllers/authController.js";
 import { upload } from "../middlewares/photoUpload.js";
@@ -36,7 +35,6 @@ router
   //.put(protect, authorizeRoles("admin"), updateProduct)
   .put(updateProduct)
   .get(getProductDetails);
-router.route("/product/:productId").get(getProducts);
 
 router
   .route("/product/:productId/reviews")

@@ -233,7 +233,7 @@ export default function ProductDetails() {
                       fontSize={"0.95rem"}
                       color={theme.palette.grey[800]}
                     >
-                      {data.product.averageRating}
+                      {data.product.rating}
                     </Typography>
                     <Rating
                       name="read-only"

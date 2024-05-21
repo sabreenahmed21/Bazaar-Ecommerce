@@ -31,7 +31,6 @@ export default function Review({ productId }) {
   const [reviews, setReviews] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  console.log(totalPages, currentPage);
 
   const { t } = useTranslation();
 
@@ -51,7 +50,6 @@ export default function Review({ productId }) {
     isLoading,
     refetch,
   } = useFetchProductReviewsQuery({productId,currentPage});
-  console.log(reviewsData);
 
   const [addReview] = useAddProductReviewMutation();
   const [deleteReview] = useDeleteProductReviewMutation();

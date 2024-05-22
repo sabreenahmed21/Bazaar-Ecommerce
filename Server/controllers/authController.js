@@ -97,7 +97,7 @@ export const authorizeRoles = (...roles) => {
 };
 
 export const signup = asyncWrapper(async (req, res, next) => {
-  const { name, email, password, passwordConfirm } = req.body;
+  const { name, email, password, passwordConfirm, role } = req.body;
 
   const existingUser = await UserModel.findOne({ email });
 
@@ -171,6 +171,7 @@ export const signup = asyncWrapper(async (req, res, next) => {
     passwordConfirm,
     verificationCode,
     verified: false,
+    role,
     avatar: { public_id: "this is id", url: "profile url" },
   });
   await newUser.save();
@@ -412,6 +413,9 @@ export const logout = asyncWrapper(async (req, res, next) => {
 export const updatePassword = asyncWrapper(async (req, res, next) => {
   //1) Get user from collection
   const user = await UserModel.findById(req.user._id).select("+password");
+  if (!user) {
+    return next(new appError("User not found.", 404));
+  }
   //2) check if posted current password is correct
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
     return next(new appError("Your current password is Invalid password", 401));

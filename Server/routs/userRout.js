@@ -19,12 +19,13 @@ import {
   updateUserData,
   updateProfilePhoto,
   getProfilePhoto,
+  getAllAdmins,
 } from "../controllers/userControll.js";
 import { uploadImage } from "../middlewares/photoUpload.js";
 
-//router.get("/admin/users", protect, authorizeRoles("admin"), getusers);
+router.get("/admin/users", protect, authorizeRoles("admin"), getusers);
+router.get("/admins", protect, authorizeRoles("admin"), getAllAdmins);
 router.get("/admin/:id", protect, authorizeRoles("admin"), getOneUser);
-router.get("/users", getusers);
 
 router.post("/signup", signup);
 router.post("/login", login);

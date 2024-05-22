@@ -50,21 +50,8 @@ body {
   }
 }
 
-.MuiButtonBase-root {
-  text-transform: capitalize !important;
-}
-
-.logo {
-  margin-bottom: 10px;
-  width: auto;
-}
-
 a {
   text-decoration: none;
-}
-
-:lang(ar) {
-  direction: rtl;
 }
 
 .loader {

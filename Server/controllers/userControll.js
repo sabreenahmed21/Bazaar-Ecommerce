@@ -20,16 +20,31 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-export const getusers = asyncWrapper(async (req, res, next) => {
-  const users = await UserModel.find();
+export const getusers = async (req, res, next) => {
+  const users = await UserModel.find({ role: 'user' });
   if (!users) {
     return next(new appError("Users Not Found", 401, httpStatusText.FAIL));
   }
   res.status(200).json({
-    state: httpStatusText.SUCCESS,
-    users,
+    status: httpStatusText.SUCCESS,
+    results: users.length,
+    data: {
+      users,
+    },
   });
-});
+};
+
+export const getAllAdmins = async (req, res, next) => {
+  const admins = await User.find({ role: 'admin' });
+  res.status(200).json({
+    status: 'success',
+    results: admins.length,
+    data: {
+      admins,
+    },
+  });
+};
+
 
 export const getOneUser = asyncWrapper(async (req, res, next) => {
   const user = await UserModel.findById(req.params.id);
@@ -70,7 +85,7 @@ export const deleteMe = asyncWrapper(async (req, res, next) => {
   res.status(200).json({
     state: httpStatusText.SUCCESS,
     data: null,
-    message: "User deleted successfully",
+    message: "Account deleted successfully",
   });
 });
 

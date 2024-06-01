@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Button,
   TextField,
@@ -15,9 +13,12 @@ import {
   ListItemText,
   Checkbox,
   Box,
+  IconButton,
 } from "@mui/material";
-import { useAddProductByAdminMutation } from "../services/Jsonserverapi";
-//import { useAddProductByAdminMutation } from "../services/Jsonserverapi";
+import { useAddProductByAdminMutation } from "../../../services/Jsonserverapi";
+import { MdDelete } from "react-icons/md";
+import { FaArrowCircleUp } from "react-icons/fa";
+import { FaArrowCircleDown } from "react-icons/fa";
 
 const useInput = (
   initialValue,
@@ -63,7 +64,17 @@ const AddProductForm = () => {
   const [subcategories, setSubcategories] = useState([]);
 
   const availableSizes = ["Small", "Medium", "Large", "Extra Large"];
-  const availableBrands = ['Nike', 'Adidas', 'Puma', 'Gucci', 'Versace', 'azeez', 'Ricci', 'Defacto', 'Active']
+  const availableBrands = [
+    "Nike",
+    "Adidas",
+    "Puma",
+    "Gucci",
+    "Versace",
+    "azeez",
+    "Ricci",
+    "Defacto",
+    "Active",
+  ];
 
   useEffect(() => {
     switch (category) {
@@ -77,7 +88,7 @@ const AddProductForm = () => {
           "Sportswear",
           "Homewear",
           "Pullover",
-          "Hoodies"
+          "Hoodies",
         ]);
         break;
       case "women":
@@ -100,9 +111,10 @@ const AddProductForm = () => {
     }
   }, [category]);
 
-  const [addProductByAdmin, { isLoading, data, error }] = useAddProductByAdminMutation();
+  const [addProductByAdmin, { isLoading, data, error }] =
+    useAddProductByAdminMutation();
   console.log(data, error);
-
+console.log(images);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -119,7 +131,8 @@ const AddProductForm = () => {
     formData.append("brand", brand);
     formData.append("rating", rating);
     sizes.forEach((size) => formData.append("sizes", size));
-    images.forEach((image) => formData.append("images", image));
+    images.forEach((image) => formData.append("images", image.file));
+
 
     try {
       const res = await addProductByAdmin(formData).unwrap();
@@ -132,7 +145,33 @@ const AddProductForm = () => {
   };
 
   const handleImageChange = (e) => {
-    setImages([...images, ...Array.from(e.target.files)]);
+    const files = Array.from(e.target.files);
+    const imagesWithPreview = files.map((file) => ({
+      file,
+      preview: URL.createObjectURL(file),
+    }));
+    setImages([...images, ...imagesWithPreview]);
+  };
+  const handleRemoveImage = (index) => {
+    setImages(images.filter((_, i) => i !== index));
+  };
+
+  const handleMoveImageUp = (index) => {
+    if (index === 0) return;
+    const newImages = [...images];
+    const temp = newImages[index];
+    newImages[index] = newImages[index - 1];
+    newImages[index - 1] = temp;
+    setImages(newImages);
+  };
+
+  const handleMoveImageDown = (index) => {
+    if (index === images.length - 1) return;
+    const newImages = [...images];
+    const temp = newImages[index];
+    newImages[index] = newImages[index + 1];
+    newImages[index + 1] = temp;
+    setImages(newImages);
   };
 
   const handleCloseSnackbar = () => {
@@ -185,7 +224,7 @@ const AddProductForm = () => {
             />
             <TextField
               name="originalPrice"
-              label="originalPrice"
+              label="Original Price"
               type="number"
               fullWidth
               margin="normal"
@@ -194,7 +233,7 @@ const AddProductForm = () => {
             />
             <TextField
               name="discountPercentage"
-              label="discountPercentage"
+              label="Discount Percentage"
               type="number"
               fullWidth
               margin="normal"
@@ -209,7 +248,7 @@ const AddProductForm = () => {
               margin="normal"
               value={rating}
               onChange={handleRatingChange}
-              inputProps={{ min: 0, max: 5, step:0.1}}
+              inputProps={{ min: 0, max: 5, step: 0.1 }}
             />
             <InputLabel>Category</InputLabel>
             <Select
@@ -278,51 +317,57 @@ const AddProductForm = () => {
               ))}
             </Select>
             <Box>
-            <Checkbox
-              checked={featured}
-              onChange={(e) => setFeatured(e.target.checked)}
-              name="featured"
-              id="featured"
-            />
-            <label htmlFor="featured">Featured Product</label>
+              <Checkbox
+                checked={featured}
+                onChange={(e) => setFeatured(e.target.checked)}
+                name="featured"
+                id="featured"
+              />
+              <label htmlFor="featured">Featured Product</label>
             </Box>
-            <input
+              <input
               accept="image/*"
-              style={{ display: "none" }}
-              id="raised-button-file"
-              multiple
               type="file"
+              multiple
               onChange={handleImageChange}
+              style={{ marginTop: 16 }}
             />
-            <label htmlFor="raised-button-file">
-              <Button variant="contained" component="span">
-                Upload Images
+            <Box my={3} display="flex" flexDirection="column" gap={2}>
+              {images.map((image, index) => (
+                <Box key={index} display="flex" alignItems="center" gap={2}>
+                  <img
+                    src={image.preview}
+                    alt={`Preview ${index + 1}`}
+                    style={{ width: 100, height: 100, objectFit: "cover" }}
+                  />
+                  <IconButton onClick={() => handleRemoveImage(index)}>
+                  <MdDelete />
+                  </IconButton>
+                  <IconButton onClick={() => handleMoveImageUp(index)}>
+                    <FaArrowCircleUp />
+                  </IconButton>
+                  <IconButton onClick={() => handleMoveImageDown(index)}>
+                    <FaArrowCircleDown />
+                  </IconButton>
+                </Box>
+              ))}
+            </Box>
+            {isLoading ? (
+              <CircularProgress style={{ display: "block", margin: "16px auto" }} />
+            ) : (
+              <Button type="submit" variant="contained" color="primary" fullWidth>
+                Add Product
               </Button>
-            </label>
-            {images.length > 0 && (
-              <Typography variant="subtitle1" gutterBottom>
-                {images.map((file) => file.name).join(", ")}
-              </Typography>
             )}
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              disabled={isLoading ? "disabled" : ""}
-              style={{ marginTop: "1rem" }}
-            >
-              {isLoading ? <CircularProgress size={24} /> : "Add Product"}
-            </Button>
           </form>
         </Paper>
-        <Snackbar
-          open={snackbar.open}
-          autoHideDuration={6000}
-          onClose={handleCloseSnackbar}
-          message={snackbar.message}
-        />
       </Grid>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        message={snackbar.message}
+      />
     </Grid>
   );
 };

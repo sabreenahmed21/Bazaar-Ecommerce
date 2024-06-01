@@ -6,7 +6,8 @@ import {
   deleteProduct,
   getProductDetails,
   discountedProducts,
-  getSimilarProductsBySubcategory
+  getSimilarProductsBySubcategory,
+  AdminProductDetails,
 } from "../controllers/productControll.js";
 import { authorizeRoles, protect } from "../controllers/authController.js";
 import { upload } from "../middlewares/photoUpload.js";
@@ -21,20 +22,28 @@ import {
 const router = express.Router();
 
 router.get("/products", getAllProducts);
-//router.post("/admin/create_product",upload.array('images', 6), protect, authorizeRoles("admin"),createProduct);
+router.post(
+  "/admin/create_product",
+  upload.array("images", 6),
+  protect,
+  authorizeRoles("admin"),
+  createProduct
+);
+router
+  .route("/product/:id")
+  .delete(protect, authorizeRoles("admin"), deleteProduct)
+  .put(upload.array("images", 6), protect, authorizeRoles("admin"), updateProduct)
+  .get(getProductDetails);
+
+router
+  .route("/admin/product/:id")
+  .get(protect, authorizeRoles("admin"), AdminProductDetails);
+
 router.get("/products/discounted", discountedProducts);
 router.get(
   "/products/similar/:productId/:category/:subcategory",
   getSimilarProductsBySubcategory
 );
-router.post("/admin/create_product", upload.array("images", 6), createProduct);
-
-router
-  .route("/product/:id")
-  .delete(protect, authorizeRoles("admin"), deleteProduct)
-  //.put(protect, authorizeRoles("admin"), updateProduct)
-  .put(updateProduct)
-  .get(getProductDetails);
 
 router
   .route("/product/:productId/reviews")

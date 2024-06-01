@@ -142,6 +142,19 @@ export const productApi = createApi({
         body: formData,
       }),
     }),
+    updateProduct: builder.mutation({
+      query: ({ productId, formData }) => ({
+        url: `/product/${productId}`,
+        method: "PUT",
+        body: formData,
+      }),
+    }),    
+    deleteProduct: builder.mutation({
+      query: (productId) => ({
+        url: `/product/${productId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -158,5 +171,7 @@ export const {
   useLogoutMutation,
   useGetOrdersQuery,
   useGetproductByNameQuery,
-  useAddProductByAdminMutation
+  useAddProductByAdminMutation,
+  useUpdateProductMutation,
+  useDeleteProductMutation,
 } = productApi;

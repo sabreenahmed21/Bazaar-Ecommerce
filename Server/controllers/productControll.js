@@ -8,11 +8,6 @@ import localizeProduct from "../utils/localizeProduct .js";
 
 // -- Admin
 export const createProduct = asyncWrapper(async (req, res, next) => {
-  // if (!req.user || !req.user.id) {
-  //   return next(new Error("Authentication error: No user id found."));
-  // }
-  // req.body.user = req.user.id;
-
   if (req.files && req.files.length > 0) {
     const imageUploadPromises = req.files.map((file) =>
       cloudinaryUploadImage(file.path)
@@ -34,16 +29,53 @@ export const createProduct = asyncWrapper(async (req, res, next) => {
 
 //-- Admin
 export const updateProduct = asyncWrapper(async (req, res, next) => {
-  const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
-  if (!product) {
-    return next(new appError("No product found", 500, httpStatusText.ERROR));
+  const { title, description, ...rest } = req.body;
+  console.log('Received data:', req.body);
+  const existingProduct = await Product.findById(req.params.id);
+
+  if (!existingProduct) {
+    return next(new appError("No product found", 404, httpStatusText.ERROR));
   }
+
+  const updateData = {
+    ...rest,
+    title: {
+      en: title?.en || existingProduct.title.en,
+      ar: title?.ar || existingProduct.title.ar,
+    },
+    description: {
+      en: description?.en || existingProduct.description.en,
+      ar: description?.ar || existingProduct.description.ar,
+    },
+  };
+
+  if (req.files && req.files.length > 0) {
+    const imageUploadPromises = req.files.map((file) =>
+      cloudinaryUploadImage(file.path)
+    );
+    const images = await Promise.all(imageUploadPromises);
+    updateData.images = images.map((result) => ({
+      public_id: result.public_id,
+      url: result.secure_url,
+    }));
+  }
+
+  const updatedProduct = await Product.findByIdAndUpdate(
+    req.params.id,
+    updateData,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  if (!updatedProduct) {
+    return next(new appError("No product found", 404, httpStatusText.ERROR));
+  }
+
   res.status(200).json({
     state: httpStatusText.SUCCESS,
-    product,
+    product: updatedProduct,
   });
 });
 
@@ -60,8 +92,8 @@ export const deleteProduct = asyncWrapper(async (req, res, next) => {
 });
 
 export const getAllProducts = asyncWrapper(async (req, res, next) => {
-  const lang = req.query.lang || "en";
-  const resultPerPage = 9;
+  const lang = req.query.lang || "en" || "en-US";
+  const resultPerPage = 20;
   const countQuery = Product.find();
   const countFeatures = new apiFeatures(countQuery, req.query)
     .search()
@@ -92,7 +124,7 @@ export const getAllProducts = asyncWrapper(async (req, res, next) => {
 });
 
 export const getProductDetails = asyncWrapper(async (req, res, next) => {
-  const lang = req.query.lang || "en";
+  const lang = req.query.lang || "en" || "en-US";
   const product = await Product.findById(req.params.id).populate("reviews");
   if (!product) {
     return next(new appError("No product found", 404, httpStatusText.ERROR));
@@ -104,8 +136,40 @@ export const getProductDetails = asyncWrapper(async (req, res, next) => {
   });
 });
 
+export const AdminProductDetails = asyncWrapper(async (req, res, next) => {
+  const product = await Product.findById(req.params.id).populate("reviews");
+  if (!product) {
+    return next(new appError("No product found", 404, httpStatusText.ERROR));
+  }
+  const localizedProducts = {
+    _id: product._id,
+    title: product.title,
+    description: product.description,
+    originalPrice: product.originalPrice,
+    discountPercentage: product.discountPercentage,
+    priceAfterDiscount: product.priceAfterDiscount,
+    rating: product.rating,
+    images: product.images.map((img) => ({
+      public_id: img.public_id,
+      url: img.url,
+    })),
+    category: product.category,
+    subcategory: product.subcategory,
+    sizes: product.sizes,
+    brand: product.brand,
+    stock: product.stock,
+    featured: product.featured,
+    numOfReviews: product.numOfReviews,
+    createdAt: product.createdAt,
+  };
+  res.status(200).json({
+    state: httpStatusText.SUCCESS,
+    product: localizedProducts,
+  });
+});
+
 export const discountedProducts = asyncWrapper(async (req, res, next) => {
-  const lang = req.query.lang || "en";
+  const lang = req.query.lang || "en" || "en-US";
   const query = Product.find({
     discountPercentage: { $gt: 0 },
   });
@@ -125,7 +189,7 @@ export const discountedProducts = asyncWrapper(async (req, res, next) => {
 export const getSimilarProductsBySubcategory = asyncWrapper(
   async (req, res, next) => {
     const { productId, category, subcategory } = req.params;
-    const lang = req.query.lang || "en";
+    const lang = req.query.lang || "en" || "en-US";
     const product = await Product.findById(productId);
     if (!product) {
       return next(new appError("Product Not Found", 404, httpStatusText.ERROR));

@@ -21,7 +21,6 @@ export const primary = {
 export const secondary = {
   "main":"#172652"
 };
-//"main": "#415a77",
 
 export const text = {
   "main": "#1b263b",

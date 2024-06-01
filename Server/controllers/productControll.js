@@ -5,6 +5,7 @@ import Product from "../models/productModel.js";
 import apiFeatures from "../utils/apiFeatures.js";
 import { cloudinaryUploadImage } from "../utils/cloudinary.js";
 import localizeProduct from "../utils/localizeProduct .js";
+import multer from "multer";
 
 // -- Admin
 export const createProduct = asyncWrapper(async (req, res, next) => {
@@ -54,10 +55,11 @@ export const updateProduct = asyncWrapper(async (req, res, next) => {
       cloudinaryUploadImage(file.path)
     );
     const images = await Promise.all(imageUploadPromises);
-    updateData.images = images.map((result) => ({
+    const newImages = images.map((result) => ({
       public_id: result.public_id,
       url: result.secure_url,
     }));
+    updateData.images = req.body.overrideImages ? newImages : [...existingProduct.images, ...newImages];
   }
 
   const updatedProduct = await Product.findByIdAndUpdate(
@@ -78,6 +80,8 @@ export const updateProduct = asyncWrapper(async (req, res, next) => {
     product: updatedProduct,
   });
 });
+const upload = multer({ dest: "utils/uploads/" });
+export const uploadImages = upload.array("newImages");
 
 // -- Admin
 export const deleteProduct = asyncWrapper(async (req, res, next) => {

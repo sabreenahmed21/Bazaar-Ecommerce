@@ -70,8 +70,6 @@ export default function EditProduct() {
   const [subcategories, setSubcategories] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
 
-  console.log('imageFiles', imageFiles);
-
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
     const newImages = files.map((file) => ({
@@ -81,7 +79,7 @@ export default function EditProduct() {
     setImages([...images, ...newImages]);
     setImageFiles([...imageFiles, ...files]);
   };
-  
+
   const handleRemoveImage = (index) => {
     const newImages = [...images];
     newImages.splice(index, 1);
@@ -89,6 +87,12 @@ export default function EditProduct() {
     const newFiles = [...imageFiles];
     newFiles.splice(index, 1);
     setImageFiles(newFiles);
+  };
+
+  const handleRemoveExistingImage = (index) => {
+    const newImages = [...images];
+    newImages.splice(index, 1);
+    setImages(newImages);
   };
 
   const handleMoveImageUp = (index) => {
@@ -124,7 +128,9 @@ export default function EditProduct() {
   );
   const [updateProduct, { isLoading: isUpdating }] = useUpdateProductMutation();
 
-  console.log('data', data);
+  console.log("data", data);
+  console.log("imageFiles", imageFiles);
+  console.log("images", images);
 
   useEffect(() => {
     if (data?.product) {
@@ -158,8 +164,6 @@ export default function EditProduct() {
     setRating,
     setSizes,
   ]);
-
-  console.log('images', images);
 
   useEffect(() => {
     switch (category) {
@@ -213,11 +217,12 @@ export default function EditProduct() {
     formData.append("rating", rating);
     sizes.forEach((size) => formData.append("sizes", size));
     images.forEach((image, index) => {
-      formData.append(`images[${index}][public_id]`, image.public_id);
-      formData.append(`images[${index}][url]`, image.url);
-    });
-    imageFiles.forEach((file) => {
-      formData.append("images", file);
+      if (image.file) {
+        formData.append("newImages", image.file);
+      } else {
+        formData.append(`images[${index}][public_id]`, image.public_id);
+        formData.append(`images[${index}][url]`, image.url);
+      }
     });
     for (const pair of formData.entries()) {
       console.log(`${pair[0]}: ${pair[1]}`);
@@ -231,7 +236,7 @@ export default function EditProduct() {
         timer: 3000,
         showConfirmButton: false,
       });
-      //window.location.pathname = `/product/${productId}`;
+      window.location.pathname = `/product/${productId}`;
     } catch (error) {
       console.log(error);
       const message = error?.data?.message || "Failed to update product.";
@@ -404,7 +409,13 @@ export default function EditProduct() {
                       alt={`Preview ${index + 1}`}
                       style={{ width: 100, height: 100, objectFit: "cover" }}
                     />
-                    <IconButton onClick={() => handleRemoveImage(index)}>
+                    <IconButton
+                      onClick={() =>
+                        image.file
+                          ? handleRemoveImage(index)
+                          : handleRemoveExistingImage(index)
+                      }
+                    >
                       <MdDelete />
                     </IconButton>
                     <IconButton onClick={() => handleMoveImageUp(index)}>

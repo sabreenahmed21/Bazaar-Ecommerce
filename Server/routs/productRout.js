@@ -8,6 +8,7 @@ import {
   discountedProducts,
   getSimilarProductsBySubcategory,
   AdminProductDetails,
+  uploadImages,
 } from "../controllers/productControll.js";
 import { authorizeRoles, protect } from "../controllers/authController.js";
 import { upload } from "../middlewares/photoUpload.js";
@@ -32,7 +33,7 @@ router.post(
 router
   .route("/product/:id")
   .delete(protect, authorizeRoles("admin"), deleteProduct)
-  .put(upload.array("images", 6), protect, authorizeRoles("admin"), updateProduct)
+  .put(uploadImages, protect, authorizeRoles("admin"), updateProduct)
   .get(getProductDetails);
 
 router

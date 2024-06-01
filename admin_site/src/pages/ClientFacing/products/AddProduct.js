@@ -19,6 +19,7 @@ import { useAddProductByAdminMutation } from "../../../services/Jsonserverapi";
 import { MdDelete } from "react-icons/md";
 import { FaArrowCircleUp } from "react-icons/fa";
 import { FaArrowCircleDown } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const useInput = (
   initialValue,
@@ -135,9 +136,15 @@ console.log(images);
 
 
     try {
-      const res = await addProductByAdmin(formData).unwrap();
-      console.log(res);
-      setSnackbar({ open: true, message: "Product added successfully!" });
+      await addProductByAdmin(formData).unwrap();
+      Swal.fire({
+        icon: "success",
+        title: "Added!",
+        text: "Product added successfully!",
+        timer: 3000,
+        showConfirmButton: false,
+      });
+      window.location.pathname = `/products`;
     } catch (error) {
       const message = error?.data?.message || "Failed to add product.";
       setSnackbar({ open: true, message });

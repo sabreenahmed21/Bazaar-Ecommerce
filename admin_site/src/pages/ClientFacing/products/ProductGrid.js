@@ -40,7 +40,7 @@ export default function ProductGrid({ item, id }) {
               transition: "transform 0.35s ease",
             }}
             title={item.title}
-            image={item.images[0].url}
+            image={item?.images[0]?.url}
           />
           
         </Box>

@@ -126,12 +126,6 @@ export const productApi = createApi({
         credentials: "include",
       }),
     }),
-    getOrders: builder.query({
-      query: () => ({
-        url: "orders",
-        method: "GET",
-      }),
-    }),
     getproductByName: builder.query({
       query: (name) => `${name}`,
     }),
@@ -155,8 +149,57 @@ export const productApi = createApi({
         method: "DELETE",
       }),
     }),
+    getAllUsers: builder.query({
+      query: () => ({
+        url: "/admin/users",
+        method: "GET",
+      }),
+    }),
+    getAllAdmins: builder.query({
+      query: () => ({
+        url: "/admins",
+        method: "GET",
+      }),
+    }),
+    deleteUserByAdmin: builder.mutation({
+      query: (userId) => ({
+        url: `/admin/deleteUser/${userId}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+    deleteAdminByAdmin: builder.mutation({
+      query: (adminId) => ({
+        url: `/admin/deleteAdmin/${adminId}`,
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+    }),
+    getOrders: builder.query({
+      query: () => '/all-orders'
+    }),
+    getSingleOrder: builder.query({
+      query: (orderId) => `/order/${orderId}`, 
+    }),
+    deleteOrder: builder.mutation({
+      query: (id) => ({
+        url: `/admin/order/${id}`,
+        method: 'DELETE',
+      }),
+    }),
+    updateOrder: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/admin/order/${id}`,
+        method: 'PUT',
+        body: { status },
+      }),
+    }),
   }),
-});
+})
 
 export const {
   useSignInMutation,
@@ -169,9 +212,16 @@ export const {
   useUpdatePasswordMutation ,
   useUpdateUserDataMutation,
   useLogoutMutation,
-  useGetOrdersQuery,
   useGetproductByNameQuery,
   useAddProductByAdminMutation,
   useUpdateProductMutation,
   useDeleteProductMutation,
+  useGetAllUsersQuery,
+  useGetAllAdminsQuery,
+  useDeleteUserByAdminMutation,
+  useDeleteAdminByAdminMutation,
+  useGetOrdersQuery,
+  useGetSingleOrderQuery,
+  useDeleteOrderMutation, 
+  useUpdateOrderMutation,
 } = productApi;

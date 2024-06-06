@@ -35,16 +35,15 @@ export const getusers = async (req, res, next) => {
 };
 
 export const getAllAdmins = async (req, res, next) => {
-  const admins = await User.find({ role: 'admin' });
+  const admins = await UserModel.find({ role: 'admin' });
   res.status(200).json({
-    status: 'success',
+    status: httpStatusText.SUCCESS,
     results: admins.length,
     data: {
       admins,
     },
   });
 };
-
 
 export const getOneUser = asyncWrapper(async (req, res, next) => {
   const user = await UserModel.findById(req.params.id);
@@ -56,6 +55,40 @@ export const getOneUser = asyncWrapper(async (req, res, next) => {
     data: {
       user,
     },
+  });
+});
+
+export const deleteUserByAdmin = asyncWrapper(async (req, res, next) => {
+  const { id } = req.params;
+  const user = await UserModel.findById(id);
+  if (!user) {
+    return next(new appError("User Not Found", 404, httpStatusText.FAIL));
+  }
+  await UserModel.deleteOne({ _id: id });
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    message: "User deleted successfully",
+    data: null,
+  });
+});
+
+export const deleteAdminByAdmin = asyncWrapper(async (req, res, next) => {
+  const { id } = req.params;
+  const admin = await UserModel.findById(id);
+  if (!admin) {
+    return next(new appError("Admin Not Found", 404, httpStatusText.FAIL));
+  }
+  if (admin.role !== "admin") {
+    return next(new appError("The user to be deleted is not an admin", 400, httpStatusText.FAIL));
+  }
+  if (req.user.id === id) {
+    return next(new appError("Admin cannot delete themselves", 403, httpStatusText.FAIL));
+  }
+  await UserModel.deleteOne({ _id: id });
+  res.status(200).json({
+    status: httpStatusText.SUCCESS,
+    message: "Admin deleted successfully",
+    data: null,
   });
 });
 
@@ -89,12 +122,6 @@ export const deleteMe = asyncWrapper(async (req, res, next) => {
   });
 });
 
-/**------------------------------------------------------- 
- *  @desc Updates Account
- * @route /api/updateUserData
- * @method PATCH
- * @access Private (only authenticated users can access this route)
----------------------------------------------------------*/
 export const updateUserData = asyncWrapper(async (req, res, next) => {
   //(1) create error if user post password date
   if (req.body.password || req.body.passwordConfirm) {

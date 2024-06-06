@@ -58,12 +58,12 @@ const Verifypassword = () => {
                 textTransform: "capitalize",
               }}
             >
-              enterSecurityCode
+              Enter Security Code
             </Typography>
           </Box>
           <Box mt="20px" border="1px gray solid" borderRadius="10px" p="20px">
             <Typography style={{ color: grey[600], marginBottom: "15px" }}>
-            msgVerifyPassword
+            Please check your email for a message with your code. Your code is 8 digits along.
             </Typography>
             <form noValidate onSubmit={handleSubmit(handleVerifyCode)}>
               <TextField

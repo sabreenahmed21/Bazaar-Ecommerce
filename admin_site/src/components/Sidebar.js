@@ -2,10 +2,6 @@
 // @ts-nocheck
 import {
   MdAdminPanelSettings,
-  // MdCalendarToday,
-  // MdToday,
-  // MdPointOfSale,
-  //MdPieChartOutline,
   MdReceiptLong,
   MdGroups,
   MdShoppingCartCheckout,
@@ -52,26 +48,6 @@ const navItems = [
     text: "Orders",
     icon: <MdReceiptLong />,
   },
-  // {
-  //   text: "Sales",
-  //   icon: null,
-  // },
-  // {
-  //   text: "Overview",
-  //   icon: <MdPointOfSale />,
-  // },
-  // {
-  //   text: "Daily",
-  //   icon: <MdToday />,
-  // },
-  // {
-  //   text: "Monthly",
-  //   icon: <MdCalendarToday />,
-  // },
-  // {
-  //   text: "Breakdown",
-  //   icon: <MdPieChartOutline />,
-  // },
   {
     text: "Management",
     icon: null,
@@ -133,7 +109,10 @@ export default function Sidebar({
               {navItems.map(({ text, icon }) => {
                 if (!icon) {
                   return (
-                    <Typography key={text} sx={{ m: "1.25rem 0 1rem 2rem", fontWeight:600 }}>
+                    <Typography
+                      key={text}
+                      sx={{ m: "1.25rem 0 1rem 2rem", fontWeight: 600 }}
+                    >
                       {text}
                     </Typography>
                   );
@@ -164,8 +143,8 @@ export default function Sidebar({
                       <ListItemIcon
                         sx={{
                           ml: "2rem",
-                          mr:2,
-                          fontSize:'large',
+                          mr: 2,
+                          fontSize: "large",
                           minWidth: 0,
                           color:
                             active === lcText

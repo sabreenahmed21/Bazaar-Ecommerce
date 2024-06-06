@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { grey, secondary, primary } from "./Colors";
+import { grey, secondary, primary, text } from "./Colors";
 
 const theme = createTheme({
   palette: {
@@ -19,6 +19,7 @@ const theme = createTheme({
       alt: grey[100],
     },
     grey,
+    text
   },
 });
 

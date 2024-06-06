@@ -14,6 +14,7 @@ import {
 
 const Orders = () => {
   const { data: orders, error, isLoading } = useGetOrdersQuery(null);
+  console.log(orders);
 
   if (isLoading) {
     return (
@@ -65,9 +66,11 @@ const Orders = () => {
                 style={{ marginBottom: "20px" }}
               >
                 <CardContent>
-                  <Typography variant="h6">Order ID: {order._id}</Typography>
                   <Typography variant="subtitle1">
-                    <strong>Order Total Price:</strong> ${order.totalPrice}
+                    <strong>Order ID:</strong> {order._id}
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    <strong>Order Total Price:</strong> {order.totalPrice}
                   </Typography>
                   <Typography variant="subtitle1">
                     <strong>Order Date:</strong>{" "}
@@ -112,7 +115,7 @@ const Orders = () => {
                     ))}
                   </List>
                   <Divider style={{ margin: "10px 0" }} />
-                  <Typography variant="h6">Shipping Info:</Typography>
+                  <Typography variant="h6" mb={2}>Shipping Info:</Typography>
                   <Typography variant="body2">
                     <strong>Address:</strong> {order.shippingInfo.address}
                   </Typography>
@@ -132,7 +135,7 @@ const Orders = () => {
                     <strong>Phone Number:</strong> {order.shippingInfo.phoneNo}
                   </Typography>
                   <Divider style={{ margin: "10px 0" }} />
-                  <Typography variant="h6">Payment Info:</Typography>
+                  <Typography variant="h6" mb={2}>Payment Info:</Typography>
                   <Typography variant="body2">
                     <strong>Payment ID:</strong> {order.paymentInfo.id}
                   </Typography>

@@ -7,7 +7,6 @@ import Forgotpassword from "./pages/Signin&up/Password/Forgotpassword";
 import Verifypassword from "./pages/Signin&up/Password/Verifypassword";
 import ResetPassword from "./pages/Signin&up/Password/Resetpassword";
 import EmailVerification from "./pages/Signin&up/EmailVerification.js";
-import Profle from "./pages/Profile/Profle.js";
 
 import Notfound from "./pages/Notfound";
 
@@ -78,7 +77,6 @@ export default function App() {
             <Route path="/forgetPassword" element={<Forgotpassword />} />
             <Route path="/verifypassword" element={<Verifypassword />} />
             <Route path="/resetpassword/:token" element={<ResetPassword />} />
-            <Route path="/profilePage" element={<Profle />} />
             <Route path="/deleteAccount" element={<DeleteAccount />} />
             <Route path="/updateAccount" element={<UpdateAccount />} />
             <Route path="/updatePassword" element={<UpdatePassword />} />

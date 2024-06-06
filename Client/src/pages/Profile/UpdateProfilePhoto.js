@@ -78,30 +78,38 @@ const UpdateProfilePhoto = () => {
   return (
     <>
       <ToastContainer />
-      <Box width={"100%"}>
-        <Box width={"205px"} height={"190px"} position="relative">
-          <img
-            alt="Profile"
-            src={file ? URL.createObjectURL(file) : imageURL || userAvatar}
-            className="profile-image"
-            onError={() => setImageURL(userAvatar)}
-          />
-          <label htmlFor="file">
-            <AiOutlineCamera
-              style={{
-                position: "absolute",
-                bottom: "8px",
-                right: "8px",
-                cursor: "pointer",
-                fontSize: "xxx-large",
-                color: "#555",
-                backgroundColor: "#fff",
-                borderRadius: "50%",
-                padding: "8px",
-                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-              }}
+      <Box
+        width={"100%"}
+        display="flex"
+        justifyContent="center"
+        flexDirection={"column"}
+        alignItems={"center"}
+      >
+        <Box width={"100%"} display="flex" justifyContent="center">
+          <Box width={"240px"} height={"240px"} position="relative">
+            <img
+              alt="Profile"
+              src={file ? URL.createObjectURL(file) : imageURL || userAvatar}
+              onError={() => setImageURL(userAvatar)}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
-          </label>
+            <label htmlFor="file">
+              <AiOutlineCamera
+                style={{
+                  position: "absolute",
+                  bottom: "-15px",
+                  right: "-15px",
+                  cursor: "pointer",
+                  fontSize: "xxx-large",
+                  color: "#555",
+                  backgroundColor: "#fff",
+                  borderRadius: "50%",
+                  padding: "8px",
+                  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                }}
+              />
+            </label>
+          </Box>
         </Box>
         <form onSubmit={formSubmitHandler}>
           <Input
@@ -114,11 +122,12 @@ const UpdateProfilePhoto = () => {
           <Button
             type="submit"
             disabled={loading}
+            variant="outlined"
             sx={{
-              mt: "15px",
+              mt: 4,
+              fontWeight: 600,
               color: theme.palette.text.main,
               backgroundColor: theme.palette.grey[100],
-              fontWeight: 600,
             }}
           >
             {loading ? "Updating..." : "Update Image"}

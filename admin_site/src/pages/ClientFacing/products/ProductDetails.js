@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Grid,
   Rating,
@@ -81,16 +82,18 @@ export default function ProductDetails() {
   return (
     <Container sx={{ my: 4 }}>
       {isLoading && (
-        <Box
-          width={"100%"}
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          height={"50vh"}
-        >
-          <span className="loader"></span>
-        </Box>
-      )}
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "50vh",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        )}
       {isError && (
         <Typography color="error" variant="h6" align="center">
           {error?.data?.message}
@@ -208,6 +211,7 @@ export default function ProductDetails() {
                     className={data.product.stock < 1 ? "red" : "green"}
                   >
                     {data.product.stock < 1 ? "Out of Stock" : "In Stock"}
+                    {" "}({data.product.stock > 1 && data.product.stock })
                   </Typography>
                 </Box>
                 <Typography variant="body1" fontWeight={600}>
@@ -345,6 +349,7 @@ export default function ProductDetails() {
                     className={data.product.stock < 1 ? "red" : "green"}
                   >
                     {data.product.stock < 1 ? "غير متوفر فى المخزن" : "متوفر فى المخزن"}
+                    {" "}({data.product.stock > 1 && data.product.stock })
                   </Typography>
                 </Box>
                 <Typography variant="body1" fontWeight={600}>

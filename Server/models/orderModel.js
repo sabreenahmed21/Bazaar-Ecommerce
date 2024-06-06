@@ -17,6 +17,18 @@ const orderItemSchema = new mongoose.Schema({
   numOfReviews: { type: Number, required: true },
   priceAfterDiscount: { type: Number, required: true },
   quantity: { type: Number, required: true },
+  images: [
+    {
+      public_id: {
+        type: String,
+        required: true,
+      },
+      url: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
 const orderSchema = new mongoose.Schema({
@@ -29,6 +41,7 @@ const orderSchema = new mongoose.Schema({
     phoneNo: { type: Number, required: true },
   },
   orderItems: [orderItemSchema],
+  totalQuantity: {type: Number, required: true},
   user: {
     type: mongoose.Schema.ObjectId,
     required: true,
@@ -58,6 +71,11 @@ const orderSchema = new mongoose.Schema({
     type: Number,
     default: 0,
     required: true,
+  },
+  orderStatus: {
+    type: String,
+    required: true,
+    default: "Processing",
   },
   deliveredAt: Date,
   createdAt: {

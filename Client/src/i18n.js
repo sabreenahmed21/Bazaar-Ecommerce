@@ -15,14 +15,14 @@ const resources = {
     translation: arabic,
   }
 };
-
+const i18nextLng = "en";
 i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
-
+    lng: i18nextLng, 
     interpolation: {
       escapeValue: false,
     },

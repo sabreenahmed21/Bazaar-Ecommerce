@@ -61,12 +61,12 @@ export default function Forgotpassword() {
                 textTransform: "capitalize",
               }}
             >
-             forgetyourpassword
+             forget your password ?
             </Typography>
           </Box>
           <Box mt="20px" border="1px gray solid" borderRadius="10px" p="20px">
             <Typography style={{ color: grey[600], marginBottom: "15px" }}>
-            msgForgetPassword
+            Please enter your email address associated with your account, and we'll send you code to reset your password
             </Typography>
 
             <form noValidate onSubmit={handleSubmit(handleForgetPassword)}>
@@ -100,7 +100,8 @@ export default function Forgotpassword() {
                   ":hover": { bgcolor: theme.palette.text.yellow },
                   fontSize: "large",
                 }}
-              >Sendresetcode
+              >
+                Send reset code
               </Button>
             </form>
             <Link
@@ -113,7 +114,7 @@ export default function Forgotpassword() {
                 justifyContent: "center",
               }}
             >
-              goBack
+              Go back
             </Link>
           </Box>
         </Box>

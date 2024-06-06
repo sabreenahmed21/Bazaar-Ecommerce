@@ -52,10 +52,7 @@ const ResetPassword = () => {
     <>
       {isLoading && <LinearProgress determinate />}
       <Container maxWidth="sm" sx={{ bgcolor: "#fff", mt: 4 }}>
-        <Box
-          pt="50px"
-          pb="50px"
-        >
+        <Box pt="50px" pb="50px">
           <Box textAlign={"center"} mb={3}>
             <Typography
               variant="h2"
@@ -67,26 +64,26 @@ const ResetPassword = () => {
                 textTransform: "capitalize",
               }}
             >
-             createnewPassword
+              create a new Password
             </Typography>
           </Box>
           <Box mt="20px" border="1px gray solid" borderRadius="10px" p="20px">
             <Typography style={{ color: grey[600], marginBottom: "15px" }}>
-            choosenewPassword
+            Choose a new Password
             </Typography>
             {!tokenValid && (
               <Typography
                 color="error"
                 sx={{ fontSize: "0.9rem", marginBottom: "15px" }}
               >
-                tokenhasexpired
+              Token has expired. Please request a new reset code.
               </Typography>
             )}
             <form onSubmit={handleSubmit(handleResetPassword)}>
               <Box mb="15px">
                 <TextField
                   type="password"
-                  placeholder='newPassword'
+                  placeholder="newPassword"
                   fullWidth
                   sx={{ marginTop: "5px", marginBottom: "5px" }}
                   {...register("password", {
@@ -105,7 +102,7 @@ const ResetPassword = () => {
               <Box mb="15px">
                 <TextField
                   type="password"
-                  placeholder='confirmNewPassword'
+                  placeholder="confirmNewPassword"
                   fullWidth
                   sx={{ marginTop: "0px", marginBottom: "5px" }}
                   {...register("passwordConfirm", {
@@ -132,6 +129,7 @@ const ResetPassword = () => {
                 fullWidth
                 sx={{
                   padding: "16.5px 14px",
+                  textTransform:'capitalize',
                   fontWeight: "600",
                   letterSpacing: "0.06em",
                   bgcolor: theme.palette.text.yellow,
@@ -139,7 +137,7 @@ const ResetPassword = () => {
                   fontSize: "large",
                 }}
               >
-                savepPassword
+                save Password
               </Button>
             </form>
           </Box>

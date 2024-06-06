@@ -9,7 +9,6 @@ import Verifypassword from "./signin&up/Verifypassword";
 import ResetPassword from "./signin&up/ResetPassword";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "./NotFound";
-import Profle from "./profile/Profile";
 import DeleteAccount from "./profile/DeleteAccount";
 import UpdateAccount from "./profile/UpdateAccount";
 import UpdatePassword from "./profile/UpdatePassword";
@@ -22,32 +21,35 @@ import Admins from "./pages/Management/Admins";
 import AddProductForm from "./pages/ClientFacing/products/AddProduct";
 import ProductDetails from "./pages/ClientFacing/products/ProductDetails";
 import EditProduct from "./pages/ClientFacing/products/EditProduct";
+import InvoicePrintPage from "./components/InvoicePrintPage ";
+import OrderDetails from "./pages/ClientFacing/orders/OrderDetails";
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
+          <Route path="/forgetPassword" element={<Forgotpassword />} />
+          <Route path="/verifypassword" element={<Verifypassword />} />
+          <Route path="/resetpassword/:token" element={<ResetPassword />} />
           <Route element={<Layout />}>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route
               path="/dashboard"
               element={<ProtectedRoute element={<Dashboard />} />}
             />
-            <Route path="products" element={<Products />} />
-            <Route path="addProduct" element={<AddProductForm />} />
-            <Route path="product/:productId" element={<ProductDetails />} />
-            <Route path="edit-product/:productId" element={<EditProduct />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="customers" element={<Customers />} />
-            <Route path="admin" element={<Admins />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="verify-email" element={<EmailVerification />} />
-            <Route path="/forgetPassword" element={<Forgotpassword />} />
-            <Route path="/verifypassword" element={<Verifypassword />} />
-            <Route path="/resetpassword/:token" element={<ResetPassword />} />
-            <Route path="/profilePage" element={<Profle />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/addProduct" element={<AddProductForm />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/edit-product/:productId" element={<EditProduct />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orderDetails/:orderId" element={<OrderDetails />} />
+            <Route path="/print/:orderId" element={<InvoicePrintPage />} />
+            <Route path="/customers" element={<Customers />} />
+            <Route path="/admin" element={<Admins />} />
             <Route path="/deleteAccount" element={<DeleteAccount />} />
             <Route path="/updateAccount" element={<UpdateAccount />} />
             <Route path="/updatePassword" element={<UpdatePassword />} />
@@ -58,3 +60,9 @@ export default function App() {
     </ThemeProvider>
   );
 }
+
+
+
+
+
+

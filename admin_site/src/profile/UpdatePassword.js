@@ -69,7 +69,7 @@ export default function UpdatePassword() {
               textTransform: "capitalize",
             }}
           >
-            updateyourpassword
+            update your password
           </Typography>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -142,7 +142,7 @@ export default function UpdatePassword() {
               mt: 3,
             }}
           >
-            {isSubmitting ? "Loading..." : "updateyourpassword"}
+            {isSubmitting ? "Loading..." : "update your password"}
           </Button>
         </form>
       </Box>

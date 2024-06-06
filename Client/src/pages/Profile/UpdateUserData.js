@@ -13,10 +13,7 @@ export default function UpdateUserData() {
   const theme = useTheme();
 
   const [updateUserData] = useUpdateUserDataMutation();
-  const {
-    register,
-    handleSubmit,
-  } = useForm({ mode: "onBlur" });
+  const { register, handleSubmit } = useForm({ mode: "onBlur" });
 
   const handleSubmitForm = async (formData) => {
     setLoading(true);
@@ -34,33 +31,44 @@ export default function UpdateUserData() {
   };
 
   return (
-    <Box width={'100%'} mt={5}>
+    <Box width={"100%"}>
       <ToastContainer />
       <form onSubmit={handleSubmit(handleSubmitForm)} noValidate>
-        <Box>
-          <TextField
-            type="text"
-            label="Username"
-            variant="outlined"
-            margin="normal"
-            id="name"
-            {...register("name", {
-              required: { value: true, message: "Username is required" },
-            })}
-          />
-        </Box>
-        <Button
-          type="submit"
-          disabled={loading}
+        <Box
           sx={{
-            mt: "15px",
-            color: theme.palette.text.main,
-            backgroundColor: theme.palette.grey[100],
-            fontWeight: 600,
+            gap: 2,
+            display: "flex",
+            justifyContent: "start",
+            alignItems: "center",
           }}
         >
-          {loading ? "Updating..." : "Update your username"}
-        </Button>
+          <Box>
+            <TextField
+              type="text"
+              label="Username"
+              variant="outlined"
+              margin="normal"
+              id="name"
+              sx={{ m: 0 }}
+              {...register("name", {
+                required: { value: true, message: "Username is required" },
+              })}
+            />
+          </Box>
+          <Button
+            type="submit"
+            variant="outlined"
+            disabled={loading}
+            sx={{
+              fontWeight: 600,
+              height: "3.4rem",
+              color: theme.palette.text.main,
+              backgroundColor: theme.palette.grey[100],
+            }}
+          >
+            {loading ? "Updating..." : "Update your username"}
+          </Button>
+        </Box>
       </form>
     </Box>
   );

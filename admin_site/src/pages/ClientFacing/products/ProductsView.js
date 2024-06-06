@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
+  CircularProgress,
   FormControl,
   MenuItem,
   Pagination,
@@ -17,7 +18,9 @@ export default function ProductsView() {
   const [sort, setSort] = useState("none");
   const [totalPages, setTotalPages] = useState(1);
 
-  const link = `products?page=${currentPage}${sort !== "none" ? `&sort=${sort}` : ""}`;
+  const link = `products?page=${currentPage}${
+    sort !== "none" ? `&sort=${sort}` : ""
+  }`;
   const { data, isLoading, error, isError } = useGetproductByNameQuery(link);
 
   useEffect(() => {
@@ -46,7 +49,7 @@ export default function ProductsView() {
           justifyContent: "space-between",
           flexWrap: "wrap",
           alignItems: "center",
-          width:'100%'
+          width: "100%",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", columnGap: 1 }}>
@@ -80,13 +83,15 @@ export default function ProductsView() {
       )}
       {isLoading ? (
         <Box
-          width={"100%"}
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          height={"50vh"}
+          sx={{
+            display: "flex",
+            width: "100%",
+            height: "50vh",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <span className="loader"></span>
+          <CircularProgress />
         </Box>
       ) : (
         data && (
@@ -142,9 +147,9 @@ const ProductCardGrid = ({ data }) => {
       gap={3}
       sx={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))"
+        gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
       }}
-      width={'100%'}
+      width={"100%"}
     >
       {data?.products.map((item) => (
         <Link key={item.id} to={`/product/${item._id}`}>

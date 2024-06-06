@@ -80,9 +80,9 @@ export default function ConfirmOrder() {
             {items.map((item) => (
               <Box
                 key={item.product}
-                sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}
+                sx={{ display: "flex", alignItems: "center", marginBottom: 2 , columnGap:2}}
               >
-                <Box sx={{ marginRight: 2 }}>
+                <Box >
                   <img
                     src={item.images[0].url}
                     alt={item.title}

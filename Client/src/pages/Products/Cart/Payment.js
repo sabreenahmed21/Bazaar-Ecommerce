@@ -26,7 +26,7 @@ export default function Payment() {
   const elements = useElements();
   const currentUser = useSelector(selectCurrentUser);
   const accessToken = currentUser?.token;
-  const { shippingInfo, items } = useSelector((state) => state.cart);
+  const { shippingInfo, items, totalQuantity } = useSelector((state) => state.cart);
   const [loading, setLoading] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ export default function Payment() {
   const order = {
     shippingInfo,
     orderItems: items,
+    totalQuantity,
     itemsPrice: orderInfo.subtotal,
     shippingPrice: orderInfo.shippingCharges,
     totalPrice: orderInfo.totalOrderPrice,
@@ -60,9 +61,7 @@ export default function Payment() {
       const response = await processPayment(paymentData).unwrap();
       console.log(response);
       const client_secret = response.client_secret;
-
       if (!stripe || !elements) return;
-
       const result = await stripe.confirmCardPayment(client_secret, {
         payment_method: {
           card: elements.getElement(CardNumberElement),
@@ -79,7 +78,6 @@ export default function Payment() {
           },
         },
       });
-
       if (result.error) {
         toast.error(result.error.message, {
           autoClose: 3000,
@@ -93,7 +91,7 @@ export default function Payment() {
             id: result.paymentIntent.id,
             status: result.paymentIntent.status,
           };
-          dispatch(createOrder({ accessToken, order }));
+          dispatch(createOrder({ accessToken, order })).unwrap();
           navigate("/thank-you");
         } else {
           toast.error("Payment Failed", {
@@ -102,7 +100,6 @@ export default function Payment() {
         }
       }
     } catch (error) {
-      console.log(error);
       toast.error(
         "Payment processing error. Please try again.",
         error.response ? error.response.data.message : error.message
@@ -213,7 +210,7 @@ export default function Payment() {
               <CircularProgress size={24} />
             ) : (
               `${t("payment.pay")} - ${
-                orderInfo && orderInfo.totalOrderPrice
+                orderInfo && orderInfo.totalOrderPrice.toFixed(2)
               } ${t("products.EGP")}`
             )}
           </Button>

@@ -123,14 +123,11 @@ export default function EditProduct() {
     setImageFiles(newFiles);
   };
 
-  const { data, isLoading } = useGetproductByNameQuery(
+  const { data, isLoading, isError, error } = useGetproductByNameQuery(
     `admin/product/${productId}`
   );
-  const [updateProduct, { isLoading: isUpdating }] = useUpdateProductMutation();
 
-  console.log("data", data);
-  console.log("imageFiles", imageFiles);
-  console.log("images", images);
+  const [updateProduct, { isLoading: isUpdating }] = useUpdateProductMutation();
 
   useEffect(() => {
     if (data?.product) {
@@ -224,9 +221,6 @@ export default function EditProduct() {
         formData.append(`images[${index}][url]`, image.url);
       }
     });
-    for (const pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
     try {
       await updateProduct({ productId, formData }).unwrap();
       Swal.fire({
@@ -238,13 +232,39 @@ export default function EditProduct() {
       });
       window.location.pathname = `/product/${productId}`;
     } catch (error) {
-      console.log(error);
       const message = error?.data?.message || "Failed to update product.";
       setSnackbar({ open: true, message });
     }
   };
 
-  if (!product) return <CircularProgress />;
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          height: "50vh",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  if (isError)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          height: "50vh",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        Error fetching data {error?.data.message}
+      </Box>
+    );
 
   return (
     <>

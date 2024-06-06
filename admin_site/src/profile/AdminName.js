@@ -25,7 +25,7 @@ export default function AdminName() {
     try {
       await logoutMutation().unwrap();
       dispatch(logout());
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error("Logout failed:", error);
     }
@@ -90,7 +90,7 @@ export default function AdminName() {
       >
         <Button
           onClick={() => {
-            navigate("/profilePage");
+            navigate("/updateAccount");
             handleCloseUserMenu();
           }}
           sx={{

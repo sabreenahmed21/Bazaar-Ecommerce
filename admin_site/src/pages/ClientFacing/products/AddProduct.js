@@ -112,10 +112,9 @@ const AddProductForm = () => {
     }
   }, [category]);
 
-  const [addProductByAdmin, { isLoading, data, error }] =
+  const [addProductByAdmin, { isLoading,  error, isError }] =
     useAddProductByAdminMutation();
-  console.log(data, error);
-console.log(images);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -133,7 +132,6 @@ console.log(images);
     formData.append("rating", rating);
     sizes.forEach((size) => formData.append("sizes", size));
     images.forEach((image) => formData.append("images", image.file));
-
 
     try {
       await addProductByAdmin(formData).unwrap();
@@ -184,6 +182,21 @@ console.log(images);
   const handleCloseSnackbar = () => {
     setSnackbar({ open: false, message: "" });
   };
+
+  if (isError)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          height: "50vh",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        Error {error?.data.message}
+      </Box>
+    );
 
   return (
     <Grid container justifyContent="center" my={5}>
@@ -332,7 +345,7 @@ console.log(images);
               />
               <label htmlFor="featured">Featured Product</label>
             </Box>
-              <input
+            <input
               accept="image/*"
               type="file"
               multiple
@@ -348,7 +361,7 @@ console.log(images);
                     style={{ width: 100, height: 100, objectFit: "cover" }}
                   />
                   <IconButton onClick={() => handleRemoveImage(index)}>
-                  <MdDelete />
+                    <MdDelete />
                   </IconButton>
                   <IconButton onClick={() => handleMoveImageUp(index)}>
                     <FaArrowCircleUp />
@@ -360,9 +373,16 @@ console.log(images);
               ))}
             </Box>
             {isLoading ? (
-              <CircularProgress style={{ display: "block", margin: "16px auto" }} />
+              <CircularProgress
+                style={{ display: "block", margin: "16px auto" }}
+              />
             ) : (
-              <Button type="submit" variant="contained" color="primary" fullWidth>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
                 Add Product
               </Button>
             )}

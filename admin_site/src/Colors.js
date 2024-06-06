@@ -41,3 +41,15 @@ export const secondary = {
   800: "#665429",
   900: "#332a14",
 }
+
+export const text = {
+  "main": "#1b263b",
+  "yellow": "#CCA752",
+  "Lightyellow":"#FFC440",
+  "orange":"#FFA741",
+  "Lightorange":"#ffa741bf",
+  "red":"#ff0000bd",
+  "Lightred":"#ff000030",
+  "blue":"#138AE7",
+  "Lightblue":"#138ae71f"
+};

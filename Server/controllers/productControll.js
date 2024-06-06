@@ -52,7 +52,19 @@ export const updateProduct = asyncWrapper(async (req, res, next) => {
 
   if (req.files && req.files.length > 0) {
     const imageUploadPromises = req.files.map((file) =>
-      cloudinaryUploadImage(file.path)
+      cloudinaryUploadImage(file.path).then((result) => {
+        fs.unlink(file.path, (err) => {
+          if (err) {
+            console.error(`Failed to delete file: ${file.path}`, err);
+          } else {
+            console.log(` Successfully deleted file: ${file.path}`);
+          }
+        });
+        return {
+          public_id: result.public_id,
+          url: result.secure_url,
+        };
+      })
     );
     const images = await Promise.all(imageUploadPromises);
     const newImages = images.map((result) => ({
@@ -96,7 +108,7 @@ export const deleteProduct = asyncWrapper(async (req, res, next) => {
 });
 
 export const getAllProducts = asyncWrapper(async (req, res, next) => {
-  const lang = req.query.lang || "en" || "en-US";
+  const lang = req.query.lang || "en";
   const resultPerPage = 20;
   const countQuery = Product.find();
   const countFeatures = new apiFeatures(countQuery, req.query)

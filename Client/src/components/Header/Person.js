@@ -93,7 +93,7 @@ function Profile() {
               onClose={handleCloseUserMenu}
             >
               <Button
-                onClick={() => navigate("/profilePage")}
+                onClick={() => navigate("/updateAccount")}
                 sx={{ width: "100px", margin: " 0 20px", display: "block" }}
               >
                 {t("header.person.profile")}

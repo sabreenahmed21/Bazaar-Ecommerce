@@ -65,12 +65,12 @@ const Verify = () => {
                 letterSpacing: "0.006em",
               }}
             >
-              verifye-mailaddress
+              Verify e-mail address
             </Typography>
           </Box>
           <Box mt="20px" border="1px gray solid" borderRadius="10px" p="20px">
             <Typography style={{ color: grey[600], marginBottom: "15px" }}>
-            msgVerifyEmail
+            Enter the verification code sent to your email.
             </Typography>
             <form onSubmit={handleSubmit(handleVerify)}>
               <TextField

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import userAvatar from "../assets/user.png";
-import { Box, Button, Input, useTheme } from "@mui/material";
-import "./Profile.css";
+import { Box, Button, Input } from "@mui/material";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineCamera } from "react-icons/ai";
-import { selectCurrentAdmin, updateProfilePhoto } from '../redux/AdminSlice';
+import { selectCurrentAdmin, updateProfilePhoto } from "../redux/AdminSlice";
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateProfilePhoto = () => {
@@ -14,9 +13,9 @@ const UpdateProfilePhoto = () => {
   const [imageURL, setImageURL] = useState(null);
   const [loading, setLoading] = useState(false);
   const CurrentAdmin = useSelector(selectCurrentAdmin);
-  const accessToken = CurrentAdmin.token
+  const accessToken = CurrentAdmin.token;
   const dispatch = useDispatch();
-  const theme = useTheme();
+
   const userId = CurrentAdmin?.data?.user?._id;
 
   useEffect(() => {
@@ -77,31 +76,40 @@ const UpdateProfilePhoto = () => {
   return (
     <>
       <ToastContainer />
-      <Box width={"100%"}>
-        <Box width={"205px"} height={"190px"} position="relative">
-          <img
-            alt="Profile"
-            src={file ? URL.createObjectURL(file) : imageURL || userAvatar}
-            className="profile-image"
-            onError={() => setImageURL(userAvatar)}
-          />
-          <label htmlFor="file">
-            <AiOutlineCamera
-              style={{
-                position: "absolute",
-                bottom: "8px",
-                right: "8px",
-                cursor: "pointer",
-                fontSize: "xxx-large",
-                color: "#555",
-                backgroundColor: "#fff",
-                borderRadius: "50%",
-                padding: "8px",
-                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-              }}
+      <Box
+        width={"100%"}
+        display="flex"
+        justifyContent="center"
+        flexDirection={"column"}
+        alignItems={"center"}
+      >
+        <Box width={"100%"} display="flex" justifyContent="center">
+          <Box width={"240px"} height={"240px"} position="relative">
+            <img
+              alt="Profile"
+              src={file ? URL.createObjectURL(file) : imageURL || userAvatar}
+              onError={() => setImageURL(userAvatar)}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
-          </label>
+            <label htmlFor="file">
+              <AiOutlineCamera
+                style={{
+                  position: "absolute",
+                  bottom: "-15px",
+                  right: "-15px",
+                  cursor: "pointer",
+                  fontSize: "xxx-large",
+                  color: "#555",
+                  backgroundColor: "#fff",
+                  borderRadius: "50%",
+                  padding: "8px",
+                  boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                }}
+              />
+            </label>
+          </Box>
         </Box>
+
         <form onSubmit={formSubmitHandler}>
           <Input
             id="file"
@@ -113,14 +121,13 @@ const UpdateProfilePhoto = () => {
           <Button
             type="submit"
             disabled={loading}
+            variant="outlined"
             sx={{
-              mt: "15px",
-              color: theme.palette.text.main,
-              backgroundColor: theme.palette.grey[100],
+              mt: 4,
               fontWeight: 600,
             }}
           >
-            {loading ? "Updating..." : "Update Image"}
+            {loading ? "Updating..." : "Update New Photo"}
           </Button>
         </form>
       </Box>

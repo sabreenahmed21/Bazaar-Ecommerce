@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentAdmin, signInSuccess } from "../redux/AdminSlice.js";
 import { useSignInMutation } from "../services/Jsonserverapi.js";
+import Swal from "sweetalert2";
 
 export default function Login() {
   const theme = useTheme();
@@ -30,7 +31,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const currentUser = useSelector(selectCurrentAdmin);
+  const currentAdmin = useSelector(selectCurrentAdmin);
   const [signIn, { isLoading }] = useSignInMutation();
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function Login() {
     setPasswordError("");
   }, [register]);
 
-  if (currentUser) {
+  if (currentAdmin) {
     navigate("/");
     return null;
   }
@@ -58,13 +59,29 @@ export default function Login() {
   const onSubmit = async (formData) => {
     try {
       const data = await signIn(formData).unwrap();
-      dispatch(signInSuccess(data));
-      window.location.pathname = "/";
-    } catch (err) {
-      if (err.data && err.data.message.includes("Email")) {
-        setEmailError(err.data.message);
+      if (data.data.user.role === "admin") {
+        dispatch(signInSuccess(data));
+        window.location.pathname = "/";
       } else {
-        setPasswordError(err.data.message);
+        Swal.fire(
+          "Error!",
+          "You do not have the required permissions to access this resource.",
+          "error"
+        );
+      }
+    } catch (err) {
+      if (err?.data && err?.data?.message) {
+        if (err.data.message.includes("Email")) {
+          setEmailError(err.data.message);
+        } else {
+          setPasswordError(err.data.message);
+        }
+      } else {
+        Swal.fire(
+          "Error!",
+          "An unexpected error occurred. Please try again.",
+          "error"
+        );
       }
     }
   };
@@ -72,7 +89,7 @@ export default function Login() {
   return (
     <>
       {isLoading && <LinearProgress determinate />}
-      <Container maxWidth="sm" sx={{bgcolor:'#fff', mt:4}}>
+      <Container maxWidth="sm" sx={{ bgcolor: "#fff", mt: 4 }}>
         <Box pt="50px" pb="50px">
           <Box textAlign={"center"} mb={3}>
             <Typography
@@ -128,7 +145,7 @@ export default function Login() {
                     onChange={togglePasswordVisibility}
                   />
                 }
-                label='Show Password'
+                label="Show Password"
                 labelPlacement="end"
               />
             </Box>
@@ -140,13 +157,13 @@ export default function Login() {
               sx={{
                 padding: "16.5px 14px",
                 bgcolor: theme.palette.text.yellow,
-                ':hover':{bgcolor: theme.palette.text.yellow},
+                ":hover": { bgcolor: theme.palette.text.yellow },
                 fontWeight: 600,
                 fontSize: "large",
-                textTransform:'capitalize'
+                textTransform: "capitalize",
               }}
             >
-            login
+              login
             </Button>
           </form>
           <Link
@@ -157,7 +174,7 @@ export default function Login() {
               margin: " 20px 0",
               alignItems: "center",
               justifyContent: "end",
-              textTransform:'capitalize'
+              textTransform: "capitalize",
             }}
           >
             forgotten Password ?
@@ -170,7 +187,7 @@ export default function Login() {
               style={{
                 color: theme.palette.text.main,
                 paddingLeft: "5px",
-                paddingRight: "5px"
+                paddingRight: "5px",
               }}
             >
               sign up

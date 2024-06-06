@@ -1,21 +1,25 @@
 // @ts-nocheck
 import { Box } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
+import { useSelector } from "react-redux";
+import { selectCurrentAdmin } from "../redux/AdminSlice";
 
 function Layout() {
   const isNonMobile = useMediaQuery("(min-width:1200px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  //const userId = useSelector((state) => state.global.userId);
-  // const { data } = useGetUserQuery(userId);
+  const currentAdmin = useSelector(selectCurrentAdmin);
+  
+  if (!currentAdmin) {
+    return <Navigate to="/login" replace />;
+  }
+
   return (
     <Box width="100%" height="100%" display={isNonMobile ? "flex" : "block"}>
       <Sidebar
-        //user={data || {}}
         isNonMobile={isNonMobile}
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
@@ -23,7 +27,6 @@ function Layout() {
       />
       <Box flexGrow={1}>
         <Navbar
-          //user={data || {}}
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen}
         />

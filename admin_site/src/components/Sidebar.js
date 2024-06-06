@@ -6,8 +6,10 @@ import {
   MdGroups,
   MdShoppingCartCheckout,
   MdHome,
+  MdCalendarMonth,
 } from "react-icons/md";
-import { IoChevronForwardOutline } from "react-icons/io5";
+import { IoChevronForwardOutline, IoToday } from "react-icons/io5";
+import { AiFillCalendar } from "react-icons/ai";
 import {
   Box,
   Divider,
@@ -47,6 +49,22 @@ const navItems = [
   {
     text: "Orders",
     icon: <MdReceiptLong />,
+  },
+  {
+    text: "Sales Reports",
+    icon: null,
+  },
+  {
+    text: "Yearly",
+    icon: <AiFillCalendar />,
+  },
+  {
+    text: "Monthly",
+    icon: <MdCalendarMonth />,
+  },
+  {
+    text: "Daily",
+    icon: <IoToday />,
   },
   {
     text: "Management",
@@ -93,16 +111,17 @@ export default function Sidebar({
           <Box>
             <Box m="1.5rem 2rem 2rem 2rem">
               <Stack color={theme.palette.secondary.main}>
-                <Box display="flex" alignItems="center" gap="0.5rem">
+                <Box display="flex" alignItems="center" gap="0.5rem" justifyContent={'center'}>
                   <Typography variant="h4" fontWeight="bold">
                     bazaar
                   </Typography>
-                </Box>
-                {!isNonMobile && (
+                  {!isNonMobile && (
                   <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                     <IoChevronForwardOutline />
                   </IconButton>
                 )}
+                </Box>
+                
               </Stack>
             </Box>
             <List>

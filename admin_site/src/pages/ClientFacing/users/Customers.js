@@ -133,7 +133,7 @@ export default function Customers() {
       <Box
         m="auto"
         mt="40px"
-        height="50vh"
+        height="70vh"
         width="100%"
         maxWidth="1200px"
         display="flex"

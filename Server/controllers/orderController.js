@@ -3,6 +3,7 @@ import asyncWrapper from "../middlewares/asyncWrapper.js";
 import httpStatusText from "../utils/httpStatusText.js";
 import appError from "../utils/appError.js";
 import Product from "../models/productModel.js";
+import SalesReport from "../models/salesReportModel.js";
 
 // Create new order
 export const createOrder = asyncWrapper(async (req, res, next) => {
@@ -16,7 +17,6 @@ export const createOrder = asyncWrapper(async (req, res, next) => {
     totalPrice,
     totalQuantity,
   } = req.body;
-  console.log(req.body);
 
   if (
     !shippingInfo ||
@@ -31,7 +31,6 @@ export const createOrder = asyncWrapper(async (req, res, next) => {
     return next(new appError("All fields are required", 400));
   }
 
-  // Create order
   const order = await Order.create({
     shippingInfo,
     orderItems,
@@ -44,6 +43,72 @@ export const createOrder = asyncWrapper(async (req, res, next) => {
     paidAt: Date.now(),
     user: req.user._id,
   });
+
+  const total = itemsPrice;
+
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().toLocaleString("default", { month: "long" });
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  // البحث عن التقرير السنوي
+  let salesReport = await SalesReport.findOne({ year: currentYear });
+
+  if (!salesReport) {
+    // إذا لم يكن هناك تقرير لهذا العام، قم بإنشاء تقرير جديد
+    salesReport = await SalesReport.create({
+      yearlySalesTotal: total,
+      yearlyTotalSoldUnits: totalQuantity,
+      year: currentYear,
+      monthlyData: [
+        {
+          month: currentMonth,
+          totalSales: total,
+          totalUnits: totalQuantity,
+        },
+      ],
+      dailyData: [
+        {
+          date: currentDate,
+          totalSales: total,
+          totalUnits: totalQuantity,
+        },
+      ],
+    });
+  } else {
+    // في حالة وجود تقرير لهذا العام، قم بتحديث البيانات
+    salesReport.yearlySalesTotal += total;
+    salesReport.yearlyTotalSoldUnits += totalQuantity;
+
+    let monthData = salesReport.monthlyData.find(
+      (data) => data.month === currentMonth
+    );
+    if (!monthData) {
+      monthData = {
+        month: currentMonth,
+        totalSales: 0,
+        totalUnits: 0,
+      };
+      salesReport.monthlyData.push(monthData);
+    }
+    monthData.totalSales += total;
+    monthData.totalUnits += totalQuantity;
+
+    let dayData = salesReport.dailyData.find(
+      (data) => data.date === currentDate
+    );
+    if (!dayData) {
+      dayData = {
+        date: currentDate,
+        totalSales: 0,
+        totalUnits: 0,
+      };
+      salesReport.dailyData.push(dayData);
+    }
+    dayData.totalSales += total;
+    dayData.totalUnits += totalQuantity;
+
+    await salesReport.save();
+  }
 
   res.status(201).json({
     status: httpStatusText.SUCCESS,

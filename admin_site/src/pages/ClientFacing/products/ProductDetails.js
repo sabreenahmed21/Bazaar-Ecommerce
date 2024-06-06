@@ -358,22 +358,6 @@ export default function ProductDetails() {
                 <Typography sx={{ color: theme.palette.grey[600] }}>
                   {data.product.description.ar}
                 </Typography>
-                <Box display={"flex"} gap={2} mt={2}>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleEditProduct}
-                  >
-                    عدل المنتج
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={handleDeleteProduct}
-                  >
-                    احذف المنتج
-                  </Button>
-                </Box>
               </Box>
             </Grid>
           </Grid>

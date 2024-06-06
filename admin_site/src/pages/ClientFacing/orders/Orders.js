@@ -3,7 +3,7 @@ import {
   useTheme,
   Typography,
   Button,
-  CircularProgress,
+  CircularProgress
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
@@ -11,13 +11,13 @@ import {
   useDeleteOrderMutation,
   useUpdateOrderMutation,
 } from "../../../services/Jsonserverapi";
-import { secondary } from "../../../Colors";
+import { grey, secondary } from "../../../Colors";
 import { MdDelete } from "react-icons/md";
 import { PiPrinterBold } from "react-icons/pi";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-export default function Orders() {
+export default function Orders({isDashboard = false}) {
   const { data, isLoading, isError, error, refetch } = useGetOrdersQuery();
   const [deleteOrder] = useDeleteOrderMutation();
   const [updateOrder] = useUpdateOrderMutation();
@@ -157,6 +157,7 @@ export default function Orders() {
             flexDirection: "column",
             justifyContent: "center",
             height: "100%",
+            
           }}
         >
           <Box
@@ -285,24 +286,25 @@ export default function Orders() {
     );
 
   return (
-    <Box m="1rem">
+    <Box sx={{m: isDashboard? '' : '1rem'}}>
       <Typography variant="h4"
         sx={{
           color: secondary[800],
           fontWeight: "bold",
+          display: isDashboard ? 'none' : ''
         }}>
         Orders
       </Typography>
       <Box
         m="auto"
-        mt="40px"
-        height="50vh"
         width="100%"
         maxWidth="1200px"
         display="flex"
         alignItems="center"
         justifyContent="center"
         sx={{
+          mt: isDashboard? '' : 5,
+          height: isDashboard? '50vh':'70vh',
           "& .MuiDataGrid-root": {
             border: "1px #00000014 solid",
             width: 0,
@@ -312,7 +314,7 @@ export default function Orders() {
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: theme.palette.background.alt,
-            color: secondary[100],
+            color: isDashboard ? grey[50] : secondary[100],
             borderBottom: "none",
           },
           "& .MuiDataGrid-footerContainer": {

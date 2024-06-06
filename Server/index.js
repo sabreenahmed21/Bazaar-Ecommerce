@@ -9,10 +9,10 @@ import mongoose from "mongoose";
 import productRout from "./routs/productRout.js";
 import { handleNotFound, errorHandler } from "./controllers/errorControll.js";
 import userRout from "./routs/userRout.js";
-import orderRout from "./routs/orderRout.js";
 import paymentRout from "./routs/paymentRout.js";
+import orderRout from "./routs/orderRout.js";
+import salesReportRout from "./routs/salesReportRoutes.js";
 import cookieParser from "cookie-parser";
-
 //* CONFIG
 dotenv.config();
 
@@ -60,6 +60,8 @@ app.use("/api", productRout);
 app.use("/api", userRout);
 app.use("/api", orderRout);
 app.use("/api", paymentRout);
+app.use('/api', salesReportRout);
+
 
 //* ERROR
 app.all("*", handleNotFound);

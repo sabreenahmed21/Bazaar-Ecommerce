@@ -23,6 +23,9 @@ import ProductDetails from "./pages/ClientFacing/products/ProductDetails";
 import EditProduct from "./pages/ClientFacing/products/EditProduct";
 import InvoicePrintPage from "./components/InvoicePrintPage ";
 import OrderDetails from "./pages/ClientFacing/orders/OrderDetails";
+import Yearly from "./pages/Reports/Yearly";
+import Daily from "./pages/Reports/Daily";
+import Monthly from "./pages/Reports/Monthly";
 
 export default function App() {
   return (
@@ -48,6 +51,9 @@ export default function App() {
             <Route path="/orders" element={<Orders />} />
             <Route path="/orderDetails/:orderId" element={<OrderDetails />} />
             <Route path="/print/:orderId" element={<InvoicePrintPage />} />
+            <Route path="/yearly" element={<Yearly/>} />
+            <Route path="/monthly" element={<Monthly/>} />
+            <Route path="/daily" element={<Daily/>} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/admin" element={<Admins />} />
             <Route path="/deleteAccount" element={<DeleteAccount />} />

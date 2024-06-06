@@ -198,6 +198,9 @@ export const productApi = createApi({
         body: { status },
       }),
     }),
+    getSales: builder.query({
+      query: () => "/get-sales"
+    }),
   }),
 })
 
@@ -224,4 +227,5 @@ export const {
   useGetSingleOrderQuery,
   useDeleteOrderMutation, 
   useUpdateOrderMutation,
+  useGetSalesQuery
 } = productApi;

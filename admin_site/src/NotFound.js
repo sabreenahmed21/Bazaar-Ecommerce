@@ -16,7 +16,7 @@ export default function NotFound() {
               letterSpacing: "0.06em",
             }}
           >
-            titlenotfound
+            Sorry, page not found!
           </Typography>
           <Typography
             style={{
@@ -27,7 +27,7 @@ export default function NotFound() {
               fontSize:'1.1rem'
             }}
           >
-            msgnotfound
+            Sorry, we couldn't find the page you're looking for. Perhaps you've mistyped the URL? Be sure to check your spelling and try again.
           </Typography>
         </Box>
         <Button
@@ -41,7 +41,7 @@ export default function NotFound() {
           }}
           onClick={() => window.location.pathname = "/"}
         >
-          backToHome
+          back To Home
         </Button>
       </Box>
     </Container>

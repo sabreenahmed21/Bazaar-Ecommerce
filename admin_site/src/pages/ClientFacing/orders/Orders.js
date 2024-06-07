@@ -18,7 +18,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 export default function Orders({isDashboard = false}) {
-  const { data, isLoading, isError, error, refetch } = useGetOrdersQuery();
+  const { data, isLoading, isError,  refetch } = useGetOrdersQuery();
   const [deleteOrder] = useDeleteOrderMutation();
   const [updateOrder] = useUpdateOrderMutation();
 
@@ -281,7 +281,7 @@ export default function Orders({isDashboard = false}) {
           justifyContent: "center",
         }}
       >
-        Error fetching data {error?.data.message}
+        Error fetching data 
       </Box>
     );
 

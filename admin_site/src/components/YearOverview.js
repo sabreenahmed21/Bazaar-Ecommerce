@@ -6,11 +6,10 @@ import { useGetSalesQuery } from "../services/Jsonserverapi";
 import { Box, CircularProgress } from "@mui/material";
 
 export default function YearlyOverview({ view }) {
-  const { data, isLoading, isError, error } = useGetSalesQuery();
+  const { data, isLoading, isError } = useGetSalesQuery();
 
   const [totalSalesLine, totalUnitsLine] = useMemo(() => {
     if (!data) return [[], []];
-    console.log(data);
 
     const totalSalesLine = {
       id: "totalSales",
@@ -76,7 +75,7 @@ export default function YearlyOverview({ view }) {
           justifyContent: "center",
         }}
       >
-        Error fetching data {error?.data.message}
+        Error fetching data
       </Box>
     );
 

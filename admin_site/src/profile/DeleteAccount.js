@@ -71,7 +71,7 @@ const DeleteAccount = () => {
               textTransform: "capitalize",
             }}
           >
-            DeleteYourAccount
+            Delete Your Account
           </Typography>
         </Box>
         <Box
@@ -86,12 +86,12 @@ const DeleteAccount = () => {
             variant="body1"
             sx={{ textTransform: "capitalize", color: theme.palette.grey[800] }}
           >
-            msgToDeteteAccount
+            Please enter your current password associated with your account, to delete your account
           </Typography>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box align="left" my={3}>
               <label>
-                currentPassword <span style={{ color: red[700] }}>*</span>
+                Current Password <span style={{ color: red[700] }}>*</span>
               </label>
               <TextField
                 {...register("currentPassword", { required: true })}
@@ -121,7 +121,7 @@ const DeleteAccount = () => {
                 mb: 1,
               }}
             >
-              DeleteYourAccount
+              Delete Your Account
             </Button>
             <Link to={"/"}>
               <Button
@@ -138,7 +138,7 @@ const DeleteAccount = () => {
                   ":hover": { bgcolor: theme.palette.secondary.main },
                 }}
               >
-                backToHome
+                back To Home
               </Button>
             </Link>
           </form>

@@ -35,7 +35,6 @@ export default function Products() {
 
   const { data, isLoading, isError, error } =
     useGetproductByNameQuery(currentQuery);
-console.log(data);
   const categories = [
     { title: "allProducts", queryParam: "" },
     { title: "menCategory", queryParam: "&category=men" },

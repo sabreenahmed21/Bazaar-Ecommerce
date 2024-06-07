@@ -17,6 +17,7 @@ import { t } from "i18next";
 import Footer from "../Footer/Footer.js";
 import { MdClose } from "react-icons/md";
 import { CiFilter } from "react-icons/ci";
+import { ToastContainer } from "react-toastify";
 
 export default function AllProducts() {
   const { i18n } = useTranslation();
@@ -120,6 +121,7 @@ export default function AllProducts() {
 
   return (
     <>
+    <ToastContainer position="top-right" />
       <Container
         sx={{ my: 5, direction: i18n.language === "ar" ? "rtl" : "ltr" }}
       >

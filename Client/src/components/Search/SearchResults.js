@@ -10,6 +10,7 @@ import {
   discountOptions,
   ratingOptions,
 } from "../../pages/Products/Allproducts/Available.js";
+import { ToastContainer } from "react-toastify";
 
 export default function SearchResults() {
   const { query } = useParams();
@@ -119,6 +120,7 @@ export default function SearchResults() {
 
   return (
     <>
+    <ToastContainer position="top-right" />
       <Container
         sx={{ my: 5, direction: i18n.language === "ar" ? "rtl" : "ltr" }}
       >

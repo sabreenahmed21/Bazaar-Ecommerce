@@ -9,6 +9,7 @@ import Footer from "../Footer/Footer.js";
 import { discountOptions, ratingOptions } from "./Allproducts/Available.js";
 import { CiFilter } from "react-icons/ci";
 import { MdClose } from "react-icons/md";
+import { ToastContainer } from "react-toastify";
 
 function ProductPage() {
   const { search } = useLocation();
@@ -126,6 +127,7 @@ function ProductPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <>
+    <ToastContainer position="top-right" />
       <Container
         sx={{ my: 5, direction: storedLanguage === "ar" ? "rtl" : "ltr" }}
       >

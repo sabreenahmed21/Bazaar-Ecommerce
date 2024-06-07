@@ -112,7 +112,7 @@ export default function OrderDetails() {
                   >
                     name:
                   </span>{" "}
-                  {order.user.name}
+                  {order?.user?.name || 'Account has been deleted'}
                 </Typography>
                 <Typography variant="body2">
                   {" "}
@@ -121,7 +121,7 @@ export default function OrderDetails() {
                   >
                     email:
                   </span>{" "}
-                  {order.user.email}
+                  {order?.user?.email || 'Account has been deleted'} 
                 </Typography>
                 <Typography variant="body2">
                   <span

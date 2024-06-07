@@ -96,7 +96,7 @@ export default function Orders({isDashboard = false}) {
       field: "user",
       headerName: "Customer",
       width: 150,
-      valueGetter: (params) => params.name,
+      valueGetter: (params) => params?.name || 'Account has been deleted',
     },
     {
       field: "shippingInfo",

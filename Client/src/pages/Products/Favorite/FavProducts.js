@@ -9,7 +9,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { removeItemFromFav } from "../../../Redux/FavoriteSlice";
 import ProductList from "../ProductList";
@@ -34,6 +34,7 @@ export default function FavProducts() {
 
   return (
     <Container>
+      <ToastContainer position="top-right" />
       <Box sx={{ my: 5, direction: i18n.language === "ar" ? "rtl" : "ltr" }}>
         <Typography
           variant="h3"

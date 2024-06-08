@@ -2,11 +2,8 @@
 
 ## Features Overview
 
-### Seamless User Experience
-
 #### Account Creation:
 - Easy sign-up process
-- Streamlined login
 - Password recovery in case of forgetfulness
 - Email verification with a secure code
 
@@ -14,7 +11,6 @@
 - Change password with current password verification
 - Update account information (username and profile picture)
 - Delete account with correct password input
-- Add profile picture
 - Secure logout
 
 ### Powerful Administrative Dashboard
@@ -26,21 +22,7 @@
 
 #### Order Management:
 - View all orders in a table with the ability to delete, edit order status, or print the invoice
-- View details of each order, including:
-  - Order ID
-  - Customer information (name, email, mobile number, and address)
-  - Order status (pending or delivered)
-  - Delivery date
-  - Payment date
-  - Payment method
-- Order details include:
-  - Product image
-  - Title
-  - Price
-  - Quantity per product
-  - Total price
-  - Total quantity
-  - Shipping cost, tax, and final price
+- View details of each order
 
 #### Sales Report:
 - Product sales reports by time periods (yearly, monthly, and daily)
@@ -56,7 +38,6 @@
 
 #### Product Pages:
 - Detailed product descriptions
-- Clear pricing
 - Customer reviews
 
 #### Interactivity:
@@ -77,8 +58,7 @@
 - Add products to the cart
 - Remove products from the cart
 
-#### View User's Orders:
-- Track order status and history
+#### View User's Orders
 
 ### Smooth Ordering Process
 
@@ -90,13 +70,8 @@
 #### Diverse Payment Options:
 - Credit card payment
 
-### Multilingual Support
-
-#### Bilingual User Interface:
+### Multiple languages Support
 - Arabic and English
-
-#### Consistent User Experience:
-- Same features and functionalities available in both languages
 
 ### Additional Notes
 
